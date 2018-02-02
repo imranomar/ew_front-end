@@ -1,0 +1,23 @@
+.pricingpage .vl {
+    border-left: 2px solid green;
+    height: 100%;
+}
+.pricingpage .row1{
+	margin-top: 50px; margin-bottom: 10px;
+}
+
+.pricingpage .button{
+	border: 1px solid; 
+}
+
+.pricingpage .vlr{
+	padding-left: 50px;
+	margin-top: -5px;
+}
+
+.pricingpage .pricecolor{
+	color: blue;
+}
+
+ 
+    
