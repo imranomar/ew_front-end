@@ -28,6 +28,18 @@ app.config(function($routeProvider) {
     templateUrl: 'views/pricing.html',
     controller: 'PricingCtrl'
   })
+  .when('/aboutus', {
+    templateUrl: 'views/aboutus.html',
+    controller: 'AboutusCtrl'
+  })
+  .when('/faqs', {
+    templateUrl: 'views/faqs.html',
+    controller: 'FaqsCtrl'
+  })
+  .when('/mydetails', {
+    templateUrl: 'views/mydetails.html',
+    controller: 'MydetailsCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

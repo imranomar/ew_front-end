@@ -1,41 +1,50 @@
-<div ng-controller="SignupCtrl">
+<div ng-controller="SignupCtrl" class="signuppage">
 	
+	<div class="bar bar-header bar-balanced">
+	  <a href="#">
+	  	<button class="button button-icon icon ion-android-arrow-back"></button>
+	  </a>
+	  <div class="h1 title"> Sign-up </div>		
+	</div>
+
 	<div class="row">
-		<div class="col" style="text-align: center;">
+		<div class="col signuplogoimage">
 	      <img src="assets/laundarylogo.jpg" height="200px">
 	     </div>
 	</div>
 
+	<!-- 	
 	<div class="row">
 		<div class="col" style="text-align: center;">
 	      Signup
 	     </div>
-	</div>
+	</div> 
+	-->
 
-	<div class="row">
+	<div class="row row1">
 
-		<div class="col">
+		<div class="col singuptran">
 
 	      <div class="list">
 
-			  <label class="item item-input" style="margin: 5px;">
-			    <span class="input-label">Name</span>
-			    <input type="text" required="">
+			  <label class="item item-input item-stacked-label signupinput1">
+			    <span class="input-label ion-person">Name</span>
+			    <input type="text" required="" autofocus class="inputbottomborder">
 			  </label>
 
-			  <label class="item item-input" style="margin: 5px;">
-			    <span class="input-label">Email</span>
-			    <input type="email" required="">
+			  <label class="item item-input item-stacked-label signupinput1">
+			    <span class="input-label ion-person">Email</span>
+			    <input type="email" required="" autofocus class="inputbottomborder">
 			  </label>
 
-			  <label class="item item-input" style="margin: 5px;">
-			    <span class="input-label">Password</span>
-			    <input type="password" required="">
+			  <label class="item item-input item-stacked-label  signupinput1">
+			    <span class="input-label ion-person">Password</span>
+			    <input type="password" required="" autofocus class="inputbottomborder">
 			  </label>
 
-			  <label class="item item-input" style="margin: 5px;">
-			    <span class="input-label">Confirm Password</span>
-			    <input type="password" required="">
+			  <label class="item item-input item-stacked-label signupinput1">
+			    <span class="input-label ion-person">Confirm Password</span>
+			    <input type="password" required="" autofocus class="inputbottomborder">
 			  </label>
 
 			</div>
@@ -46,8 +55,8 @@
 
 	<div class="row">
 
-		<div class="col" style="text-align: center; margin: 10px;">
-			<button class="button button-full button-positive">
+		<div class="col signupbtn">
+			<button class="button button-full button-balanced">
 			  Submit
 			</button>
 	     </div>	
@@ -56,9 +65,10 @@
 
 	<div class="row">
 
-		<div class="col" style="text-align: center; margin: 10px;">
-			<button class="button button-full button-balanced">
-			  FACEBOOK!
+		<div class="col facebookbtn">
+			<button class="button button-full button-positive">
+				<ion-icon class="ion-social-facebook"></ion-icon>
+				Facebook
 			</button>
 	     </div>	
 

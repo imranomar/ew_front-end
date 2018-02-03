@@ -1,23 +1,336 @@
-.pricingpage .vl {
-    border-left: 2px solid green;
-    height: 100%;
-}
-.pricingpage .row1{
-	margin-top: 50px; margin-bottom: 10px;
-}
+	body {
+	  cursor: url('https://ionicframework.com/img/finger.png'), auto;
+	}
 
-.pricingpage .button{
-	border: 1px solid; 
-}
 
-.pricingpage .vlr{
-	padding-left: 50px;
-	margin-top: -5px;
-}
 
-.pricingpage .pricecolor{
-	color: blue;
-}
+	/*Load css of login page */
+	.facebook{
+		text-align: center; 
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		padding: 0;
+	}
+	.logininput{
+		border: 0;
+		padding: 0;
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		border-bottom: 1px solid darkgreen;
 
- 
-    
+	}
+	.logintran{		
+	    transform-style: preserve-3d;
+	}
+
+
+
+	.loginbtn{
+		text-align: center; 
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		padding: 0;
+	}
+	.loginpage{
+		text-align: center;
+		padding: 0;
+	}
+	.link .loginlink{
+		padding: 0;
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		color:green;
+		text-align: center;;
+	}
+	a.button {
+	    text-decoration: none;
+	    color: green;
+	    transform-style: preserve-3d;
+	}
+
+
+	/*Load css of signup page */
+
+	.signuppage .row1{
+		margin-top: -53px;
+	}
+
+	.signuppage .signupbtn{
+		text-align: center; 
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+	}
+	.signuppage .facebookbtn{
+		text-align: center; 
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+	}
+
+	.signuppage .signupinput1{
+	    border: 0;			
+	    margin-left: 2px;
+	    margin-right: 18px;	
+	    margin-top: 0;	
+	    margin-bottom: 0;
+	}
+
+	.signuppage .signuplogoimage{
+		text-align: center;
+		margin-top: 9px;
+	}
+
+	.signuppage .ion-person:before {
+	    content: "";
+	    color: darkseagreen;
+	    padding: 3px;
+	}
+
+	.signuppage .singuptran{		
+	    transform-style: preserve-3d;
+	}
+
+
+	.signuppage .inputbottomborder{
+		border-bottom: 1px solid darkgreen;
+	}
+
+
+	/*Load css of forget password page */
+	.forgetpage .forgetinput{		
+		margin-left: 17px;
+    	margin-right: 17px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		border: 0;
+		padding: 0;
+	}
+	.forgetpage .forgetbtn{
+		text-align: center; 		
+		margin-left: 20px;
+    	margin-right: 20px;
+	    margin-top: 0;	
+	    margin-bottom: 0;
+		padding: 0;
+	}
+
+	.forgetpage .row1{
+		margin-top: 40px;
+	}
+	.forgetpage .logintran{		
+	    transform-style: preserve-3d;
+	}
+	.forgetpage .forgetinputborder{
+		border-bottom: 1px solid darkgreen;
+	}
+
+
+	.forgetpage .forgetdescription{
+		text-align: left;	
+		margin-left: 20px;
+    	margin-right: 20px;
+	    margin-top: 0;	
+	    margin-bottom: 20px;
+		padding: 0;
+		font-size: small;
+    	color: coral;
+	}
+
+	/*Load css of pricing page */
+	.pricingpage .vl {
+	    border-left: 2px solid green;
+	    height: 100%;
+	}
+	.pricingpage .row1{
+		margin-top: 50px; margin-bottom: 10px;
+	}
+
+	.pricingpage .button{
+		border: 1px solid; 
+	}
+
+	.pricingpage .vlr{
+		padding-left: 50px;
+		margin-top: -5px;
+	}
+
+	.pricingpage .pricecolor{
+		color: blue;
+	}
+
+	.pricingpage .ion-ios-arrow-thin-right:before {
+	    content: "";
+	    color: darkcyan;
+	    margin-left: -5px;
+    	font-size:large;
+	}
+
+	/*Load css of aboutus page */
+
+	.aboutpage .row1{
+		margin-top: 40px;
+		border: 1px solid;
+		padding: 0;
+	}	
+	.aboutpage .row2{
+		border-left: 1px solid;
+		border-right: 1px solid;
+		border-bottom: 1px solid;
+	}
+
+	.aboutpage .aboutuslogo{
+		text-align: center;
+	}
+
+	.aboutpage .row2{		
+		border: 0;
+		padding: 0;
+	}
+	.aboutpage .laundryDes1{
+		padding: 0;
+	}
+
+	.aboutpage .aboutuslogo{		
+	    width: 100%;
+	    height: 200px;
+	    padding: 0;
+	}
+
+	.aboutpage .aboutusimage{
+		width: 100%;
+	}
+
+
+   /* Load css of faq page */
+   .faqpage .row1{
+		margin-top: 40px;
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}	
+	.faqpage .faq1{
+		padding: 0;
+	}
+
+	.listquestion{
+	    padding: 0px;
+	    margin-left: 0px;
+	    margin-right: 0px;
+	    margin-bottom: 10px;
+	    margin-top: 0px;
+	}
+
+	.list .item.item-accordion {
+	  line-height: 38px;
+	  padding-top: 0;
+	  padding-bottom: 0;
+	  transition: 0.09s all linear;
+	}
+
+	.list .item.item-accordion.ng-hide {
+	  line-height: 0px;
+	}
+
+	.list .item.item-accordion.ng-hide-add,
+	.list .item.item-accordion.ng-hide-remove {
+	  display: block !important;
+	}
+
+
+   /* Load css of my details page */
+   .mydetails{
+		padding: 0;
+		margin: 0;
+   }
+   .mydetailspage .row1{
+		margin-top: 40px;
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}
+	.mydetailspage .mydetailsform{
+		padding: 0;
+	}	
+   .mydetailspage .row2{
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}
+	.mydetailspage .mydetailsform1{
+		padding: 0;
+	}
+	.mydetailspage .ion-plus-round{
+		text-align: center;
+	    color: darkcyan;
+	}	
+
+	.mydetailspage .mypaymentcenter{
+		text-align: center;
+	}
+
+	.mydetailspage .mydetailsform2{
+		padding: 0;
+	}	
+   .mydetailspage .row3{
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}
+
+	.mydetailspage .Personal{
+		padding: 0;
+		margin: 0;
+	}
+	.mydetailspage .Personal1{
+		padding: 0;
+		margin: 0;
+	}
+	.mydetailspage .Personal1self{
+		padding: 0;
+		margin-top: 0;
+		margin-bottom: 6px;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.mydetailspage .name1{
+		padding: 0;
+		margin-left: 4px;
+		margin-top: 15px;
+		text-align: center;
+	}
+	.mydetailspage .name2{
+		padding: 0;
+		margin-top: 0;
+	}
+
+	.mydetailspage .inputbox{		
+		margin-top: 5px;	
+		margin-bottom: 5px;
+	}
+
+	.mydetailspage .link{
+		text-decoration: none;
+	}
+
+	.mydetailspage .item-input{
+		padding: 0;
+	}

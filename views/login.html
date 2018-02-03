@@ -2,31 +2,31 @@
 <div ng-controller="LoginCtrl">
 
 	<div class="row">
-		<div class="col" style="text-align: center;">
+		<div class="col loginpage">
 	      <img src="assets/laundarylogo.jpg" height="200px">
 	     </div>
 	</div>
 
 	<div class="row">
-		<div class="col" style="text-align: center;">
-	      Login
+		<div class="col loginpage">
+	      Sign-In
 	     </div>
 	</div>
 
 	<div class="row">
 
-		<div class="col">
+		<div class="col logintran">
 
 	      <div class="list">
 
-			  <label class="item item-input">
+			  <label class="item item-input item-stacked-label logininput">
 			    <span class="input-label">Email</span>
-			    <input type="email" required="">
+			    <input type="email" required="" autofocus="" class="logininputborder">
 			  </label>
 
-			  <label class="item item-input">
+			  <label class="item item-input item-stacked-label logininput">
 			    <span class="input-label">Password</span>
-			    <input type="password" required="">
+			    <input type="password" required="" autofocus="" class="logininputborder">
 			  </label>
 
 			</div>
@@ -37,27 +37,22 @@
 
 	<div class="row">
 
-		<div class="col" style="text-align: center; margin-top: 10px;">
-			<!-- 			
-			<button class="button button-full button-positive">
-			  Login
-			</button> 
-			-->
-			<a href="/LaundryApp/#!/dashboard" class="button button-full button-positive">
+		<div class="col loginbtn">
+			<a href="/LaundryApp/#!/dashboard" class="button button-full button-balanced">
 			  Login
 			</a>
 	     </div>	
 
 	</div>
 
-	<div class="row">
+	<div class="row link">
 
-		<div class="col" style="text-align: center;">
+		<div class="col">
 			<a href="/LaundryApp/#!/forget" class="button">
 			  Forget Password
 			</a>
 	     </div>	
-		<div class="col" style="text-align: center;">
+		<div class="col">
 			<a href="/LaundryApp/#!/signup" class="button ">
 			  Create An Account
 			</a>
@@ -67,9 +62,10 @@
 
 	<div class="row">
 
-		<div class="col" style="text-align: center;">
-			<button class="button button-full button-balanced">
-			  FACEBOOK!
+		<div class="col facebook">
+			<button class="button button-full button-positive">
+				<ion-icon class="ion-social-facebook"></ion-icon>
+				Facebook
 			</button>
 	     </div>	
 
