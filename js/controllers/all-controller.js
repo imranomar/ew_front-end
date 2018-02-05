@@ -22,8 +22,10 @@
 
  // Dashboard of Controller
 
- app.controller('DashboardCtrl',function($scope) {
- 	// body...
+ app.controller('DashboardCtrl',function($scope,$location) {
+ 	$scope.menuopen =function(){
+ 		$location.path("/menu");
+ 	}
  });
 
 
@@ -100,3 +102,105 @@
  app.controller('MydetailsCtrl',function($scope) {
  	// body...
  });
+
+
+// Load Notification Page of Controller
+
+app.controller('NotificationCtrl',function ($scope) {
+		$scope.notificationtoday = [
+	 	  	{
+	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 8:00 AM','date':'Thu 17th August 2017'
+	 	  	},
+	 	  	{
+	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 3:00 AM','date':'Thu 17th August 2017'
+	 	  	}
+ 	   ];		
+
+ 	   $scope.laundrypickup = [
+	 	  	{
+	 	  		'todayname':'LAUNDRY PICKUP','timing':'IN 1 HOUR!'
+	 	  	}
+	 	];
+});
+
+
+// Load addresses page of controller 
+
+app.controller('AddressesCtrl',function($scope,$http){
+
+		$scope.first=[{'street':'Xyz','pobox':'Bhopal','Flat':'Mno'}];
+		$scope.second=[{'title':'Laundry','pobox1':'Bhopal','flat1':'Mno','bldname':'Manish'}];
+		
+        $scope.Street = function () {
+            if ($scope.Street == false || $scope.Street == undefined)
+                $scope.Street = true;
+            else
+                $scope.Street = false;
+        }
+
+        $scope.pobox = function () {
+            if ($scope.pobox == false || $scope.pobox == undefined)
+                $scope.pobox = true;
+            else
+                $scope.pobox = false;
+        }
+
+		$scope.Flat = function () {
+            if ($scope.Flat == false || $scope.Flat == undefined)
+                $scope.Flat = true;
+            else
+                $scope.Flat = false;
+        }
+
+
+		$scope.title = function () {
+            if ($scope.title == false || $scope.title == undefined)
+                $scope.title = true;
+            else
+                $scope.title = false;
+        }
+
+		$scope.pobox1 = function () {
+            if ($scope.pobox1 == false || $scope.pobox1 == undefined)
+                $scope.pobox1 = true;
+            else
+                $scope.pobox1 = false;
+        }
+
+		$scope.flat1 = function () {
+            if ($scope.flat1 == false || $scope.flat1 == undefined)
+                $scope.flat1 = true;
+            else
+                $scope.flat1 = false;
+        }
+
+		$scope.bldname = function () {
+            if ($scope.bldname == false || $scope.bldname == undefined)
+                $scope.bldname = true;
+            else
+                $scope.bldname = false;
+        }
+
+});
+
+
+// Load Controller of DeliverydateCtrl
+
+app.controller('DeliverydateCtrl',function($scope) {
+	// body...
+})
+
+
+// Load Controller of OrdersummaryCtrl
+
+app.controller('OrdersummaryCtrl',function($scope){
+
+})
+
+
+
+// Load Controller of PaymentmethodfCtrl
+
+app.controller('PaymentmethodCtrl',function($scope){
+
+})

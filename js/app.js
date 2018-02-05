@@ -40,6 +40,26 @@ app.config(function($routeProvider) {
     templateUrl: 'views/mydetails.html',
     controller: 'MydetailsCtrl'
   })
+  .when('/notification', {
+    templateUrl: 'views/notifications.html',
+    controller: 'NotificationCtrl'
+  })
+  .when('/address', {
+    templateUrl: 'views/addresses.html',
+    controller: 'AddressesCtrl'
+  })
+  .when('/deliverydate', {
+    templateUrl: 'views/deliverydate.html',
+    controller: 'DeliverydateCtrl'
+  })
+  .when('/ordersummary', {
+    templateUrl: 'views/ordersummary.html',
+    controller: 'OrdersummaryCtrl'
+  })
+  .when('/payment', {
+    templateUrl: 'views/paymentmethod.html',
+    controller: 'PaymentmethodCtrl'
+  })
   .otherwise({
     redirectTo: '/'
   });

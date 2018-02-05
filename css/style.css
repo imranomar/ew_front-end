@@ -315,7 +315,6 @@
 		padding: 0;
 		margin-left: 4px;
 		margin-top: 15px;
-		text-align: center;
 	}
 	.mydetailspage .name2{
 		padding: 0;
@@ -334,3 +333,334 @@
 	.mydetailspage .item-input{
 		padding: 0;
 	}
+
+
+
+/*Load Notification of Css*/
+
+   .Notification{
+		padding: 0;
+		margin: 0;
+   }
+   .Notification .row1{
+		margin-top: 30px;
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}
+
+	.Notification .col1{
+		padding: 0;
+    	margin: 0;
+	}
+
+	.Notification .title1{			
+	    text-align: center;
+	    color: firebrick;
+    	font-size: larger;
+	}
+	.Notification .title2{			
+	    text-align: center;
+	    color: firebrick;
+    	font-size: larger;
+	}
+	.Notification .title3{			
+	    text-align: center;
+	    color: firebrick;
+    	font-size: larger;
+	}
+
+	.Notification .ion-email:before {
+	    content: "";
+	    margin-top: -100px;
+	}
+
+	.Notification .row1 .col1 .ntfborder{			
+		border: 1px solid;
+	}
+
+
+	.Notification .row2{
+		margin-top: -40px;
+		margin-bottom: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border: 0;
+		padding: 0;
+	}
+
+	.Notification .col2{
+		padding: 0;
+    	margin: 0;
+	}
+
+	.Notification .row2 .col2 .title12{			
+	    text-align: center;
+	    color: firebrick;
+    	font-size: larger;
+	}
+	.Notification .row2 .col2 .title22{			
+	    text-align: center;
+	    color: firebrick;
+    	font-size: larger;
+	}
+
+	.Notification .row2 .col2 .ion-email:before {
+	    content: "";
+	    margin-top: -60px;
+	}
+
+	.Notification .row2 .col2 .ntfborder2{			
+		border: 1px solid;
+	}
+
+
+	/* Load address page of css */
+
+	.Address{
+		padding: 0;
+		margin: 0;
+	}
+	.Address .topmargin{
+		margin-top: 30px;
+	}
+	.Address .Address1{
+		margin: 0;
+	}
+	.Address .Address1 .address2{
+		margin: 0;
+		padding: 0;
+	}
+	.Address .Address1 .address2 .row{
+		margin: 0;
+		padding: 0;
+	}
+	.Address .Address1 .address2 .row .col-80{
+		margin: 0;
+		padding: 0;
+	}
+
+	.Address .Address1 .address2 .row .col-80 .row .col-20{
+	    margin-top: 11px;
+	    font-size: medium;
+	    color: darkcyan;
+	    text-align: center;
+	}
+
+	.Address .Address1 .address2 .row .col-20{
+    	margin-top: 40px;
+	}
+
+
+	.Address .Address1 .address2 .row .col-80 .row .col-60 .inputbox1{
+	    margin: 0;
+	    width: 100%;
+	    padding: 4px;
+	    border: 1px solid slategray;
+	    border-radius: 10px;
+	}
+
+
+	.Address .Address1 .anotheraddress{
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	.Address .Address1 .linkaddress{
+		text-decoration: none;		
+    	color: #33CD5F;
+	}
+
+	.Address .Address1 .linkcenter{
+		text-align: center;
+	}
+
+	.Address .Address1 .address2 .row .col-80 .row .linkcolor{
+		color: #33CD5F;
+	}
+
+
+	.Address .Address1 .address2 .checkboxdesign{
+		width: 25px;
+		height: 33px;
+		margin-top: -15px;
+	}
+
+
+/* Load css of Delivery Date*/ 
+	.Deliverydate{
+		overflow-x: hidden; /* Hide horizontal scrollbar */
+    	overflow-y: scroll; /* Add vertical scrollbar */
+	}
+	.Deliverydate .topmargin{
+		margin-top: 60px;
+	}
+	.Deliverydate .row .col{
+	    text-align: center;
+	    border-radius: 0%;
+	    background-color: darkgray;
+	    border: 1px solid dimgray;
+	    margin-left: 40px;
+	    margin-right: 40px;
+    	margin-bottom: 20px;
+   		height: 90px;
+    	opacity: 0.5;
+	}
+	.Deliverydate .ion-social-usd-outline:before {
+	    content: "";
+	    color: white;
+	}
+	.Deliverydate .ion-plus:before {
+	    content: "";
+	    color: aliceblue;
+	}
+	.Deliverydate .iconsstyle{		
+	    border: 1px solid dimgray;
+	    padding: 4px;
+	    float: right;
+	    transform-style: preserve-3d;
+	    background-color: darkgray;
+	    color: white;
+		margin-top: -67px;
+		margin-right: -33px;
+	}
+
+	.Deliverydate .marginrow{
+		margin-top: 10px;
+	}
+
+	.Deliverydate .tt1{
+		margin-top: 19px;
+	}
+
+
+
+/*Load css of menu page*/
+
+	.Menu{
+		padding: 0;
+		margin: 0;
+	}
+	.Menu .topmargin{
+		margin-top: 40px;
+	}
+
+	.Menu .row .col{
+		margin: 10px;
+		padding: 0;
+	}
+	.Menu .row .col a{			
+	    padding: 0;
+	    text-decoration: blink;
+	}
+
+	.Menu .ion-home:before {
+	    content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-location:before {
+    	content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-pricetags:before {
+    	content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-help:before {
+    	content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-model-s:before {
+    	content: "";
+	    font-size: 18px;
+	}
+	.Menu .ion-eye-disabled:before {
+    	content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-social-usd-outline:before {
+    	content: "";
+	    font-size: 20px;
+	}
+	.Menu .ion-android-arrow-back:before {
+    	content: "";
+	    font-size: 20px;
+	}
+
+
+	/*Load css of payment method */
+	.paymentmethod{
+		padding: 0;
+		margin: 0;
+	}
+	.paymentmethod .topmargin{
+		margin-top: 40px;
+	}
+	.paymentmethod .paymentmethod1{
+		margin: 0;
+	}
+	.paymentmethod .paymentmethod1 .paymentmethod2{
+		margin: 0;
+		padding: 0;
+	}
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row{
+		margin: 0;
+		padding: 0;
+	}
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-80{
+		margin: 0;
+		padding: 0;
+	}
+
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-80 .row .col-20{
+	    margin-top: 11px;
+	    font-size: medium;
+	    color: darkcyan;
+	    text-align: center;
+	}
+
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-20{
+    	margin-top: 40px;
+	}
+
+
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-80 .row .col-60 .inputbox1{
+	    margin: 0;
+	    width: 100%;
+	    padding: 4px;
+	    border: 1px solid slategray;
+	    border-radius: 10px;
+	}
+
+
+	.paymentmethod .paymentmethod1 .anotherpaymentmethod{
+		margin: 0;
+		padding: 0;
+		text-align: center;
+	}
+
+	.paymentmethod .paymentmethod1 .linkpaymentmethod{
+		text-decoration: none;		
+    	color: #33CD5F;
+	}
+
+	.paymentmethod .paymentmethod1 .linkcenter{
+		text-align: center;
+	}
+
+	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-80 .row .linkcolor{
+		color: #33CD5F;
+	}
+
+
+	.paymentmethod .paymentmethod1 .paymentmethod2 .checkboxdesign{
+		width: 25px;
+		height: 33px;
+		margin-top: -15px;
+	}
+
+
+
