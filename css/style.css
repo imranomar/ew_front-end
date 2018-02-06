@@ -2,10 +2,30 @@
 	  cursor: url('https://ionicframework.com/img/finger.png'), auto;
 	}
 
-
-
 	/*Load css of login page */
-	.facebook{
+
+	.signinpage{
+		margin: 0;
+		padding: 0;
+	}
+
+	.signinpage .logo{
+		margin: 0; 
+		padding: 0;
+	}
+
+	.signinpage .imgclass{
+		position: relative;
+		width: 100%;
+		height: 200px;
+	}
+
+	.signinpage .linklogin1{
+		text-decoration: none;
+    	color: coral;
+	}
+
+	.signinpage .facebook{
 		text-align: center; 
 		margin-left: 17px;
     	margin-right: 17px;
@@ -13,23 +33,49 @@
 	    margin-bottom: 0;
 		padding: 0;
 	}
-	.logininput{
+	.signinpage .logininput{
 		border: 0;
 		padding: 0;
 		margin-left: 17px;
     	margin-right: 17px;
-	    margin-top: 0;	
+	    margin-top: 10px;	
 	    margin-bottom: 0;
-		border-bottom: 1px solid darkgreen;
+		/*border-bottom: 1px solid darkgreen;*/
 
 	}
-	.logintran{		
+	.signinpage .logininput1{
+		border: 0;
+		padding: 0;
+		margin-left: 11px;
+		margin-right: 11px;
+	    margin-top: 10px;	
+	    margin-bottom: 0;
+		/*border-bottom: 1px solid darkgreen;*/
+
+	}
+
+
+
+
+	.signinpage .logininput1 .selfloginbtn{		
+	    width: 100%;
+	    height: 38px;
+	    border: 1px solid #33CD5F;
+	    background-color: #33CD5F;
+	    color: white;
+		padding-left: 10px;
+		padding-right: 10px;
+
+	}
+
+
+	.signinpage .logintran{		
 	    transform-style: preserve-3d;
 	}
 
 
 
-	.loginbtn{
+	.signinpage .loginbtn{
 		text-align: center; 
 		margin-left: 17px;
     	margin-right: 17px;
@@ -37,11 +83,19 @@
 	    margin-bottom: 0;
 		padding: 0;
 	}
-	.loginpage{
+	.signinpage .loginpage{
 		text-align: center;
 		padding: 0;
 	}
-	.link .loginlink{
+	.signinpage .link{
+		margin: 0;
+		padding: 0;
+	}
+	.signinpage .link .linklogin{
+		text-align: center;
+    	margin-bottom: 17px;
+	}
+	.signinpage .link .loginlink{
 		padding: 0;
 		margin-left: 17px;
     	margin-right: 17px;
@@ -50,17 +104,81 @@
 		color:green;
 		text-align: center;;
 	}
-	a.button {
+	.signinpage a.button {
 	    text-decoration: none;
 	    color: green;
 	    transform-style: preserve-3d;
+	}
+
+	/* Shared */
+	.signinpage .loginBtn {
+	  box-sizing: border-box;
+	  position: relative;
+	  /* width: 13em;  - apply for fixed size */
+	  margin: 0.2em;
+	  padding: 0 15px 0 46px;
+	  border: none;
+	  text-align: left;
+	  line-height: 34px;
+	  white-space: nowrap;
+	  border-radius: 0.2em;
+	  font-size: 16px;
+	  color: #FFF;
+	}
+	.signinpage .loginBtn:before {
+	  content: "";
+	  box-sizing: border-box;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 34px;
+	  height: 100%;
+	}
+	.signinpage .signinpage .loginBtn:focus {
+	  outline: none;
+	}
+	.signinpage .loginBtn:active {
+	  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+	}
+
+
+	/* Facebook */
+	.signinpage .loginBtn--facebook {
+	  background-color: #4C69BA;
+	  background-image: linear-gradient(#4C69BA, #3B55A0);
+	  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+	  text-shadow: 0 -1px 0 #354C8C;
+	  padding: 0px 85px 0px 83px;
+	}
+	.signinpage .loginBtn--facebook:before {
+	  border-right: #364e92 1px solid;
+	  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+	}
+	.signinpage .loginBtn--facebook:hover,
+	.loginBtn--facebook:focus {
+	  background-color: #5B7BD5;
+	  background-image: linear-gradient(#5B7BD5, #4864B1);
+	}
+
+	.signinpage .facebookbtn{
+		margin-top: 15px;
+	}
+
+	.signinpage .loginbtnstyle{
+
 	}
 
 
 	/*Load css of signup page */
 
 	.signuppage .row1{
-		margin-top: -53px;
+		margin-top: 0px;
+	}
+
+
+	.signuppage .logo{
+		margin: 0; 
+		padding: 0;
 	}
 
 	.signuppage .signupbtn{
@@ -85,10 +203,17 @@
 	    margin-top: 0;	
 	    margin-bottom: 0;
 	}
+	.signuppage .logo{		
+	    padding: 0;
+	    margin-top: 5px;
+	}
 
 	.signuppage .signuplogoimage{
-		text-align: center;
-		margin-top: 9px;
+	    text-align: center;
+	    margin-top: 3px;
+	    padding-left: 0px;
+	    padding-right: 0px;
+	    padding-bottom: 0px;
 	}
 
 	.signuppage .ion-person:before {
@@ -107,6 +232,92 @@
 	}
 
 
+	.signuppage .imgclass{
+		position: relative;
+		width: 100%;
+		height: 150px;
+		margin-top: 31px;
+	}
+
+	.signuppage .signupinput12{
+		border: 0;
+		padding: 0;
+		margin-left: 11px;
+		margin-right: 11px;
+	    margin-top: 10px;	
+	    margin-bottom: 0;
+		/*border-bottom: 1px solid darkgreen;*/
+
+	}
+
+	.signuppage .signupinput12 .selfloginbtn{		
+	    width: 100%;
+	    height: 38px;
+	    border: 1px solid #33CD5F;
+	    background-color: #33CD5F;
+	    color: white;
+		padding-left: 10px;
+		padding-right: 10px;
+
+	}
+
+
+		/* Shared */
+	.signuppage .loginBtn {
+	  box-sizing: border-box;
+	  position: relative;
+	  /* width: 13em;  - apply for fixed size */
+	  margin: 0.2em;
+	  padding: 0 15px 0 46px;
+	  border: none;
+	  text-align: left;
+	  line-height: 34px;
+	  white-space: nowrap;
+	  border-radius: 0.2em;
+	  font-size: 16px;
+	  color: #FFF;
+	}
+	.signuppage .loginBtn:before {
+	  content: "";
+	  box-sizing: border-box;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 34px;
+	  height: 100%;
+	}
+	.signuppage .loginBtn:focus {
+	  outline: none;
+	}
+	.signuppage .loginBtn:active {
+	  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+	}
+
+
+	/* Facebook */
+	.signuppage .loginBtn--facebook {
+	  background-color: #4C69BA;
+	  background-image: linear-gradient(#4C69BA, #3B55A0);
+	  /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+	  text-shadow: 0 -1px 0 #354C8C;
+	  padding: 0px 85px 0px 88px;
+      margin-left: 11px;
+	}
+	.signuppage .loginBtn--facebook:before {
+	  border-right: #364e92 1px solid;
+	  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+	}
+	.signuppage .loginBtn--facebook:hover,
+	.loginBtn--facebook:focus {
+	  background-color: #5B7BD5;
+	  background-image: linear-gradient(#5B7BD5, #4864B1);
+	}
+
+	.signuppage .facebookbtn{
+		margin-top: 15px;
+	}
+
+
 	/*Load css of forget password page */
 	.forgetpage .forgetinput{		
 		margin-left: 17px;
@@ -115,6 +326,17 @@
 	    margin-bottom: 0;
 		border: 0;
 		padding: 0;
+	}
+
+	.forgetpage .loginpage{		
+	    padding: 0;
+	    margin-top: -1px;
+	}
+
+	.forgetpage .imgclass{
+		position: relative;
+		width: 100%;
+		height: 200px;
 	}
 	.forgetpage .forgetbtn{
 		text-align: center; 		
@@ -125,8 +347,9 @@
 		padding: 0;
 	}
 
-	.forgetpage .row1{
-		margin-top: 40px;
+	.forgetpage .row1{    
+		margin-top: 45px;
+    	padding: 0px;
 	}
 	.forgetpage .logintran{		
 	    transform-style: preserve-3d;
@@ -146,6 +369,33 @@
 		font-size: small;
     	color: coral;
 	}
+
+
+
+	/*Load css of dashboard*/
+
+	.dashboard{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+
+
+
+	/*.Menu {
+	    padding: 0;
+	    margin: 0;
+	    background-color: #33cd5f;
+	    height: 100vh;
+	    position: fixed;
+	    top: 0;
+	    z-index: 1000000;
+	    width: 14rem;
+	    left: 0;
+	    transition: left 0.3s;
+	}*/
+
+
 
 	/*Load css of pricing page */
 	.pricingpage .vl {
@@ -541,9 +791,61 @@
 /*Load css of menu page*/
 
 	.Menu{
-		padding: 0;
-		margin: 0;
+	    padding: 0;
+	    margin: 0;
+	    background-color: #33cd5f;
+	    height: 100vh;
+	    position: fixed;
+	    top: 0;
+	    z-index: 1000000;
+	    width: 13rem;
+	    left: -13rem;
+	    transition: left 0.3s;
 	}
+
+	.abcd{
+	    padding: 0;
+	    margin: 0;
+	    background-color: #33cd5f;
+	    height: 100vh;
+	    position: fixed;
+	    top: 0;
+	    z-index: 1000000;
+	    width: 13rem;
+	    left: 0rem;
+	    transition: left 0.3s;
+	}
+
+	.menulink{
+		color: #fff;
+	}
+	.menulink1{
+		color: #fff;
+	}
+	.menulink2{
+		color: #fff;
+	}
+	.menulink3{
+		color: #fff;
+	}
+	.menulink4{
+		color: #fff;
+	}
+	.menulink5{
+		color: #fff;
+	}
+	.menulink6{
+		color: #fff;
+	}
+
+	.animationhide{
+		opacity: 0.5;
+	}
+
+	.Menu .headerwidth{
+		width: 63%;
+	}
+
 	.Menu .topmargin{
 		margin-top: 40px;
 	}
@@ -557,37 +859,62 @@
 	    text-decoration: blink;
 	}
 
-	.Menu .ion-home:before {
-	    content: "";
-	    font-size: 20px;
-	}
+
 	.Menu .ion-location:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 18px;
+	    position: relative;
+	    top: 4px;
 	}
 	.Menu .ion-pricetags:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 11px;
+	    position: relative;
+	    top: 2px;
 	}
 	.Menu .ion-help:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 18px;
+	    position: relative;
+	    top: 3px;
 	}
 	.Menu .ion-model-s:before {
     	content: "";
 	    font-size: 18px;
+	    color: white;
+	    margin-right: 11px;
+	    position: relative;
+	    top: 1px;
 	}
 	.Menu .ion-eye-disabled:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 13px;
+	    position: relative;
+	    top: 4px;
 	}
 	.Menu .ion-social-usd-outline:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 19px;
+	    position: relative;
+	    top: 2px;
 	}
 	.Menu .ion-android-arrow-back:before {
     	content: "";
 	    font-size: 20px;
+	    color: white;
+	    margin-right: 19px;
+	    position: relative;
+	    top: 4px;
 	}
 
 
@@ -595,7 +922,21 @@
 	.paymentmethod{
 		padding: 0;
 		margin: 0;
+	}	
+
+	.paymentmethod .ion-close-circled:before {
+	    content: "";
+	    margin: 0px;
+	    padding: 0px;
+	    position: relative;
+	    margin-left: 13px;
 	}
+
+	.paymentmethod .cardname{		
+	    padding-left: 12px;
+	    font-size: larger;
+	}
+
 	.paymentmethod .topmargin{
 		margin-top: 40px;
 	}
@@ -619,7 +960,8 @@
 	    margin-top: 11px;
 	    font-size: medium;
 	    color: darkcyan;
-	    text-align: center;
+	    text-align: left;
+	    font-size: 12px;
 	}
 
 	.paymentmethod .paymentmethod1 .paymentmethod2 .row .col-20{
@@ -661,6 +1003,17 @@
 		height: 33px;
 		margin-top: -15px;
 	}
+
+	/*color: #fff;*/
+
+
+
+/*	
+	#menuleft.slide{left:0}
+	#all.hide{position:fixed;left:50%;top:0;width:100%}
+	#all.slide{position:relative;}
+	.slide,.hide{transition: all 0.2s ease;}
+*/
 
 
 

@@ -1,6 +1,6 @@
 var app = angular.module("laundryApp", ["ngRoute"]);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider,$locationProvider) {
 
   $routeProvider
 
@@ -63,6 +63,9 @@ app.config(function($routeProvider) {
   .otherwise({
     redirectTo: '/'
   });
+
+  // use the HTML5 History API
+  $locationProvider.html5Mode(true);
 
 
 

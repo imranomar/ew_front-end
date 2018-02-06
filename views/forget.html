@@ -1,7 +1,7 @@
 <div ng-controller="ForgetCtrl" class="forgetpage">
 	
 	<div class="bar bar-header bar-balanced">
-	  <a href="#">
+	  <a href="">
 	  	<button class="button button-icon icon ion-android-arrow-back"></button>
 	  </a>
 	  <div class="h1 title"> Forget Password </div>		
@@ -9,7 +9,7 @@
 
 	<div class="row row1">
 		<div class="col loginpage">
-	      <img src="assets/laundarylogo.jpg" height="200px">
+	      <img src="assets/signinlogo.png" height="200px" class="imgclass">
 	     </div>
 	</div>
 
@@ -23,27 +23,35 @@
 
 		<div class="col logintran">
 
-	      <div class="list">
+	      	<div class="list">	  
 
-			  <label class="item item-input item-stacked-label forgetinput">
-			    <span class="input-label">Enter your email address. </span>
-			    <input type="email" required="" autofocus="" class="forgetinputborder">
-			  </label>
+	      	   <form ng-submit="sendemail()">
+
+				  <label class="item item-input item-stacked-label forgetinput">
+
+				    <span class="input-label">Enter your email address. </span>
+
+				    <input type="email" class="forgetinputborder" ng-model="forgetdata1.email">
+
+					<input type="submit" value="Send" class="button button-full button-balanced">
+
+				  </label>
+
+
+				</form>
 
 			</div>
 
-	     </div>	
+	    </div>	
 
 	</div>
-
+<!-- 
 	<div class="row">
 
 		<div class="col forgetbtn">
-			<button class="button button-full button-balanced">
-			  Send 
-			</button>
-	     </div>	
+			<input type="submit" value="Send" class="button button-full button-balanced" ng-submit="sendforget()">
+	    </div>	
 
-	</div>
+	</div> -->
 
 </div>

@@ -1,11 +1,15 @@
 <div ng-controller="MenuCtrl" class="Menu">
 
 	
-   <div class="bar bar-header bar-balanced">
-	  <a href="#">
-	  	<button class="button button-icon icon ion-android-arrow-back"></button>
-	  </a>
-	  <div class="h1 title"> MENU </div>	
+   <div class="bar bar-header bar-balanced headerwidth">
+   		<!-- <div class="h1 title pull-left"> MENU </div> -->
+		<button class="button button-clear pull-left h1">
+				MENU
+		</button>	
+		<button class="button button-clear pull-right" ng-click="closemenu()">
+				<span class="icon ion-close"> </span>
+		</button>
+
 	</div>
 
 	<div class="row topmargin"></div>
@@ -17,7 +21,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/dashboard"> 
+					<a href="dashboard"> 
 						<i class="icon ion-home"></i> 
 						Dashboard 
 					</a>
@@ -27,7 +31,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/address"> 
+					<a href="address"> 
 						<i class="icon ion-location"></i> 
 						My Address 
 					</a>
@@ -35,7 +39,7 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<a href="#!/payment"> 
+					<a href="payment"> 
 						<i class="icon ion-pricetags"></i> 
 						My Payments 
 					</a>
@@ -44,7 +48,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/faqs"> 
+					<a href="faqs"> 
 						<i class="icon ion-help"></i> 
 						FAQs 
 					</a>
@@ -53,7 +57,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/ordersummary"> 
+					<a href="ordersummary"> 
 						<i class="icon ion-model-s"></i> 
 						My Orders 
 					</a>
@@ -62,7 +66,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/aboutus"> 
+					<a href="aboutus"> 
 						<i class="icon ion-eye-disabled"></i> 
 						About Easy Wash 
 					</a>
@@ -71,7 +75,7 @@
 			<div class="row">
 
 				<div class="col">
-					<a href="#!/pricing"> 
+					<a href="pricing"> 
 						<i class="icon ion-social-usd-outline"></i> 
 						Pricing 
 					</a>

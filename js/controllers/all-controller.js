@@ -2,37 +2,63 @@
 
  //Login of Controller
 
- app.controller('LoginCtrl', function($scope){
-	
+ app.controller('LoginCtrl', function($scope,$location){
+ 	$scope.logindata=[];
+	$scope.loginsubmit = function () {
+		console.log($scope.logindata);
+		$location.path('/dashboard');
+	}
+
  });
 
 
  // Signup of Controller
 
  app.controller('SignupCtrl',function($scope) {
- 	// body...
+ 		$scope.signupdata = [];
+ 		$scope.signupsubmitform = function(){
+ 			console.log($scope.signupdata);
+ 		}
+
  });
 
 
  // Forget password of Controller
 
  app.controller('ForgetCtrl',function($scope) {
- 	// body...
+
+ 	$scope.forgetdata1 = [];
+
+ 	$scope.sendemail = function(){
+ 		console.log($scope.forgetdata1);
+ 	}
  });
 
  // Dashboard of Controller
 
  app.controller('DashboardCtrl',function($scope,$location) {
+
  	$scope.menuopen =function(){
- 		$location.path("/menu");
+ 		//$location.path("/menu");
+ 		
  	}
+
+	$scope.closemenu = function(){
+		alert('qwfwefw');
+		angular.element('.Menu').remove();
+	}
+
  });
 
 
  // Menu of Controller
 
- app.controller('MenuCtrl',function($scope) {
- 	// body...
+ app.controller('MenuCtrl',function($scope,$location) {
+
+ 	$scope.closemenu = function () {
+ 		$location.path("/dashboard");
+ 	}
+
  });
 
 
