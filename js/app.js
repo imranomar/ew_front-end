@@ -4,7 +4,7 @@ app.config(function($routeProvider,$locationProvider) {
 
   $routeProvider
 
-  .when("/", {
+  .when("/login", {
     templateUrl : "views/login.html",
     controller: 'LoginCtrl'
   })
@@ -60,8 +60,12 @@ app.config(function($routeProvider,$locationProvider) {
     templateUrl: 'views/paymentmethod.html',
     controller: 'PaymentmethodCtrl'
   })
+  .when('/finaldate',{
+  	templateUrl: 'views/selecttimefinal.html',
+  	controller: 'FinaldateCtrl'
+  })
   .otherwise({
-    redirectTo: '/'
+    redirectTo: '/login'
   });
 
   // use the HTML5 History API
@@ -69,5 +73,34 @@ app.config(function($routeProvider,$locationProvider) {
 
 
 
+});
+
+app.directive('itemFloatingLabel', function() {
+  return {
+    restrict: 'C',
+    link: function(scope, element) {
+      var el = element[0];
+      var input = el.querySelector('input, textarea');
+      var inputLabel = el.querySelector('.input-label');
+
+      if (!input || !inputLabel) return;
+
+      var onInput = function() {
+        if (input.value) {
+          inputLabel.classList.add('has-input');
+        } else {
+          inputLabel.classList.remove('has-input');
+        }
+      };
+
+      input.addEventListener('input', onInput);
+
+      
+
+      scope.$on('$destroy', function() {
+        input.removeEventListener('input', onInput);
+      });
+    }
+  };
 });
 

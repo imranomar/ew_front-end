@@ -43,21 +43,35 @@
 		/*border-bottom: 1px solid darkgreen;*/
 
 	}
+
 	.signinpage .logininput1{
-		border: 0;
-		padding: 0;
-		margin-left: 11px;
-		margin-right: 11px;
-	    margin-top: 10px;	
+	    border: 0;
+	    padding: 0;
+	    border-bottom-left-radius: 6px;
+	    margin-left: 13px;
+	    margin-right: 12px;
+	    margin-top: 35px;
 	    margin-bottom: 0;
-		/*border-bottom: 1px solid darkgreen;*/
+	    border-bottom-right-radius: 6px;
+	    border-top-left-radius: 13px;
+	    border-top-right-radius: 15px;
 
 	}
 
+	.signinpage .logininput1btn{
+		margin-top: 10px;
+	    border: 0;
+	    padding: 0;
+	    border-bottom-left-radius: 6px;
+	    margin-left: 13px;
+	    margin-right: 12px;
+	    margin-bottom: 0;
+	    border-bottom-right-radius: 6px;
+	    border-top-left-radius: 13px;
+	    border-top-right-radius: 15px;
+	}
 
-
-
-	.signinpage .logininput1 .selfloginbtn{		
+	.signinpage .logininput1btn .selfloginbtn{		
 	    width: 100%;
 	    height: 38px;
 	    border: 1px solid #33CD5F;
@@ -87,13 +101,46 @@
 		text-align: center;
 		padding: 0;
 	}
+	.signinpage .signinlogoname{
+		margin-top: 26px;
+	}
+
 	.signinpage .link{
 		margin: 0;
 		padding: 0;
+		margin-top: 16px;
 	}
+
+	.signinpage .logininputborder{
+		border-bottom: 1px solid;
+	}
+
+
+	.signinpage .logininputborder:focus {
+	  border-bottom: 1px solid green;
+	}
+
+	.signinpage .linklogin{
+		text-align: right;
+    	margin-top: 10px;
+	}
+
+	.signinpage .linklogin11 {
+	    text-decoration: none;
+	    color: #000;
+   		margin-right: 11px;
+	}
+
+	.signinpage .linklogin1 {
+	    text-decoration: none;
+	    color: #000;
+	    font-weight: 500;
+	}
+
 	.signinpage .link .linklogin{
 		text-align: center;
     	margin-bottom: 17px;
+
 	}
 	.signinpage .link .loginlink{
 		padding: 0;
@@ -141,6 +188,9 @@
 	  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
 	}
 
+	.signinpage .facebookbtn1{
+		margin-top: 25px;
+	}
 
 	/* Facebook */
 	.signinpage .loginBtn--facebook {
@@ -170,6 +220,7 @@
 
 
 	/*Load css of signup page */
+
 
 	.signuppage .row1{
 		margin-top: 0px;
@@ -226,11 +277,13 @@
 	    transform-style: preserve-3d;
 	}
 
-
 	.signuppage .inputbottomborder{
-		border-bottom: 1px solid darkgreen;
+		border-bottom: 1px solid;
 	}
 
+	.signuppage .inputbottomborder:focus {
+	  border-bottom: 1px solid green;
+	}
 
 	.signuppage .imgclass{
 		position: relative;
@@ -244,8 +297,9 @@
 		padding: 0;
 		margin-left: 11px;
 		margin-right: 11px;
-	    margin-top: 10px;	
+	    margin-top: 24px;	
 	    margin-bottom: 0;
+	    border-radius:4px;
 		/*border-bottom: 1px solid darkgreen;*/
 
 	}
@@ -260,7 +314,9 @@
 		padding-right: 10px;
 
 	}
-
+	.signuppage .facebook{
+		margin-top: 10px;
+	}
 
 		/* Shared */
 	.signuppage .loginBtn {
@@ -355,7 +411,10 @@
 	    transform-style: preserve-3d;
 	}
 	.forgetpage .forgetinputborder{
-		border-bottom: 1px solid darkgreen;
+		border-bottom: 1px solid;
+	}
+	.forgetpage .forgetinputborder:focus{
+		border-bottom: 1px solid green;
 	}
 
 
@@ -363,11 +422,11 @@
 		text-align: left;	
 		margin-left: 20px;
     	margin-right: 20px;
-	    margin-top: 0;	
+	    margin-top: 50px;
 	    margin-bottom: 20px;
 		padding: 0;
 		font-size: small;
-    	color: coral;
+    	color: #6d6866;
 	}
 
 
@@ -379,7 +438,6 @@
 		height: 100%;
 		position: absolute;
 	}
-
 
 
 	/*.Menu {
@@ -864,7 +922,7 @@
     	content: "";
 	    font-size: 20px;
 	    color: white;
-	    margin-right: 18px;
+	    margin-right: 17px;
 	    position: relative;
 	    top: 4px;
 	}
@@ -872,7 +930,7 @@
     	content: "";
 	    font-size: 20px;
 	    color: white;
-	    margin-right: 11px;
+	    margin-right: 9px;
 	    position: relative;
 	    top: 2px;
 	}
@@ -916,12 +974,41 @@
 	    position: relative;
 	    top: 4px;
 	}
+	.Menu .ion-calendar:before {
+	    content: "";
+	    font-size: 20px;
+	    color: white;
+	    margin-right: 14px;
+	    position: relative;
+	    top: 4px;
+	}
 
+	.Menu .ion-ios-clock-outline:before {
+	    content: "";
+	    font-size: 22px;
+	    color: white;
+	    margin-right: 14px;
+	    position: relative;
+	    top: 3px;
+	}
+	
+	.Menu .ion-log-out:before {
+	    content: "";
+	    margin-right: 15px;
+	    position: relative;
+	    font-size: 20px;
+	    top: 3px;
+	}
 
 	/*Load css of payment method */
 	.paymentmethod{
 		padding: 0;
-		margin: 0;
+		margin: 0;		
+	    float: left;
+	    /* width: 1000px; */
+	    width: 100%;
+	    overflow-y: auto;
+	    height: 768px;
 	}	
 
 	.paymentmethod .ion-close-circled:before {
@@ -1017,3 +1104,72 @@
 
 
 
+
+/* Load css of myorder page */
+
+.myorder{
+	margin: 0;
+	padding: 0;
+	background-color: #efefef;
+	overflow-y: auto;
+	height: 768px;
+}
+
+.myorder .topmargin{
+	margin-top: 25px;
+}
+
+.myorder .orderlist{	
+    padding: 0px;
+    margin: 0px;
+}
+
+.myorder .orderlist .orderlistbody{
+	margin-left: 0px;
+	margin-right: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.myorder .orderlistbody1pickup{	
+    border-right: 1px solid;
+    margin-bottom: -21px;
+    margin-top: -10px;
+}
+.myorder .orderlistbody1delivery{	
+    margin-bottom: -21px;
+    margin-top: -10px;
+}
+
+.myorder .orderlistbodypickup{	
+    border-right: 1px solid;
+    margin-bottom: -21px;
+    margin-top: -21px;
+}
+
+.myorder .orderlistbodydelivery{
+    margin-bottom: -21px;
+    margin-top: -21px;
+}
+
+
+/* Load css of final date as selecttimefinal.html page is include */
+
+.finaldate{
+	margin: 0;
+	padding: 0;
+    overflow-y: auto;
+    height: 768px;
+}
+
+.finaldate .finaldate1{
+	background-color: #ddd;
+    margin-top: 45px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+.finaldate .finaldate1col{
+	padding: 0px;
+}

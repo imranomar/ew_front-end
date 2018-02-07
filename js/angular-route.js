@@ -1226,4 +1226,4 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 }
 
 
-})(window, window.angular);  
+})(window, window.angular);

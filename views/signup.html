@@ -1,7 +1,7 @@
 <div ng-controller="SignupCtrl" class="signuppage">
 	
 	<div class="bar bar-header bar-balanced">
-	  <a href="">
+	  <a href="login">
 	  	<button class="button button-icon icon ion-android-arrow-back"></button>
 	  </a>
 	  <div class="h1 title"> Signup </div>		
@@ -22,27 +22,27 @@
 	      <div class="list">
 	      	  <form ng-submit="signupsubmitform()">
 	      	  	
-				  <label class="item item-input item-stacked-label signupinput1">
+				  <label class="item item-input item-floating-label signupinput1">
 				    <span class="input-label">Name</span>
-				    <input type="text" required="" autofocus class="inputbottomborder" ng-model="signupdata.name">
+				    <input type="text" required="" placeholder="Name" autofocus class="inputbottomborder" ng-model="signupdata.name">
 				  </label>
 
-				  <label class="item item-input item-stacked-label signupinput1">
+				  <label class="item item-input item-floating-label signupinput1">
 				    <span class="input-label">Email</span>
-				    <input type="email" required="" autofocus class="inputbottomborder" ng-model="signupdata.email">
+				    <input type="email" required="" autofocus placeholder="Email" class="inputbottomborder" ng-model="signupdata.email">
 				  </label>
 
-				  <label class="item item-input item-stacked-label  signupinput1">
+				  <label class="item item-input item-floating-label  signupinput1">
 				    <span class="input-label">Password</span>
-				    <input type="password" required="" autofocus class="inputbottomborder" ng-model="signupdata.password">
+				    <input type="password" required="" autofocus placeholder="Password" class="inputbottomborder" ng-model="signupdata.password">
 				  </label>
 
-				  <label class="item item-input item-stacked-label signupinput1">
+				  <label class="item item-input item-floating-label signupinput1">
 				    <span class="input-label">Confirm Password</span>
-				    <input type="password" required="" autofocus class="inputbottomborder" ng-model="signupdata.confirmpassword">
+				    <input type="password" required="" autofocus placeholder="Confirm Password" class="inputbottomborder" ng-model="signupdata.confirmpassword">
 				  </label>
 
-				  <label class="item item-input item-stacked-label signupinput12">
+				  <label class="item item-input item-floating-label signupinput12">
 				    <span></span>
 				    <input type="submit" value="Submit" class="selfloginbtn">
 				  </label>

@@ -5,8 +5,8 @@
  app.controller('LoginCtrl', function($scope,$location){
  	$scope.logindata=[];
 	$scope.loginsubmit = function () {
-		console.log($scope.logindata);
 		$location.path('/dashboard');
+		console.log($scope.logindata);
 	}
 
  });
@@ -229,4 +229,15 @@ app.controller('OrdersummaryCtrl',function($scope){
 
 app.controller('PaymentmethodCtrl',function($scope){
 
+	$scope.cards=[
+		{'paymentid':'1','cardname':'Master Card','Name':'Asresh Sharma','Number':'784512369815','cvcode':'4512','Expiry':'18/12/2025','cardnumber':'********9815'},
+		{'paymentid':'2','cardname':'Visa Card','Name':'Amresh Sharma','Number':'78451236789','cvcode':'4512','Expiry':'05/01/2019','cardnumber':'********6789'}
+	];
+})
+
+
+// Load Controller of FinaldateCtrl
+
+app.controller('FinaldateCtrl',function($scope){
+	console.log('FinaldateCtrl');
 })

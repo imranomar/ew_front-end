@@ -1,7 +1,7 @@
 <div ng-controller="ForgetCtrl" class="forgetpage">
 	
 	<div class="bar bar-header bar-balanced">
-	  <a href="">
+	  <a href="login">
 	  	<button class="button button-icon icon ion-android-arrow-back"></button>
 	  </a>
 	  <div class="h1 title"> Forget Password </div>		
@@ -27,11 +27,11 @@
 
 	      	   <form ng-submit="sendemail()">
 
-				  <label class="item item-input item-stacked-label forgetinput">
+				  <label class="item item-input item-floating-label forgetinput">
 
 				    <span class="input-label">Enter your email address. </span>
 
-				    <input type="email" class="forgetinputborder" ng-model="forgetdata1.email">
+				    <input type="email" class="forgetinputborder" placeholder="Enter Your Email Address" ng-model="forgetdata1.email">
 
 					<input type="submit" value="Send" class="button button-full button-balanced">
 

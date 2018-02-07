@@ -7,9 +7,9 @@
 	    </div>
 	</div>
 
-	<div class="row">
+	<div class="row signinlogoname">
 		<div class="col loginpage">
-	      Signin
+	      Login
 	     </div>
 	</div>
 
@@ -19,48 +19,35 @@
 
 			<div class="list">
 
-			  <form ng-submit="loginsubmit()">
+			  <form name="logindata" ng-submit="loginsubmit()" required>
 
-				  <label class="item item-input item-floating-label logininput">
+				  <label class="item item-input item-floating-label logininput"> 
 				    <span class="input-label">Email</span>
 				    <!-- <input type="email" required="" autofocus="" class="logininputborder"> -->
-				    <input type="email" placeholder="Email" ng-model="logindata.email" autofocus="">
+				    <input type="email" placeholder="Email" ng-model="logindata.email" autofocus="" class="logininputborder">
 				  </label>
 
 				  <label class="item item-input item-floating-label logininput">
 				    <span class="input-label">Password</span>
 				    <!-- <input type="password" required="" autofocus="" class="logininputborder"> -->
-				    <input type="password" placeholder="Password" ng-model="logindata.password" autofocus="">
+				    <input type="password" placeholder="Password" ng-model="logindata.password" autofocus="" class="logininputborder">
 				  </label>
 
-				  <label class="item item-input item-floating-label logininput1">
+				  <div class="col linklogin">
+					<a href="forget" class="linklogin11">
+					  Forget Password
+					</a>	
+			     </div>	
+
+				  <label class="item item-input item-floating-label logininput1btn">
 				  	<span class="input-label"></span>
 				  	<input type="submit" name="" value="Login" class="selfloginbtn">
 				  </label>
 			  	
-			  </form>
+			   </form> 
 
 			</div>
 
-	     </div>	
-
-	</div>
-
-	<div class="row link">
-
-		<div class="col linklogin">
-			<a href="forget" class="linklogin1">
-			  Forget Password
-			</a>	
-	     </div>	
-
-	</div>
-	<div class="row link">
-
-		<div class="col linklogin">
-			<a href="signup" class="linklogin1">
-			  Create An Account
-			</a>
 	     </div>	
 
 	</div>
@@ -73,6 +60,29 @@
 			  Login with Facebook
 			</button>
 
+	     </div>	
+
+	</div>
+<!-- 
+	<div class="row link">
+
+		<div class="col linklogin">
+			<a href="forget" class="linklogin1">
+			  Forget Password
+			</a>	
+	     </div>	
+
+	</div>
+	 -->
+	<div class="row link">
+
+		
+
+		<div class="col linklogin">
+			Create An Account
+			<a href="signup" class="linklogin1">
+				Sign Up
+			</a>
 	     </div>	
 
 	</div>
