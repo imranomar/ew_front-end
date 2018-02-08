@@ -1,5 +1,6 @@
 	body {
 	  cursor: url('https://ionicframework.com/img/finger.png'), auto;
+	  font-family: 'Roboto', sans-serif;
 	}
 
 	/*Load css of login page */
@@ -134,7 +135,7 @@
 	.signinpage .linklogin1 {
 	    text-decoration: none;
 	    color: #000;
-	    font-weight: 500;
+	    font-weight: 600;
 	}
 
 	.signinpage .link .linklogin{
@@ -384,9 +385,27 @@
 		padding: 0;
 	}
 
+	.forgetpage .forgetinput1{		
+	    margin-left: 13px;
+	    margin-right: 12px;
+	    margin-top: 20px;
+	    margin-bottom: 0;
+	    border: 0;
+	    padding: 0;
+	}
+
 	.forgetpage .loginpage{		
 	    padding: 0;
 	    margin-top: -1px;
+	}
+
+	.forgetpage a {
+	    color: #49b771;
+	    text-decoration: blink;
+	    float: left;
+	    padding-left: 32px;
+	    font-weight: 600;
+	    letter-spacing: 0.2px;
 	}
 
 	.forgetpage .imgclass{
@@ -404,29 +423,61 @@
 	}
 
 	.forgetpage .row1{    
-		margin-top: 45px;
+		/*margin-top: 45px;*/
     	padding: 0px;
 	}
 	.forgetpage .logintran{		
 	    transform-style: preserve-3d;
+	    text-align: left;
+	    margin-left: 31px;
+	    margin-right: 46px;
 	}
 	.forgetpage .forgetinputborder{
-		border-bottom: 1px solid;
+		border-bottom: 1px solid;	
 	}
 	.forgetpage .forgetinputborder:focus{
 		border-bottom: 1px solid green;
 	}
 
+	.forgetpage .fontstyle{
+	    font-size: 17px;
+	    letter-spacing: 1px;
 
-	.forgetpage .forgetdescription{
+	}
+	.forgetpage .forgetdescription1{
 		text-align: left;	
 		margin-left: 20px;
     	margin-right: 20px;
-	    margin-top: 50px;
+	    margin-top: 30px;
 	    margin-bottom: 20px;
 		padding: 0;
 		font-size: small;
     	color: #6d6866;
+    	text-align: center;
+	}
+
+	.forgetpage .item-floating-label .input-label.has-input {
+	    opacity: 1;
+	    top: 0;
+	    -webkit-transition: opacity 0.15s ease-in, top 0.2s linear;
+	    transition: opacity 0.15s ease-in, top 0.2s linear;
+	    letter-spacing: 1px;
+	    font-size: small;
+	}
+
+
+	.forgetpage .forgetdescription{
+	    text-align: left;
+	    margin-left: 52px;
+	    margin-right: 52px;
+	    margin-top: 12px;
+	    margin-bottom: 20px;
+	    padding: 0;
+	    font-size: small;
+	    color: #bfbdbdf5;
+	    font-weight: 600;
+	    letter-spacing: 0.5px;
+	    transition: opacity 0.15s ease-in, top 0.2s linear;
 	}
 
 
