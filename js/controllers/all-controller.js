@@ -83,25 +83,25 @@
  	
  	  $scope.questions = [
  	  	{
- 	  	'question':'How do I brighten my dingy white clothes and linens?','decription':'clothes and linens?'
+ 	  	'question':'How do I brighten my dingy white clothes and linens?','decription':'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English.'
  	  	},
  	  	{
- 	  	'question':'How do I remove set-in stains that have been washed and dried?','decription':'washed and dried?'
+ 	  	'question':'How do I remove set-in stains that have been washed and dried?','decription':'washed and dried? Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for '
  	  	},
  	  	{
- 	  	'question':'How can I prevent fading of my dark clothes?','decription':'fading of my dark clothes?'
+ 	  	'question':'How can I prevent fading of my dark clothes?','decription':'fading of my dark clothes? There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which dont look even slightly believable.'
  	  	},
  	  	{
- 	  	'question':'How do I remove dye transfer from clothes?','decription':'dye transfer from clothes?'
+ 	  	'question':'How do I remove dye transfer from clothes?','decription':'dye transfer from clothes? Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for'
  	  	},
  	  	{
- 	  	'question':'How do I remove yellow armpit stains?','decription':'yellow armpit stains?'
+ 	  	'question':'How do I remove yellow armpit stains?','decription':'yellow armpit stains? Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for'
  	  	},
  	  	{
- 	  	'question':'How do I remove ink stains from clothes and leather?','decription':'ink stains from clothes and leather?'
+ 	  	'question':'How do I remove ink stains from clothes and leather?','decription':'ink stains from clothes and leather? Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for'
  	  	},
  	  	{
- 	  	'question':'Why wont my washer/dryer work?','decription':'washer/dryer work?'
+ 	  	'question':'Why wont my washer/dryer work?','decription':'washer/dryer work? Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for'
  	    }
  	   ];
 
@@ -154,58 +154,58 @@ app.controller('NotificationCtrl',function ($scope) {
 
 app.controller('AddressesCtrl',function($scope,$http){
 
-		$scope.first=[{'street':'Xyz','pobox':'Bhopal','Flat':'Mno'}];
-		$scope.second=[{'title':'Laundry','pobox1':'Bhopal','flat1':'Mno','bldname':'Manish'}];
+		// $scope.first=[{'street':'Xyz1','pobox':'Bhopal','Flat':'Mno','name':'Address 1'}];
+		// $scope.second=[{'title':'Laundry','pobox1':'Bhopal','flat1':'Mno','bldname':'Manish''name':'Address 2'}];
 		
-        $scope.Street = function () {
-            if ($scope.Street == false || $scope.Street == undefined)
-                $scope.Street = true;
-            else
-                $scope.Street = false;
-        }
+  //       $scope.Street = function () {
+  //           if ($scope.Street == false || $scope.Street == undefined)
+  //               $scope.Street = true;
+  //           else
+  //               $scope.Street = false;
+  //       }
 
-        $scope.pobox = function () {
-            if ($scope.pobox == false || $scope.pobox == undefined)
-                $scope.pobox = true;
-            else
-                $scope.pobox = false;
-        }
+  //       $scope.pobox = function () {
+  //           if ($scope.pobox == false || $scope.pobox == undefined)
+  //               $scope.pobox = true;
+  //           else
+  //               $scope.pobox = false;
+  //       }
 
-		$scope.Flat = function () {
-            if ($scope.Flat == false || $scope.Flat == undefined)
-                $scope.Flat = true;
-            else
-                $scope.Flat = false;
-        }
+		// $scope.Flat = function () {
+  //           if ($scope.Flat == false || $scope.Flat == undefined)
+  //               $scope.Flat = true;
+  //           else
+  //               $scope.Flat = false;
+  //       }
 
 
-		$scope.title = function () {
-            if ($scope.title == false || $scope.title == undefined)
-                $scope.title = true;
-            else
-                $scope.title = false;
-        }
+		// $scope.title = function () {
+  //           if ($scope.title == false || $scope.title == undefined)
+  //               $scope.title = true;
+  //           else
+  //               $scope.title = false;
+  //       }
 
-		$scope.pobox1 = function () {
-            if ($scope.pobox1 == false || $scope.pobox1 == undefined)
-                $scope.pobox1 = true;
-            else
-                $scope.pobox1 = false;
-        }
+		// $scope.pobox1 = function () {
+  //           if ($scope.pobox1 == false || $scope.pobox1 == undefined)
+  //               $scope.pobox1 = true;
+  //           else
+  //               $scope.pobox1 = false;
+  //       }
 
-		$scope.flat1 = function () {
-            if ($scope.flat1 == false || $scope.flat1 == undefined)
-                $scope.flat1 = true;
-            else
-                $scope.flat1 = false;
-        }
+		// $scope.flat1 = function () {
+  //           if ($scope.flat1 == false || $scope.flat1 == undefined)
+  //               $scope.flat1 = true;
+  //           else
+  //               $scope.flat1 = false;
+  //       }
 
-		$scope.bldname = function () {
-            if ($scope.bldname == false || $scope.bldname == undefined)
-                $scope.bldname = true;
-            else
-                $scope.bldname = false;
-        }
+		// $scope.bldname = function () {
+  //           if ($scope.bldname == false || $scope.bldname == undefined)
+  //               $scope.bldname = true;
+  //           else
+  //               $scope.bldname = false;
+  //       }
 
 });
 
@@ -230,8 +230,8 @@ app.controller('OrdersummaryCtrl',function($scope){
 app.controller('PaymentmethodCtrl',function($scope){
 
 	$scope.cards=[
-		{'paymentid':'1','cardname':'Master Card','Name':'Asresh Sharma','Number':'784512369815','cvcode':'4512','Expiry':'18/12/2025','cardnumber':'********9815'},
-		{'paymentid':'2','cardname':'Visa Card','Name':'Amresh Sharma','Number':'78451236789','cvcode':'4512','Expiry':'05/01/2019','cardnumber':'********6789'}
+		{'paymentid':'1','cardname':'Master Card','Name':'Mohan Kumar','Number':'784512369815','cvcode':'4512','Expiry':'18/12/2025','cardnumber':'********9815','val':'true'},
+		{'paymentid':'2','cardname':'Visa Card','Name':'Sohan Kumar','Number':'78451236789','cvcode':'4512','Expiry':'05/01/2019','cardnumber':'********6789','val':'false'}
 	];
 })
 

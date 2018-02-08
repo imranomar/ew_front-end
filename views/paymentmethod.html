@@ -1,207 +1,123 @@
-<!-- 
-<script type="text/javascript">	
-
-	    $(document).ready(function() { 
-
-	    	$('#close').click(function(){
-
-	    		$('.paymentmethod2').remove();
-	    	});
-
-	    	$('.linkpaymentmethod').click(function(){
-
-	    		var paymentmethod='<div class="item item-body paymentmethod2">'+
-								    	'<div class="row">'+
-											'<div class="col-90 cardname">'+
-												'<span> Master Card *********3654</span>'+
-											'</div>'+
-											'<div class="col-10">'+
-												'<div class="icon-right linkcolor" id="close">'+
-													'<i class="icon ion-close-circled"></i>'+ 
-												'</div>'+
-											'</div>'+
-										'</div>'+
-										'<div class="row">'+
-											'<div class="col col-80">'+												
-												'<div class="row">'+
-									  			'<div class="col col-20">'+
-									  				'Name'+
-									  			'</div>'+
-									  			'<div class="col col-60">'+
-													'<label class="item item-input item-floating-label">'+
-														'<input type="text" ng-readonly="Street" autofocus="" ng-model="person.street" class="inputbox1">'+
-													'</label>'+
-													'{{first.street}}'+
-									  			'</div>'+
-									  			'<div class="col col-20 linkcolor" ng-click="Street()">'+
-									  				'Edit'+
-									  			'</div>'+
-									  		'</div>'+
-												'<div class="row">'+
-									  			'<div class="col col-20">'+
-									  				'Number'+
-									  			'</div>'+
-									  			'<div class="col col-60">'+
-													'<label class="item item-input item-floating-label">'+
-														'<input type="text" ng-readonly="pobox" autofocus="" ng-model="person.pobox" class="inputbox1">'+
-													'</label>'+
-									  			'</div>'+
-									  			'<div class="col col-20 linkcolor" ng-click="pobox()">'+
-									  				'Edit'+
-									  			'</div>'+
-									  		'</div>'+
-												'<div class="row">'+
-									  			'<div class="col col-20">'+
-									  				'CV Code'+
-									  			'</div>'+
-									  			'<div class="col col-60">'+
-												'<label class="item item-input item-floating-label">'+
-												'<input type="text" ng-readonly="Flat" autofocus="" ng-model="person.Flat" class="inputbox1" readonly="">'+
-													'</label>'+
-									  			'</div>'+
-									  			'<div class="col col-20 linkcolor" ng-click="Flat()">'+
-									  				'Edit'+
-									  			'</div>'+
-									  		'</div>'+
-												'<div class="row">'+
-									  			'<div class="col col-20">'+
-									  				'Expiry'+
-									  			'</div>'+
-									  			'<div class="col col-60">'+
-												'<label class="item item-input item-floating-label">'+
-												'<input type="text" ng-readonly="Flat" autofocus="" ng-model="person.Flat" class="inputbox1" readonly="">'+
-													'</label>'+
-									  			'</div>'+
-									  			'<div class="col col-20 linkcolor" ng-click="Flat()">'+
-									  				'Edit'+
-									  			'</div>'+
-									  		'</div>'+
-											'</div>'+
-											'<div class="col col-20 ion-list">'+
-												'<p>DELIVER HERE</p>'+
-												'<input type="checkbox" class="checkboxdesign" name="">'+
-											'</div>'+
-										'</div>'+
-	    						  '</div>';
-
-	    		$('.paymentmethod1').append(paymentmethod);
-	    	});
-
-	    });
-
-</script>
- -->
-
-<script type="text/javascript">
-		
-</script>
-
-
 
 <div ng-controller="PaymentmethodCtrl" class="paymentmethod">
+
+	<div class="ion-content mainpaymentmethod">
 	
-	<div class="bar bar-header bar-balanced">
+		<div class="bar bar-header bar-balanced">
 
-	  <a href="dashboard">
-	  	<button class="button button-icon icon ion-android-arrow-back"></button>
-	  </a>
+		  <a href="dashboard">
+		  	<button class="button button-icon icon ion-android-arrow-back"></button>
+		  </a>
 
-	  <div class="h1 title"> Payment </div>	
+		  <div class="h1 title"> Payment </div>	
 
-	</div>	
+		</div>	
 
-	<div class="row topmargin"></div>
+		<div class="row topmargin"> </div>
 
-	<div class="list card paymentmethod1">
 
-		<div class="item item-body paymentmethod2" ng-repeat="card in cards">
 
-			<div class="row">
+		<div class="row">
 
-				<div class="col-90 cardname">
-					<span> {{card.cardname}} {{card.cardnumber}}</span>
-				</div>
-				<div class="col-10">
-					<div class="icon-right linkcolor" ng-click="close()">
-						<i class="icon ion-close-circled"></i> 
-					</div>
-				</div>
+			<div class="col"> 
 
-			</div>
+				<div class="list card" ng-repeat="card in cards">
 
-			<div class="row">
+					<div class="item headingfont">
 
-				<div class="col col-80">
+						<div class="row rowbtn">
+
+							<div class="col col-80 col1">
 					
-					<div class="row">
-		  			<div class="col col-20">
-		  				Name
-		  			</div>
-		  			<div class="col col-60">
-						<label class="item item-input item-floating-label">
-							<input type="text" ng-model="card.Name" class="inputbox1" readonly="">
-						</label>
-		  			</div>
-		  			<div class="col col-20 linkcolor" ng-click="Name()">
-		  				Edit
-		  			</div>
-		  		</div>
-					<div class="row">
-		  			<div class="col col-20">
-		  				Number
-		  			</div>
-		  			<div class="col col-60">
-						<label class="item item-input item-floating-label">
-							<input type="text" ng-model="card.Number" class="inputbox1" readonly="">
-						</label>
-		  			</div>
-		  			<div class="col col-20 linkcolor" ng-click="Number()">
-		  				Edit
-		  			</div>
-		  		</div>
-					<div class="row">
-		  			<div class="col col-20">
-		  				CV Code
-		  			</div>
-		  			<div class="col col-60">
-						<label class="item item-input item-floating-label">
-							<input type="text" ng-model="card.cvcode" class="inputbox1" readonly="" >
-						</label>
-		  			</div>
-		  			<div class="col col-20 linkcolor" ng-click="cvcode()">
-		  				Edit
-		  			</div>
-		  		</div>
-					<div class="row">
-		  			<div class="col col-20">
-		  				Expiry
-		  			</div>
-		  			<div class="col col-60">
-						<label class="item item-input item-floating-label">
-							<input type="text" ng-model="card.Expiry" class="inputbox1" readonly="">
-						</label>
-		  			</div>
-		  			<div class="col col-20 linkcolor" ng-click="Expiry()">
-		  				Edit
-		  			</div>
-		  		</div>
-				</div>
+								{{card.cardname}} {{card.cardnumber}}
 
-				<div class="col col-20 ion-list">
-					<p>DELIVER HERE</p>
-				<input type="checkbox" class="checkboxdesign" name="">
+							</div>
+
+							<div class="col col-20 col2">
+								<a href="#" class="ankartag1">
+								  	<i class="icon icon ion-close-circled deletebtn"></i>
+								</a>
+							</div>
+
+						</div> 	
+					  	
+					</div>
+
+					<div class="item item-icon-left bodyfont">
+						<div class="row bodyfont1">
+							<div class="col list bodyfont2"> 								
+								<label class="item item-input">
+									<span class="input-label">Name</span>
+									<input type="text" ng-model="card.Name" class="inputbox1">
+								</label>
+							</div>
+						</div>
+						<div class="row bodyfont1">
+							<div class="col list bodyfont2"> 								
+								<label class="item item-input">
+									<span class="input-label">Number</span>
+									<input type="text" ng-model="card.Number" class="inputbox1">
+								</label>
+							</div>
+						</div>
+						<div class="row bodyfont1">
+							<div class="col list bodyfont2"> 								
+								<label class="item item-input">
+									<span class="input-label">Cv Code</span>
+									<input type="text" ng-model="card.cvcode" class="inputbox1">
+								</label>
+							</div>
+						</div>
+						<div class="row bodyfont1">
+							<div class="col list bodyfont2"> 								
+								<label class="item item-input">
+									<span class="input-label">Expiry</span>
+									<input type="text" ng-model="card.Expiry"  class="inputbox1">
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="item borderremove">
+
+						<div class="row rowbtn">
+
+							<div class="col col1">
+					
+								<label class="container">Lorem Ipsum is simply
+								  <input type="checkbox" checked="checked">
+								  <span class="checkmark"></span>
+								</label>
+
+							</div>
+
+						</div> 	
+
+					</div>
+
 				</div>
 
 			</div>
 
 		</div>
 
-		<div class="item item-body linkcenter">
-			<a href="#" class="linkpaymentmethod">
-				<i class="icon ion-plus"> </i>	  
-				ADD ANOTHER PAYMENT TYPE	
-			</a>
-		</div>
+		<div class="bar bar-footer bar-balanced">
+		  <!-- <div class="title">Footer</div> -->
+
+			<div class="row">
+
+				<div class="col footerbtnlink">
+
+					<a href="#" class="linkpaymentmethod">
+						<i class="icon ion-plus"> </i>	  
+						ADD ANOTHER PAYMENT TYPE	
+					</a>
+
+			     </div>	
+
+			</div>
+
+		</div> 	
 
 	</div>
 

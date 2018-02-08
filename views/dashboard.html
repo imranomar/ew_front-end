@@ -24,7 +24,7 @@
 
 	<div ng-controller="DashboardCtrl" class="dashboard">
 
-		<div class="ion-content" id="div1">
+		<div class="ion-content maindashboard" id="div1">
 
 			<div class="bar bar-header bar-balanced">
 
@@ -32,73 +32,91 @@
 
 			  <div class="h1 title">EASY WASH </div>
 
-			  <button class="button button-clear button-positive" style="color: white;">	  	
+			  <button class="button button-clear button-positive callbtn">	  	
 			    <i class="icon ion-ios-telephone-outline"></i>
 			  </button>
 
 			</div>
+			
+			<div class="row topmargin">
+				
+			</div>
 
-			<div class="row" style="margin-top: 40px;">
+			<div class="row">
 
 				<div class="col"> 
 
-					<div class="card">
-					  <div class="item item-text-wrap">
-					    This is a basic Card which contains an item that has wrapping text.
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="item item-text-wrap">
-					    This is a basic Card which contains an item that has wrapping text.
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="item item-text-wrap">
-					    This is a basic Card which contains an item that has wrapping text.
-					  </div>
-					</div>
-					<div class="card">
-					  <div class="item item-text-wrap">
-					    This is a basic Card which contains an item that has wrapping text.
-					  </div>
+					<div class="list card" ng-repeat="a in [1,2,3,4]">
+
+					  <a href="#" class="item item-icon-left headingfont">
+					    <i class="icon ion-model-s"></i>
+					     Pickup Tommorow
+					  </a>
+
+					  <a href="#" class="item item-icon-left bodyfont">
+					    <i class="icon ion-ios-clock-outline"></i>
+					    09:00 to 12:00
+					  </a>
+
+					  <a href="#" class="item item-icon-left borderremove1 bodyfont">
+					    <i class="icon ion-ios-calendar-outline"></i>
+					    17-Feb-2018 Thu
+					  </a>
+
+
+					  <a href="#" class="item borderremove">
+					    	View				    	
+					  </a>
+
 					</div>
 
 				</div>
 
 			</div>
 
+			<!-- 			
 			<div class="row">
 
-				<div class="col" style="text-align: center;"></div>
 
-				<div class="">
-					<button class="button button-full button-light" style="border: 1px solid;">
+				<div class="col pickupmylaundrycol">
+					<button class="button button-full button-light pickupmylaundry" style="border: 1px solid;">
 					  Pickup My Laundry!
 					</button>
 			     </div>	
 
-				<div class="col" style="text-align: center;">
-			    </div>	
-
 			</div>
 
 			<div class="row">
-
-				<div class="col" style="text-align: center;"></div>
-
-				<div class="col" style="text-align: center;">
-					<a href="/LaundryApp/#!/pricing" class="button" style="color: blue;">
+				<div class="col pricingbtn">
+					<a href="/LaundryApp/#!/pricing" class="pricingbtn1">
 					  Pricing
 					</a>
 			     </div>	
+			</div> 
+			-->
 
-				<div class="col" style="text-align: center;"></div>
 
-			</div>
 			
 			<div class="bar bar-footer bar-balanced">
-			  <div class="title">Footer</div>
-			</div>
+			  <!-- <div class="title">Footer</div> -->
+
+				<div class="row">
+
+					<div class="col footerbtnlink">
+						<a href="#">
+						  Pickup My Laundry!
+						</a>
+				     </div>	
+
+					<div class="col footerbtnlink">
+						<a href="/LaundryApp/#!/pricing">
+						  Pricing
+						</a>
+				     </div>	
+
+				</div>
+
+			</div> 		
 
 
 		</div>
@@ -166,6 +184,16 @@
 							<a href="aboutus" class="menulink4"> 
 								<i class="icon ion-eye-disabled"></i> 
 								About Easy Wash 
+							</a>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col">
+							<a href="notification" class="menulink4"> 
+								<i class="icon ion-eye-disabled"></i> 
+								Notification 
 							</a>
 						</div>
 					</div>
