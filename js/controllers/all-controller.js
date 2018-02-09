@@ -138,11 +138,26 @@ app.controller('NotificationCtrl',function ($scope) {
 	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 8:00 AM','date':'Thu 17th August 2017'
 	 	  	},
 	 	  	{
+	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 8:00 AM','date':'Thu 17th August 2017'
+	 	  	},
+	 	  	{
+	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 8:00 AM','date':'Thu 17th August 2017'
+	 	  	},
+	 	  	{
+	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 8:00 AM','date':'Thu 17th August 2017'
+	 	  	},
+	 	  	{
 	 	  	'todayname':'LAUNDRY PICKUP TODAY','timing':'AT 3:00 AM','date':'Thu 17th August 2017'
 	 	  	}
  	   ];		
 
  	   $scope.laundrypickup = [
+	 	  	{
+	 	  		'todayname':'LAUNDRY PICKUP','timing':'IN 1 HOUR!'
+	 	  	},
+	 	  	{
+	 	  		'todayname':'LAUNDRY PICKUP','timing':'IN 1 HOUR!'
+	 	  	},
 	 	  	{
 	 	  		'todayname':'LAUNDRY PICKUP','timing':'IN 1 HOUR!'
 	 	  	}
@@ -240,4 +255,20 @@ app.controller('PaymentmethodCtrl',function($scope){
 
 app.controller('FinaldateCtrl',function($scope){
 	console.log('FinaldateCtrl');
+})
+
+
+
+// Load Controller of MyeditCtrl
+
+app.controller('MyeditCtrl',function($scope,$routeParams){
+	$scope.message = 'Clicked person name from home page should be dispalyed here';
+	$scope.person = $routeParams.person;
+	console.log($scope.person);
+
+	$scope.persondata=[];
+
+	$scope.myeditsave =function() {
+		console.log($scope.persondata);
+	}
 })

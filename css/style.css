@@ -57,7 +57,6 @@
     	margin-right: 17px;
 	    margin-top: 10px;	
 	    margin-bottom: 0;
-		/*border-bottom: 1px solid darkgreen;*/
 
 	}
 
@@ -175,10 +174,10 @@
 	}
 
 	/* Shared */
+
 	.signinpage .loginBtn {
 	  box-sizing: border-box;
 	  position: relative;
-	  /* width: 13em;  - apply for fixed size */
 	  margin: 0.2em;
 	  padding: 0 15px 0 46px;
 	  border: none;
@@ -317,7 +316,6 @@
 	    margin-top: 24px;	
 	    margin-bottom: 0;
 	    border-radius:4px;
-		/*border-bottom: 1px solid darkgreen;*/
 
 	}
 
@@ -339,7 +337,6 @@
 	.signuppage .loginBtn {
 	  box-sizing: border-box;
 	  position: relative;
-	  /* width: 13em;  - apply for fixed size */
 	  margin: 0.2em;
 	  padding: 0 15px 0 46px;
 	  border: none;
@@ -428,7 +425,6 @@
 	.forgetpage a {
 	    color: #676767;
 	    text-decoration: blink;
-	    /*font-weight: 600;*/
 	    letter-spacing: 0.2px;
 	}
 
@@ -443,15 +439,11 @@
 	}
 	.forgetpage .forgetbtn{
 	    text-align: center;
-	    /* margin-left: 20px; */
-	    /* margin-right: 20px; */
-	    /* margin-top: 0; */
 	    margin-bottom: 0;
 	    padding: 0;
 	}
 
 	.forgetpage .row1{    
-		/*margin-top: 45px;*/
     	padding: 0px;
 	}
 	.forgetpage .logintran{		
@@ -521,8 +513,8 @@
 	.dashboard .maindashboard{			
 	    background: #f2f3f3;
 	    height: 100%;
-		overflow-x: hidden; /* Hide horizontal scrollbar */
-    	overflow-y: scroll; /* Add vertical scrollbar */
+		overflow-x: hidden; 
+    	overflow-y: scroll; 
 	}
 	.maindashboard .pricingbtn{
 		text-align: center;
@@ -536,6 +528,11 @@
 	.dashboard .maindashboard .topmargin{
 		height: 40px;
 	}
+
+	.dashboard .bottommargin{
+		height: 18px;
+	}
+
 
 	.maindashboard .pricingbtn .pricingbtn1{			
 	    color: #27b32d;
@@ -581,13 +578,25 @@
 	    font-size: large;
 	}
 
-	.dashboard .footerbtnlink {
+	.dashboard .footerbtnlink1 {
+		text-align: center;	
+		border-right: 1px solid
+	}
+
+	.dashboard .footerbtnlink1 a{
+	    color: white;
+	    text-decoration: blink;	    
+	    letter-spacing: 0.5px;	
+	}
+
+	.dashboard .footerbtnlink2 {
 		text-align: center;	
 	}
 
-	.dashboard .footerbtnlink a{
+	.dashboard .footerbtnlink2 a{
 	    color: white;
-	    text-decoration: blink;		
+	    text-decoration: blink;	
+	    letter-spacing: 0.5px;	
 	}
 
 	.dashboard .headingfont{		
@@ -603,6 +612,7 @@
 
 
 	/*Load css of pricing page */
+
 	.pricingpage{		
 		width: 100%;
 		height: 100%;
@@ -612,23 +622,52 @@
 	.pricingpage .mainpricingpage{			
 	    background: #f2f3f3;
 	    height: 100%;
-		overflow-x: hidden; /* Hide horizontal scrollbar */
-    	overflow-y: scroll; /* Add vertical scrollbar */
+		overflow-x: hidden; 
+    	overflow-y: scroll; 
 	}
 
-	/*	
-	.pricingpage .mainpricingpage .topmargin{
-		height: 40px;
+	.pricingpage .heading{		
+	    font-size: medium;
+	    letter-spacing: 0.5px;    
+	    padding: 20px;
 	}
-	*/
+
+	.pricingpage .ion-pound:before {
+	    content: "";
+	    color: #33cd5f;
+	}
+
+	.ion-ios-star:before {
+	    content: "";
+	    color: #33cd5f;
+	}
+
+	.pricingpage .heading1{		
+	    font-size: inherit;
+	    letter-spacing: 0.5px;
+	}
+
+	.pricingpage .topmargin{
+		height: 43px;
+	}
+
+	.pricingpage .bottommargin{
+		height: 43px;
+	}	
+
+	.pricingpage .ion-ios-pricetag-outline:before {
+	    content: "";
+	    color: #33cd5f;
+	    font-size: medium;
+	}
+	
+	
 
 	.pricingpage .vl {
 	    border-left: 2px solid green;
 	    height: 100%;
 	}
 	.pricingpage .row1{
-	    margin-top: 33px;
-	    margin-bottom: 10px;
 	    padding: 0;
 	}
 
@@ -651,6 +690,11 @@
 	    margin-left: -5px;
     	font-size:large;
 	}
+
+	
+
+
+
 
 	/*Load css of aboutus page */
 
@@ -751,12 +795,33 @@
 
 
    /* Load css of my details page */
-   .mydetails{
-		padding: 0;
-		margin: 0;
-   }
-   .mydetailspage .row1{
-		margin-top: 40px;
+
+   	.mydetailspage{		
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+
+	.mydetailspage .mainmydetailspage{			
+	    background: #f2f3f3;
+	    height: 100%;
+		overflow-x: hidden; 
+    	overflow-y: scroll; 
+	}
+
+	.mydetailspage .topmargin{
+		height: 49px;
+	}
+
+	.mydetailspage .bottommargin{
+		height: 43px;
+	}
+
+	.mydetailspage .name1{
+
+	}
+
+  .mydetailspage .row1{
 		margin-bottom: 0;
 		margin-left: 0;
 		margin-right: 0;
@@ -773,7 +838,7 @@
 		border: 0;
 		padding: 0;
 	}
-	.mydetailspage .mydetailsform1{
+ 	.mydetailspage .mydetailsform1{
 		padding: 0;
 	}
 	.mydetailspage .ion-plus-round{
@@ -795,55 +860,53 @@
 		border: 0;
 		padding: 0;
 	}
+	.mydetailspage .mydetailheading{		
+	    font-size: large;
+	    letter-spacing: 0.5px;
+	}
+	.mydetailspage .item-icon-right .icon {
+	    right: 21px;
+	}
 
 	.mydetailspage .Personal{
-		padding: 0;
 		margin: 0;
 	}
 	.mydetailspage .Personal1{
-		padding: 0;
-		margin: 0;
+
 	}
 	.mydetailspage .Personal1self{
-		padding: 0;
-		margin-top: 0;
-		margin-bottom: 6px;
-		margin-left: 0;
-		margin-right: 0;
-	}
-	.mydetailspage .name1{
-		padding: 0;
-		margin-left: 4px;
-		margin-top: 15px;
-	}
-	.mydetailspage .name2{
-		padding: 0;
-		margin-top: 0;
+
 	}
 
-	.mydetailspage .inputbox{		
-		margin-top: 5px;	
-		margin-bottom: 5px;
-	}
-
-	.mydetailspage .link{
-		text-decoration: none;
-	}
-
-	.mydetailspage .item-input{
-		padding: 0;
-	}
 
 
 
 /*Load Notification of Css*/
 
-   .Notification{
-		padding: 0;
-		margin: 0;
-   }
+	.Notification{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+
+	.Notification .mainNotification{			
+	    background: #f2f3f3;
+	    height: 100%;
+		overflow-x: hidden; 
+    	overflow-y: scroll; 
+	}
+
+	.Notification .topmargin{
+		height: 43px;
+	}
+
+
+	.Notification .bottommargin{
+		height: 43px;
+	}
+
+
    .Notification .row1{
-		margin-top: 30px;
 		margin-bottom: 0;
 		margin-left: 0;
 		margin-right: 0;
@@ -872,13 +935,49 @@
     	font-size: larger;
 	}
 
+	.Notification .item-icon-left .icon:before, .item-icon-right .icon:before {
+	    display: block;
+	    width: 12px;
+	    text-align: center;
+	    font-size: x-large;
+	    color: #33cd5f;   
+	    margin-top: -2px;
+	}
+
+	.Notification p{		
+	    font-size: 12px;
+	    letter-spacing: 0.5px;
+	}
+
+	.Notification .heading{			
+	    font-size: small;
+	    letter-spacing: 0.5px;
+	}
+
+	.Notification .listnotification{
+		background-color: #f2f3f3;
+	}
+	.Notification .listnotification1{
+		background-color: #f2f3f3;
+		padding-left: 55px;		
+	    padding-bottom: 7px;
+	    padding-top: 7px;
+    }
+
+	.Notification .card, .list-inset {
+	    overflow: hidden;
+	    margin: 10px 10px;
+	    border-radius: 2px;
+	    background-color: #fff;
+	}
+
 	.Notification .ion-email:before {
 	    content: "";
 	    margin-top: -100px;
 	}
 
 	.Notification .row1 .col1 .ntfborder{			
-		border: 1px solid;
+		/*border: 1px solid;*/
 	}
 
 
@@ -913,7 +1012,7 @@
 	}
 
 	.Notification .row2 .col2 .ntfborder2{			
-		border: 1px solid;
+		/*border: 1px solid;*/
 	}
 
 
@@ -934,6 +1033,10 @@
 	}
 	.Address .topmargin{
 		margin-top: 30px;
+	}
+
+	.Address .bottommargin{
+		margin-top: 4px;
 	}
 
 	.Address .ion-close-circled:before {
@@ -1097,7 +1200,6 @@
 	    width: 100%;
 	    padding: 4px;
 	    border-bottom: 1px solid slategray;
-	    /*border-radius: 10px;*/
 	    margin-right: 9px;
 	}
 
@@ -1121,73 +1223,6 @@
 	}
 
 
-/*
-
-	.Address .Address1{
-		margin: 0;
-	}
-	.Address .Address1 .address2{
-		margin: 0;
-		padding: 0;
-	}
-	.Address .Address1 .address2 .row{
-		margin: 0;
-		padding: 0;
-	}
-	.Address .Address1 .address2 .row .col-80{
-		margin: 0;
-		padding: 0;
-	}
-
-	.Address .Address1 .address2 .row .col-80 .row .col-20{
-	    margin-top: 11px;
-	    font-size: medium;
-	    color: darkcyan;
-	    text-align: center;
-	}
-
-	.Address .Address1 .address2 .row .col-20{
-    	margin-top: 40px;
-	}
-
-
-	.Address .Address1 .address2 .row .col-80 .row .col-60 .inputbox1{
-	    margin: 0;
-	    width: 100%;
-	    padding: 4px;
-	    border: 1px solid slategray;
-	    border-radius: 10px;
-	}
-
-
-	.Address .Address1 .anotheraddress{
-		margin: 0;
-		padding: 0;
-		text-align: center;
-	}
-
-	.Address .Address1 .linkaddress{
-		text-decoration: none;		
-    	color: #33CD5F;
-	}
-
-	.Address .Address1 .linkcenter{
-		text-align: center;
-	}
-
-	.Address .Address1 .address2 .row .col-80 .row .linkcolor{
-		color: #33CD5F;
-	}
-
-
-	.Address .Address1 .address2 .checkboxdesign{
-		width: 25px;
-		height: 33px;
-		margin-top: -15px;
-	}
-
-
-	*/
 
 
 /* Load css of Delivery Date*/ 
@@ -1209,34 +1244,51 @@
 		height: 55px;
 	}
 
-	.Deliverydate .row .col{
-	    text-align: center;
-	    border-radius: 0%;
-	    background-color: darkgray;
-	    border: 1px solid dimgray;
-	    margin-left: 40px;
-	    margin-right: 40px;
-    	margin-bottom: 20px;
-   		height: 90px;
-    	opacity: 0.5;
+	.Deliverydate .bottommargin{
+		height: 43px;
 	}
+
+
+	.Deliverydate .row .col{    
+		text-align: center;
+		border-radius: 3%;
+		background-color: #fff;
+		border: 1px solid #33cd5f;
+		margin-left: 76px;
+		margin-right: 76px;
+		margin-bottom: 20px;
+		opacity: 1.5;
+	}
+
+	.Deliverydate .h2{		
+	    font-size: medium;
+	    color: #33cd5f;
+	}
+	.Deliverydate .h3{		
+	    font-size: medium;
+	    color: #33cd5f;
+	}
+
 	.Deliverydate .ion-social-usd-outline:before {
 	    content: "";
 	    color: white;
 	}
+
 	.Deliverydate .ion-plus:before {
 	    content: "";
 	    color: aliceblue;
 	}
-	.Deliverydate .iconsstyle{		
-	    border: 1px solid dimgray;
+
+	.Deliverydate .iconsstyle {
+	    border: 1px solid #33cd5f;
 	    padding: 4px;
 	    float: right;
 	    transform-style: preserve-3d;
-	    background-color: darkgray;
-	    color: white;
-		margin-top: -67px;
-		margin-right: -33px;
+	    background-color: #33cd5f;
+	    color: #fff;
+	    margin-top: -49px;
+	    margin-right: -34px;
+    	border-radius: 11%;
 	}
 
 	.Deliverydate .marginrow{
@@ -1442,6 +1494,10 @@
 		height: 35px;
 	}
 
+	.paymentmethod .bottommargin{
+		height: 15px;
+	}
+
 	.paymentmethod .bodyfont{			
 	    padding: 0;
 	    margin: 0;
@@ -1492,10 +1548,6 @@
 
 
 	.paymentmethod .deletebtn{		
-/*	    margin-top: -5px;
-	    color: #33cd5f;
-    	margin-left: 17px;*/
-
 	    margin-top: 17px;
 	    color: #33cd5f;
 	    margin-left: 17px;
@@ -1504,7 +1556,6 @@
 
 	.paymentmethod .input-label {
 	    display: table;
-	    /* padding: 7px 10px 7px 0px; */
 	    max-width: 200px;
 	    width: 35%;
 	    color: #444;
@@ -1519,12 +1570,12 @@
 	    display: -moz-flex;
 	    display: -ms-flexbox;
 	    display: flex;
-	    /* padding: 5px; */
 	    width: 100%;
 	}
 
 
 	/*Checkbox related */
+
 	.paymentmethod .container {
 	    display: block;
 	    position: relative;
@@ -1597,7 +1648,6 @@
 	    width: 100%;
 	    padding: 4px;
 	    border-bottom: 1px solid slategray;
-	    /*border-radius: 10px;*/
 	    margin-right: 9px;
 	}
 
@@ -1608,9 +1658,6 @@
 	    border-bottom: 1px solid green;
 	    margin-right: 9px;
 	}
-
-
-
 
 	.paymentmethod .paymentmethod1 .paymentmethod2{
 		margin: 0;
@@ -1688,7 +1735,7 @@
 
 
 /* Load css of myorder page */
-	
+
 	.myorder{
 		width: 100%;
 		height: 100%;
@@ -1706,40 +1753,84 @@
 		height: 35px;
 	}
 
-/*
-	.myorder .orderlist{	
-	    padding: 0px;
-	    margin: 0px;
+	.myorder .bottommargin{
+		height: 35px;
+	}
+	.myorder .orderlist{
+		padding: 0;
+	}
+	.myorder .orderlistbody{
+		padding: 0;
+		margin-top: -1px;
+	}
+	.myorder .orderlistbody1pickup{
+		border-right: 1px solid #ddd;
+		padding: 0;
+		margin-top: -15px;
+	}
+	.myorder .orderlistbody1delivery{
+		padding-left: 11px;
+		margin-top: -15px;
 	}
 
-	.myorder .orderlist .orderlistbody{
-		margin-left: 0px;
-		margin-right: 0px;
-		padding-left: 0px;
-		padding-right: 0px;
+	.myorder .ion-ios-close-outline:before {
+	    content: "";
+	    font-size: x-large;
+	    color: #33cd5f;
+	}
+	.myorder .ion-ios-plus-outline:before {
+	    content: "";
+	    font-size: large;
+	    color: #33cd5f;
 	}
 
-	.myorder .orderlistbody1pickup{	
-	    border-right: 1px solid;
-	    margin-bottom: -21px;
-	    margin-top: -10px;
-	}
-	.myorder .orderlistbody1delivery{	
-	    margin-bottom: -21px;
-	    margin-top: -10px;
-	}
-
-	.myorder .orderlistbodypickup{	
-	    border-right: 1px solid;
-	    margin-bottom: -21px;
-	    margin-top: -21px;
+	.myorder .orderlistbodypickup{
+		border-right: 1px solid #ddd;
 	}
 
 	.myorder .orderlistbodydelivery{
-	    margin-bottom: -21px;
-	    margin-top: -21px;
+		padding-left: 10px;
+
 	}
-*/
+
+	.myorder .para1{		
+	    font-size: small;
+	    letter-spacing: 0.5px;
+	    font-weight: 600;    
+	    color: #33cd5f;
+	}
+
+	.myorder .closeankartag{	
+	    position: absolute;
+	    top: 0;
+	    right: 0;
+	    padding: 5px;
+	}
+
+	.myorder .pickupheading{
+		padding-top: 5px;
+	}
+
+	.myorder .borderdotdot{		
+	    border-bottom: 1px dotted;
+	    letter-spacing: 0.5px;
+	    font-size: small;
+	}
+
+	.myorder .para2heading{	
+		margin-top: 19px;	
+	    margin-bottom: -18px
+	}
+
+	.myorder .para2headingmargin{
+		margin-top: -11px;
+	    font-size: small;
+	    letter-spacing: 0.5px;
+	}
+
+	.myorder .colmargin{
+		margin-top: -15px;
+	}
 
 
 
@@ -1747,20 +1838,140 @@
 	/* Load css of final date as selecttimefinal.html page is include */
 
 	.finaldate{
-		margin: 0;
-		padding: 0;
-	    overflow-y: auto;
-	    height: 768px;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	
+	.finaldate .mainfinaldate{			
+	    background: #f2f3f3;
+	    height: 100%;
+		overflow-x: hidden;
+    	overflow-y: scroll;
+	}
+
+	.finaldate .topmargin{
+		height: 49px;
+	}
+
+	.finaldate .bottommargin{
+		height: 36px;
+	}
+
+	.finaldate .headingfinal{		
+	    margin-top: -4px;
+	    font-size: large;
+	    text-align: -webkit-center;
+	    letter-spacing: 1.5px;
 	}
 
 	.finaldate .finaldate1{
 		background-color: #ddd;
-	    margin-top: 45px;
 	    margin-left: 0;
 	    margin-right: 0;
 	    margin-bottom: 0;
 	    padding: 0;
+	    margin-top: -20px;
 	}
 	.finaldate .finaldate1col{
 		padding: 0px;
+	}
+
+
+	/*Checkbox related */
+	.finaldate .container {
+	    display: block;
+	    position: relative;
+	    padding-left: 38px;
+	    margin-bottom: 0px;
+	    cursor: pointer;
+	    font-size: 15px;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    letter-spacing: 0.5px;
+	}
+
+	/* Hide the browser's default checkbox */
+	.finaldate .container input {
+	    position: absolute;
+	    opacity: 0;
+	    cursor: pointer;
+	}
+
+	/* Create a custom checkbox */
+	.finaldate .checkmark {
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    height: 20px;
+	    width: 20px;
+	    background-color: #eee;
+	}
+
+	/* On mouse-over, add a grey background color */
+	.finaldate .container:hover input ~ .checkmark {
+	    background-color: #ccc;
+	}
+
+	/* When the checkbox is checked, add a blue background */
+	.finaldate .container input:checked ~ .checkmark {
+	    background-color: #33cd5f;
+	}
+
+	/* Create the checkmark/indicator (hidden when not checked) */
+	.finaldate .checkmark:after {
+	    content: "";
+	    position: absolute;
+	    display: none;
+	}
+
+	/* Show the checkmark when checked */
+	.finaldate .container input:checked ~ .checkmark:after {
+	    display: block;
+	}
+
+	/* Style the checkmark/indicator */
+	.finaldate .container .checkmark:after {
+	    left: 8px;
+	    top: 4px;
+	    width: 5px;
+	    height: 11px;
+	    border: solid white;
+	    border-width: 0 3px 3px 0;
+	    -webkit-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	    transform: rotate(45deg);
+	}
+
+
+
+	/* Load css of final date as myedit.html page is include */
+
+	.myedit{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	
+	.myedit .mainmyedit{			
+	    background: #f2f3f3;
+	    height: 100%;
+		overflow-x: hidden;
+    	overflow-y: scroll;
+	}
+	.myedit .topmargin{
+		height: 49px;
+	}
+
+	.myedit .bottommargin{
+		height: 36px;
+	}
+
+	.myedit .button.button-positive {
+	    border-color: transparent;
+	    background-color: #18c74a;
+	    color: #fff;
+	    border-radius: 11px;
 	}

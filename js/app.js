@@ -64,6 +64,10 @@ app.config(function($routeProvider,$locationProvider) {
   	templateUrl: 'views/selecttimefinal.html',
   	controller: 'FinaldateCtrl'
   })
+  .when('/myedit/:person',{
+  	templateUrl: 'views/myedit.html',
+  	controller: 'MyeditCtrl'
+  })
   .otherwise({
     redirectTo: '/login'
   });
@@ -74,6 +78,12 @@ app.config(function($routeProvider,$locationProvider) {
 
 
 });
+
+// route for the about page
+// .when('/about/:person', {
+//     templateUrl : 'pages/about.html',
+//     controller  : 'aboutController'
+// })
 
 app.directive('itemFloatingLabel', function() {
   return {
