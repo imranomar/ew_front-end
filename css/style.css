@@ -142,20 +142,25 @@
 	}
 
 	.signinpage .linklogin11 {
-	    text-decoration: none;
-	    color: #000;
-   		margin-right: 11px;
+   		margin-right: 11px;   		
+	    color: #676767;
+	    text-decoration: blink;
+	    letter-spacing: 0.2px;
+	    font-weight: 600;
 	}
 
 	.signinpage .linklogin1 {
 	    text-decoration: none;
-	    color: #000;
+	    color: #676767;
 	    font-weight: 600;
 	}
 
 	.signinpage .link .linklogin{
 		text-align: center;
     	margin-bottom: 17px;
+	    color: #676767;
+	    text-decoration: blink;
+	    letter-spacing: 0.2px;
 
 	}
 	.signinpage .link .loginlink{
@@ -789,6 +794,12 @@
 	  width: 100%;
 	}
 
+	.faqpage .item.item-stable {
+	    border-color: #b2b2b2;
+	    background-color: #fff;
+	    color: #444;
+	}
+
 
 
 
@@ -955,10 +966,10 @@
 	}
 
 	.Notification .listnotification{
-		background-color: #f2f3f3;
+		background-color: #fff;
 	}
 	.Notification .listnotification1{
-		background-color: #f2f3f3;
+		background-color: #fff;
 		padding-left: 55px;		
 	    padding-bottom: 7px;
 	    padding-top: 7px;
