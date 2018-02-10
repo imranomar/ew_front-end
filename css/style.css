@@ -1071,6 +1071,24 @@
 	    padding: 0;
 	    margin: 6px 0px;
 	}
+
+	.Address .backgroundfont{
+		font-size: smaller;
+	}
+
+	.Address .coleditbtnb{		
+	    text-align: -webkit-right;
+	    padding-top: 11px;
+	    padding-right: 7px;
+	}
+
+	.Address .coleditbtnb a{		
+	    text-align: -webkit-right;
+	    padding-top: 11px;
+	    padding-right: 7px;
+	    color: #33cd5f;
+	}
+
 	.Address .borderremove{
 		padding: 0;
 	}
@@ -1510,6 +1528,25 @@
 	    padding: 0;
 	    margin: 6px 0px;
 	}
+
+	.paymentmethod .backgroundfont{
+		font-size: smaller;
+	}
+
+	.paymentmethod .coleditbtnb{		
+	    text-align: -webkit-right;
+	    padding-top: 11px;
+	    padding-right: 0px;
+	    font-size: larger;
+	}
+	.paymentmethod .coleditbtnb a{		
+	    text-align: -webkit-right;
+	    padding-top: 11px;
+	    padding-right: 7px;
+	    color: #33cd5f;
+	}
+
+
 	.paymentmethod .borderremove{
 		padding: 0;
 	}
