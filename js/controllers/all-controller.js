@@ -2,12 +2,26 @@
 
  //Login of Controller
 
- app.controller('LoginCtrl', function($scope,$location){
- 	$scope.logindata=[];
+ app.controller('LoginCtrl', function($scope,$location,$http){
+ 	
+ 	$scope.logindata={};
 	$scope.loginsubmit = function () {
-		$location.path('/dashboard');
-		console.log($scope.logindata);
-	}
+		// $location.path('/dashboard');
+		// console.log($scope.logindata);
+		// console.log("helloqwerty");
+       $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/authenticate?email=usman@gmail.com&password=usman123')
+       .then(function(res){
+       	   console.log("success");
+       	    console.log(res);
+
+       }).catch(function(err){
+             console.log("error");
+             console.log(err);
+       });
+
+
+			
+	}		
 
  });
 
