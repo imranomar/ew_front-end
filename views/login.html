@@ -27,15 +27,17 @@
 				    <input type="email" placeholder="Email" ng-model="logindata.email" autofocus="" class="logininputborder">
 				  </label>
 
+
 				  <label class="item item-input item-floating-label logininput">
 				    <span class="input-label">Password</span>
 				    <!-- <input type="password" required="" autofocus="" class="logininputborder"> -->
 				    <input type="password" placeholder="Password" ng-model="logindata.password" autofocus="" class="logininputborder">
 				  </label>
+				   <p class="red" ng-show="err">Invalid username and password!!!</p>
                  <div class="col col1 mar-top">
 					
 								<label class="container">
-								  <input type="checkbox" checked="checked" id="check">
+								  <input type="checkbox" checked="checked" ng-model="checkbox" id="check">
 								  <span class="checkmark1"></span>
 								  <label for="check">Remember me</label>
 								</label>
@@ -59,7 +61,7 @@
 	     </div>	
 
 	</div>
-
+    <div ng-if="loading" class="loader">Loading...</div>
 	<div class="row facebookbtn1">
 
 		<div class="col facebook">

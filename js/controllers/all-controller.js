@@ -3,18 +3,43 @@
  //Login of Controller
 
  app.controller('LoginCtrl', function($scope,$location,$http){
- 	
+ 	$scope.loading = false;
  	$scope.logindata={};
+ 	$scope.err = false;
+ 	$scope.checkbox = true;
+ 	
+
 	$scope.loginsubmit = function () {
+		
+         $scope.loading = true;
 		// $location.path('/dashboard');
 		// console.log($scope.logindata);
+
+		let email= $scope.logindata.email;
+		let password= $scope.logindata.password;
+
+
 		// console.log("helloqwerty");
-       $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/authenticate?email=usman@gmail.com&password=usman123')
+       $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/authenticate?email='+email+'&password='+password)
        .then(function(res){
+       	$scope.loading = false;
        	   console.log("success");
-       	    console.log(res);
+       	   
+       	     if(res.data != 0){
+       	     	$location.path('/dashboard');
+       	     	 if($scope.checkbox == true){
+       	    		localStorage.setItem('laundrylogin', 1);
+       	    }else{
+
+       	    	localStorage.removeItem('laundrylogin');
+       	    }
+       	     }
+       	     else{
+       	     	$scope.err = true;
+       	     }
 
        }).catch(function(err){
+       	$scope.loading = false;
              console.log("error");
              console.log(err);
        });

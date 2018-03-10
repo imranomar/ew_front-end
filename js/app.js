@@ -6,15 +6,42 @@ app.config(function($routeProvider,$locationProvider) {
 
   .when("/login", {
     templateUrl : "views/login.html",
-    controller: 'LoginCtrl'
+    controller: 'LoginCtrl',
+       resolve:{
+          "check": function($location){
+                   if(localStorage.getItem('laundrylogin')){
+                      $location.path('/dashboard');
+                   }
+            }
+      }
   })
   .when('/signup', {
     templateUrl: 'views/signup.html',
-    controller: 'SignupCtrl'
+    controller: 'SignupCtrl' ,
+      resolve:{
+        "check": function ($location){
+            if(localStorage.getItem('laundrylogin')){
+              $location.path('/dashboard');
+            }
+        }
+      }
+    
+
+
+   
   })
   .when('/forget', {
     templateUrl: 'views/forget.html',
-    controller: 'ForgetCtrl'
+    controller: 'ForgetCtrl',
+    resolve :{
+      "check": function($location){
+        if(localStorage.getItem('laundrylogin')){
+          $location.path('/dashboard');
+        }
+      }
+    }
+
+
   })
   .when('/dashboard', {
     templateUrl: 'views/dashboard.html',
