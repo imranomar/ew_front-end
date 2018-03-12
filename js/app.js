@@ -1,3 +1,83 @@
+
+//initialise and setup facebook js sdk
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '630548993961819',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.12'
+    });
+    FB.getLoginStatus(function(response){
+          console.log(response);
+         if(response.status === 'connected'){
+         
+           document.getElementById('status').innerHTML ="You are connected." ;
+         }
+         else if (response.status === 'not authorized'){
+          document.getElementById('status').innerHTML ='we are not logged in.';
+         }
+         else{
+          document.getElementById('status').innerHTML ='You are logged into the facebook';
+         }
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+ function login(){
+  FB.login(function(response){
+       if(response.status === 'connected'){
+          FB.api('/me', { locale: 'en_US', fields: 'name, email' },
+
+            function(res) {
+              console.log(response);
+              console.log(res);
+              console.log(res.email);
+              console.log(res.name);
+              console.log(res.id);
+               $.ajax({
+                    type: "POST",
+                    url: "http://thisisbig.ae/advanced/backend/web/customersapi/create",
+                    data: {
+                      "full_name": res.name,
+                      "email": res.email,
+                      "facebook_id": res.id,
+                      "password": '',
+                      "phone": '',
+                      "sex": ''
+                    },
+                    success: function (data) {
+                       console.log(data);
+                    },
+                    error: function(err){
+                      console.log(err);
+                    }
+                });
+              
+
+            }
+          );
+        console.log(response);
+           document.getElementById('status').innerHTML ="You are connected." ;
+         }
+         else if (response.status === 'not authorized'){
+          document.getElementById('status').innerHTML ='we are not logged in.';
+         }
+         else{
+          document.getElementById('status').innerHTML ='You are logged into the facebook';
+         }
+
+  });
+ }
+
+
+
 var app = angular.module("laundryApp", ["ngRoute"]);
 
 app.config(function($routeProvider,$locationProvider) {

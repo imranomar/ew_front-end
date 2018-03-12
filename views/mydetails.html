@@ -20,28 +20,54 @@
 
 				  <div class="item item-icon-right">
 				  	<!-- <a href="#about/{{row.name}}">{{row.name}}<a> -->
-				    <a href="myedit/1"> <span class="icon ion-edit"></span>	</a>		  	
+				    <a href="myedit/1"> <span class="icon ion-bookmark"></span>	</a>
+				    <!--  <a href="myedit/1"> <span class="icon ion-bookmarkt"></span>	</a>	 -->	  	
 				  	<span class="title mydetailheading"> Personal Details </span>
 				  </div>
 
 				  <div class="item item-body Personal">
 
-				  	<div class="row">
+				  	<div class="row editable">
 				  		<div class="col col-30 name1">Name</div>
-				  		<div class="col col-70"> Amir  </div>
+				  		<div class="col col-60 text-right clk-fade-out " > {{userdata.full_name}} </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.full_name}}" name=""> </div>
+				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
+				  			</a></div>
+
+				  		<div class="col col-10 whn-clk-edt"> <a > <span class="icon ion-close-round green"></span>
+				  			</a></div>
+
 				  	</div>
 
-				  	<div class="row">
+				  	<div class="row editable">
 				  		<div class="col col-30 name1">Email</div>
-				  		<div class="col col-70"> amiralama@gmail.com </div>
+				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.email}} </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.email}}" name=""> </div>
+				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
+				  			</a></div>
+
+				  		<div class="col col-10 whn-clk-edt"> <a > <span class="icon ion-close-round green"></span>
+				  			</a></div>
 				  	</div>
-				  	<div class="row">
+				  	<div class="row editable">
 				  		<div class="col col-30 name1">Password</div>
-				  		<div class="col col-70"> ******** </div>
+				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.password}} </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.password}}" name=""> </div>
+				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
+				  			</a></div>
+
+				  		<div class="col col-10 whn-clk-edt"> <a > <span class="icon ion-close-round green"></span>
+				  			</a></div>
 				  	</div>
-				  	<div class="row">
+				  	<div class="row editable">
 				  		<div class="col col-30 name1">Contact</div>
-				  		<div class="col col-70"> 78451236985 </div>
+				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.phone}} </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.phone}}" name=""> </div>
+				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
+				  			</a></div>
+
+				  		<div class="col col-10 whn-clk-edt"> <a > <span class="icon ion-close-round green"></span>
+				  			</a></div>
 				  	</div>
 				  </div>
 
@@ -50,7 +76,7 @@
 			</div>
 
 		</div>
-
+<div ng-if="loading" class="loader">Loading...</div>
 		<div class="row row2">
 
 			<div class="col mydetailsform1">

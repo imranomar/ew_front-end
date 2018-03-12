@@ -2098,6 +2098,7 @@
   transform: translateZ(0);
   -webkit-animation: load8 1.1s infinite linear;
   animation: load8 1.1s infinite linear;
+  z-index: 100;
 
 }
 @-webkit-keyframes load8 {
@@ -2123,4 +2124,20 @@
 .red{
 	color: red;
 	margin-left: 20px;
+}
+.green{
+	color: #33cd5f;
+}
+.clk-fade-in{
+	display: none;
+}
+.form-control.editable {
+   text-align: right;
+    
+}
+.whn-clk-edt{
+	display: none;
+}
+.Personal input[type="text"]{
+	border-bottom: 1px solid grey;
 }

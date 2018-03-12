@@ -25,14 +25,16 @@
        	$scope.loading = false;
        	   console.log("success");
        	   
-       	     if(res.data != 0){
-       	     	$location.path('/dashboard');
-       	     	 if($scope.checkbox == true){
-       	    		localStorage.setItem('laundrylogin', 1);
-       	    }else{
-
-       	    	localStorage.removeItem('laundrylogin');
-       	    }
+   	     	if(res.data != 0){
+   	     		localStorage.setItem('laundryUser', res.data);
+   	     		
+   	     		// console.log(localStorage.getItem('laundryUser'));
+   	     		$location.path('/dashboard');
+   	     	 	if($scope.checkbox == true){
+	    			localStorage.setItem('laundrylogin', 1);
+       	    	}else{
+       	    		localStorage.removeItem('laundrylogin');
+       	    	}
        	     }
        	     else{
        	     	$scope.err = true;
@@ -164,8 +166,62 @@
 
  // My details Page of Controller
 
- app.controller('MydetailsCtrl',function($scope) {
+ app.controller('MydetailsCtrl',function($scope,$location,$http) {
  	// body...
+ 	    $scope.loading = true;
+        let x = localStorage.getItem('laundryUser');
+        $scope.userdata = {};
+ 	    console.log(x);
+   		getPayement();
+     	getAddress();
+
+        // $scope.click = function(/*value*/){
+        // 	// $('#'+value).hide();
+        // 	// console.log(value);
+        // 	$(this).css("display","none");
+        // }
+        $(".edit-btn").click(function(){
+            $(this).parent().css("display","none");
+        	$(this).parent().siblings(".clk-fade-out").css("display","none");
+        	$(this).parent().siblings(".clk-fade-in").css("display","block");
+
+        	$(this).parent().siblings(".whn-clk-edt").css("display","block");
+
+        });
+        $(".whn-clk-edt").click(function(){
+              
+              $(this).css("display","none");
+              $(this).siblings(".clk-fade-out").css("display","block");
+              $(this).siblings(".clk-fade-in").css("display","none");
+              $(this).siblings(".sib").css("display","block");
+
+        });
+
+
+
+
+
+
+     	function getAddress(){
+	 	    $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/view/?id='+x+'&expand=addresses')
+	       .then(function(res){
+	          console.log(res.data);
+	          $scope.userdata = res.data;
+
+	       }).catch(function(err){
+	             console.log(err);
+	       });
+       }
+       function getPayement(){
+	        $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/view/?id='+x+'&expand=payments')
+	       .then(function(res){
+                $scope.loading = false;
+	           console.log(res.data);
+	           $scope.userdata = res.data ;
+	       }).catch(function(err){
+	             console.log(err);
+	       });
+       }
  });
 
 
