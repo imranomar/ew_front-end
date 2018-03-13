@@ -64,13 +64,13 @@
             }
           );
         console.log(response);
-           document.getElementById('status').innerHTML ="You are connected." ;
+           document.getElementById('status').innerHTML ='You are connected.' ;
          }
          else if (response.status === 'not authorized'){
           document.getElementById('status').innerHTML ='we are not logged in.';
          }
          else{
-          document.getElementById('status').innerHTML ='You are logged into the facebook';
+          document.getElementById('status').innerHTML ='You are logged into the facebook.';
          }
 
   });

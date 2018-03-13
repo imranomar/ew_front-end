@@ -2141,3 +2141,9 @@
 .Personal input[type="text"]{
 	border-bottom: 1px solid grey;
 }
+
+.address-row{
+	border-bottom: 1px solid lightgrey;
+	margin-bottom: 20px;
+
+}

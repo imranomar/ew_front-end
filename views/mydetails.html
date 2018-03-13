@@ -90,23 +90,35 @@
 
 				  <div class="item item-body">
 
-				  		<div class="row">
+				  		<div class="row" ng-repeat="paymentDetail in paymentDetails">
 
 				  			<div class="col">
 				  				<div class="list">
-			  						<span>Visa card </span>
+			  						<span>Card Number </span>
 				  				</div>
 				  				<div class="list">
-			  						<span>Paypal </span>
+			  						<span>CVCODE </span>
+				  				</div>
+				  				<div class="list">
+			  						<span>Expiry year</span>
+				  				</div>
+				  				<div class="list">
+			  						<span>Expiry month </span>
 				  				</div>
 				  			</div>
 
 				  			<div class="col">			  				
-				  				<div class="list">
-				  					<span>******6423</span>
+				  				<div class="list text-right">
+				  					<span>{{paymentDetail.number}}</span>
 				  				</div>			  				
-				  				<div class="list">
-				  					<span>******6473</span>
+				  				<div class="list text-right">
+				  					<span>{{paymentDetail.cvcode}}</span>
+				  				</div>
+				  				<div class="list text-right">
+				  					<span>{{paymentDetail.expiry_year}}</span>
+				  				</div>
+				  				<div class="list text-right">
+				  					<span>{{paymentDetail.expiry_month}}</span>
 				  				</div>		
 				  			</div>
 
@@ -129,9 +141,39 @@
 				  </div>
 
 				  <div class="item item-body">
-				    <p>
-				     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
-				    </p>
+					   <div class="row address-row" ng-repeat="data in userdata.addresses">
+
+					  			<div class="col">
+					  				<div class="list">
+				  						<span>Street name </span>
+					  				</div>
+					  				<div class="list">
+				  						<span>Floor</span>
+					  				</div>
+					  				<div class="list">
+				  						<span>Pobox</span>
+					  				</div>
+					  				<div class="list">
+				  						<span>City</span>
+					  				</div>
+					  			</div>
+
+					  			<div class="col">			  				
+					  				<div class="list text-right">
+					  					<span>{{data.street_name}}</span>
+					  				</div>			  				
+					  				<div class="list text-right">
+					  					<span>{{data.floor}}</span>
+					  				</div>	
+					  				<div class="list text-right">
+					  					<span>{{data.pobox}}</span>
+					  				</div>
+					  				<div class="list text-right">
+					  					<span>{{cityid.title}}</span>
+					  				</div>		
+					  			</div>
+
+					  		</div>
 				  </div>
 				</div>
 			</div>

@@ -168,18 +168,12 @@
 
  app.controller('MydetailsCtrl',function($scope,$location,$http) {
  	// body...
- 	    $scope.loading = true;
+ 	    $scope.loading = false;
         let x = localStorage.getItem('laundryUser');
         $scope.userdata = {};
- 	    console.log(x);
    		getPayement();
      	getAddress();
-
-        // $scope.click = function(/*value*/){
-        // 	// $('#'+value).hide();
-        // 	// console.log(value);
-        // 	$(this).css("display","none");
-        // }
+     	
         $(".edit-btn").click(function(){
             $(this).parent().css("display","none");
         	$(this).parent().siblings(".clk-fade-out").css("display","none");
@@ -206,22 +200,39 @@
 	 	    $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/view/?id='+x+'&expand=addresses')
 	       .then(function(res){
 	          console.log(res.data);
+	          let city = res.data.id;
+	          getcity(city);
 	          $scope.userdata = res.data;
-
 	       }).catch(function(err){
 	             console.log(err);
 	       });
        }
        function getPayement(){
-	        $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/view/?id='+x+'&expand=payments')
-	       .then(function(res){
-                $scope.loading = false;
-	           console.log(res.data);
-	           $scope.userdata = res.data ;
-	       }).catch(function(err){
-	             console.log(err);
-	       });
+   	 	    $scope.loading = true;
+	        $http.get('http://thisisbig.ae/advanced/backend/web/vaultapi?id=1')
+	        .then(function(res){
+	        	$scope.loading = false;
+	        	console.log(res.data);
+	        	console.log("tahseen");
+	        	$scope.paymentDetails = res.data;
+	        }).catch(function(err){
+	        	$scope.loading = false;
+                console.log(err);
+	        });
        }
+
+        function getcity(city){
+          $http.get('http://thisisbig.ae/advanced/backend/web/citiesapi/view?id='+city)
+	          .then(function(res){
+                  console.log(res.data);
+                  $scope.cityid = res.data;
+                  console.log($scope.cityid.title);
+	          }).catch(function(err){
+	          	   console.log(err);
+	          })
+        }
+      
+
  });
 
 

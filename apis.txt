@@ -11,19 +11,19 @@ CUSTOMER API:
 -------------
 
 //all customers
-http://thisisbig.ae/advanced/backend/web/customersapi
+http://thisisbig.ae/advanced/backend/web/customersapi @
 
 //to get relational data
         
 http://thisisbig.ae/advanced/backend/web/customersapi?expand=order
 
   // to get all customer's orders
-http://thisisbig.ae/advanced/backend/web/customersapi?expand=payments // to get customer's payment methods
-http://thisisbig.ae/advanced/backend/web/customersapi?expand=addresses // to get customer's addresses
+http://thisisbig.ae/advanced/backend/web/customersapi?expand=payments @ // to get customer's payment methods
+http://thisisbig.ae/advanced/backend/web/customersapi?expand=addresses @ // to get customer's addresses
       
 //modify
         
-$http.put('http://thisisbig.ae/advanced/backend/web/customersapi/update/?id=1', sendData);
+$http.put('http://thisisbig.ae/advanced/backend/web/customersapi/update/?id=1', sendData); ?
 
 
 
