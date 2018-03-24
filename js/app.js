@@ -1,4 +1,3 @@
-
 //initialise and setup facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
@@ -36,11 +35,6 @@
           FB.api('/me', { locale: 'en_US', fields: 'name, email' },
 
             function(res) {
-              console.log(response);
-              console.log(res);
-              console.log(res.email);
-              console.log(res.name);
-              console.log(res.id);
                $.ajax({
                     type: "POST",
                     url: "http://thisisbig.ae/advanced/backend/web/customersapi/create",
@@ -59,8 +53,6 @@
                       console.log(err);
                     }
                 });
-              
-
             }
           );
         console.log(response);
@@ -144,16 +136,14 @@ app.config(function($routeProvider,$locationProvider) {
     controller: 'FaqsCtrl'
   })
   .when('/mydetails', {
-    templateUrl: 'views/mydetails.html',
-    controller: 'MydetailsCtrl'
+    templateUrl: 'views/mydetails.html'
   })
   .when('/notification', {
     templateUrl: 'views/notifications.html',
     controller: 'NotificationCtrl'
   })
   .when('/address', {
-    templateUrl: 'views/addresses.html',
-    controller: 'AddressesCtrl'
+    templateUrl: 'views/addresses.html'
   })
   .when('/deliverydate', {
     templateUrl: 'views/deliverydate.html',
@@ -165,7 +155,6 @@ app.config(function($routeProvider,$locationProvider) {
   })
   .when('/payment', {
     templateUrl: 'views/paymentmethod.html',
-    controller: 'PaymentmethodCtrl'
   })
   .when('/finaldate',{
   	templateUrl: 'views/selecttimefinal.html',
@@ -191,6 +180,12 @@ app.config(function($routeProvider,$locationProvider) {
 //     templateUrl : 'pages/about.html',
 //     controller  : 'aboutController'
 // })
+
+app.factory('appInfo', function () {
+  return {
+      url: 'http://thisisbig.ae/advanced/backend/web/'
+  }
+});
 
 app.directive('itemFloatingLabel', function() {
   return {

@@ -18,11 +18,9 @@
 
 				<div class="list">
 
-				  <div class="item item-icon-right">
-				  	<!-- <a href="#about/{{row.name}}">{{row.name}}<a> -->
-				    <a href="myedit/1"> <span class="icon ion-bookmark"></span>	</a>
-				    <!--  <a href="myedit/1"> <span class="icon ion-bookmarkt"></span>	</a>	 -->	  	
-				  	<span class="title mydetailheading"> Personal Details </span>
+				  <div class="item item-icon-right">	  	
+					  <span class="title mydetailheading"> Personal Details </span>
+					  <span class="icon ion-checkmark-circled" ng-click="onSavePersonDetail()"></span>
 				  </div>
 
 				  <div class="item item-body Personal">
@@ -30,7 +28,7 @@
 				  	<div class="row editable">
 				  		<div class="col col-30 name1">Name</div>
 				  		<div class="col col-60 text-right clk-fade-out " > {{userdata.full_name}} </div>
-				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.full_name}}" name=""> </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable" ng-model="userdata.full_name" name=""> </div>
 				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
 				  			</a></div>
 
@@ -42,7 +40,7 @@
 				  	<div class="row editable">
 				  		<div class="col col-30 name1">Email</div>
 				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.email}} </div>
-				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.email}}" name=""> </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable" ng-model="userdata.email" name=""> </div>
 				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
 				  			</a></div>
 
@@ -51,8 +49,8 @@
 				  	</div>
 				  	<div class="row editable">
 				  		<div class="col col-30 name1">Password</div>
-				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.password}} </div>
-				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.password}}" name=""> </div>
+				  		<div class="col col-60 text-right clk-fade-out"> {{ userdata.password }} </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable" ng-model="userdata.password" name=""> </div>
 				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
 				  			</a></div>
 
@@ -62,12 +60,13 @@
 				  	<div class="row editable">
 				  		<div class="col col-30 name1">Contact</div>
 				  		<div class="col col-60 text-right clk-fade-out"> {{userdata.phone}} </div>
-				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable"value="{{userdata.phone}}" name=""> </div>
+				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable" ng-model="userdata.phone" name=""> </div>
 				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
 				  			</a></div>
 
 				  		<div class="col col-10 whn-clk-edt"> <a > <span class="icon ion-close-round green"></span>
-				  			</a></div>
+							  </a></div>
+							  
 				  	</div>
 				  </div>
 
@@ -136,8 +135,9 @@
 			<div class="col mydetailsform2">
 				<div class="list">
 
-				  <div class="item">			  	
-				  	<span class="title mydetailheading"> Address Details </span>
+				  <div class="item item-icon-right">			  	
+					  <span class="title mydetailheading"> Address Details </span>
+					  <span class="icon ion-ios-plus-outline"></span>	
 				  </div>
 
 				  <div class="item item-body">

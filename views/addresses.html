@@ -17,15 +17,15 @@
 
 			<div class="col"> 
 
-				<div class="list card" ng-repeat="a in [1,2,3]">
+				<div class="list card" ng-repeat="data in userdata.addresses">
 
 					<div class="item item-icon-left bodyfont">
 						<div class="row bodyfont1">
 							<div class="col list bodyfont2"> 								
 								<label class="item item-input backgroundfont">
-									<span class="input-label">Title</span>
+									<span class="input-label">Street name</span>
 									<!-- <input type="text" ng-model="card.title" class="inputbox1"> -->
-									Office
+									{{data.street_name}}
 								</label>
 							</div>
 						</div>
@@ -34,25 +34,25 @@
 								<label class="item item-input backgroundfont">
 									<span class="input-label">P.O.Box</span>
 									<!-- <input type="text" ng-model="card.pobox" class="inputbox1"> -->
-									MP Nagar
+									{{data.pobox}}
 								</label>
 							</div>
 						</div>
 						<div class="row bodyfont1">
 							<div class="col list bodyfont2"> 								
 								<label class="item item-input backgroundfont">
-									<span class="input-label">Flat</span>
+									<span class="input-label">Floor</span>
 									<!-- <input type="text" ng-model="card.flat" class="inputbox1"> -->
-									Ashoka 42
+									{{data.floor}}
 								</label>
 							</div>
 						</div>
 						<div class="row bodyfont1">
 							<div class="col list bodyfont2"> 								
 								<label class="item item-input backgroundfont">
-									<span class="input-label">BLD Name </span>
+									<span class="input-label">City </span>
 									<!-- <input type="text" ng-model="card.bldname"  class="inputbox1"> -->
-									Manish Kumar
+									{{cityid.title}}
 								</label>
 							</div>
 						</div>
@@ -86,6 +86,8 @@
 			</div>
 
 		</div>
+
+		<div ng-if="loading" class="loader">Loading...</div>
 
 		<div class="row bottommargin">
 			

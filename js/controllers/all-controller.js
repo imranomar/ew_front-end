@@ -1,8 +1,14 @@
  var app = angular.module("laundryApp");
+ 
+app.run(function($rootScope){
+  
+	$rootScope.a = '​http://thisisbig.ae/advanced/backend/web/';
+ });
+ 
 
  //Login of Controller
 
- app.controller('LoginCtrl', function($scope,$location,$http){
+ app.controller('LoginCtrl', function($scope,$location,$http, appInfo){
  	$scope.loading = false;
  	$scope.logindata={};
  	$scope.err = false;
@@ -20,7 +26,7 @@
 
 
 		// console.log("helloqwerty");
-       $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/authenticate?email='+email+'&password='+password)
+       $http.get(appInfo.url+'customersapi/authenticate?email='+email+'&password='+password)
        .then(function(res){
        	$scope.loading = false;
        	   console.log("success");
@@ -166,11 +172,12 @@
 
  // My details Page of Controller
 
- app.controller('MydetailsCtrl',function($scope,$location,$http) {
- 	// body...
+ app.controller('MydetailsCtrl',function($scope,$location,$http, appInfo, $httpParamSerializer) {
+
+	 // body...
  	    $scope.loading = false;
         let x = localStorage.getItem('laundryUser');
-        $scope.userdata = {};
+		$scope.userdata = {};
    		getPayement();
      	getAddress();
      	
@@ -183,21 +190,44 @@
 
         });
         $(".whn-clk-edt").click(function(){
-              
               $(this).css("display","none");
               $(this).siblings(".clk-fade-out").css("display","block");
               $(this).siblings(".clk-fade-in").css("display","none");
               $(this).siblings(".sib").css("display","block");
 
-        });
+		});
+		
 
+		$scope.onSavePersonDetail = function(){
+			let data = {
+				full_name: $scope.userdata.full_name,
+				email: $scope.userdata.email,
+				password: $scope.userdata.password,
+				phone: $scope.userdata.phone
+			};
+			console.log(data);
 
+			let req = {
+				method: 'PUT',
+				url: appInfo.url+'customersapi/update/?id='+x,
+				data: data,
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}
 
+			$http(req)
+			.then(function(res){
+				console.log(res);
+			 }).catch(function(err){
+				console.log(err);
+			 });
 
-
+			
+		}
 
      	function getAddress(){
-	 	    $http.get('http://thisisbig.ae/advanced/backend/web/customersapi/view/?id='+x+'&expand=addresses')
+	 	    $http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
 	       .then(function(res){
 	          console.log(res.data);
 	          let city = res.data.id;
@@ -206,14 +236,14 @@
 	       }).catch(function(err){
 	             console.log(err);
 	       });
-       }
+	   }
+	   
        function getPayement(){
    	 	    $scope.loading = true;
-	        $http.get('http://thisisbig.ae/advanced/backend/web/vaultapi?id=1')
+	        $http.get(appInfo.url+'vaultapi?id='+x)
 	        .then(function(res){
 	        	$scope.loading = false;
 	        	console.log(res.data);
-	        	console.log("tahseen");
 	        	$scope.paymentDetails = res.data;
 	        }).catch(function(err){
 	        	$scope.loading = false;
@@ -222,7 +252,7 @@
        }
 
         function getcity(city){
-          $http.get('http://thisisbig.ae/advanced/backend/web/citiesapi/view?id='+city)
+          $http.get(appInfo.url+'citiesapi/view?id='+city)
 	          .then(function(res){
                   console.log(res.data);
                   $scope.cityid = res.data;
@@ -230,7 +260,9 @@
 	          }).catch(function(err){
 	          	   console.log(err);
 	          })
-        }
+		}
+		
+
       
 
  });
@@ -273,60 +305,39 @@ app.controller('NotificationCtrl',function ($scope) {
 
 // Load addresses page of controller 
 
-app.controller('AddressesCtrl',function($scope,$http){
-
-		// $scope.first=[{'street':'Xyz1','pobox':'Bhopal','Flat':'Mno','name':'Address 1'}];
-		// $scope.second=[{'title':'Laundry','pobox1':'Bhopal','flat1':'Mno','bldname':'Manish''name':'Address 2'}];
-		
-  //       $scope.Street = function () {
-  //           if ($scope.Street == false || $scope.Street == undefined)
-  //               $scope.Street = true;
-  //           else
-  //               $scope.Street = false;
-  //       }
-
-  //       $scope.pobox = function () {
-  //           if ($scope.pobox == false || $scope.pobox == undefined)
-  //               $scope.pobox = true;
-  //           else
-  //               $scope.pobox = false;
-  //       }
-
-		// $scope.Flat = function () {
-  //           if ($scope.Flat == false || $scope.Flat == undefined)
-  //               $scope.Flat = true;
-  //           else
-  //               $scope.Flat = false;
-  //       }
+app.controller('AddressesCtrl',function($scope,$http, appInfo){
+	$scope.loading = false;
+	let x = localStorage.getItem('laundryUser');
+	$scope.userdata = {};
+	getAddress();
 
 
-		// $scope.title = function () {
-  //           if ($scope.title == false || $scope.title == undefined)
-  //               $scope.title = true;
-  //           else
-  //               $scope.title = false;
-  //       }
+	function getAddress(){
+		$scope.loading = true;
+		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
+		.then(function(res){
+			$scope.loading = false;
+			console.log(res.data);
+			let city = res.data.id;
+			getcity(city);
+			$scope.userdata = res.data;
+		}).catch(function(err){
+			$scope.loading = false;
+			console.log(err);
+		});
+	}
+	  
+	  function getcity(city){
+		$http.get(appInfo.url+'citiesapi/view?id='+city)
+			.then(function(res){
+				console.log(res.data);
+				$scope.cityid = res.data;
+				console.log($scope.cityid.title);
+			}).catch(function(err){
+				   console.log(err);
+			})
+	  }
 
-		// $scope.pobox1 = function () {
-  //           if ($scope.pobox1 == false || $scope.pobox1 == undefined)
-  //               $scope.pobox1 = true;
-  //           else
-  //               $scope.pobox1 = false;
-  //       }
-
-		// $scope.flat1 = function () {
-  //           if ($scope.flat1 == false || $scope.flat1 == undefined)
-  //               $scope.flat1 = true;
-  //           else
-  //               $scope.flat1 = false;
-  //       }
-
-		// $scope.bldname = function () {
-  //           if ($scope.bldname == false || $scope.bldname == undefined)
-  //               $scope.bldname = true;
-  //           else
-  //               $scope.bldname = false;
-  //       }
 
 });
 
@@ -348,12 +359,24 @@ app.controller('OrdersummaryCtrl',function($scope){
 
 // Load Controller of PaymentmethodfCtrl
 
-app.controller('PaymentmethodCtrl',function($scope){
+app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
+	$scope.loading = false;
+	let x = localStorage.getItem('laundryUser');
+	$scope.paymentDetails;
+	getPayement();
 
-	$scope.cards=[
-		{'paymentid':'1','cardname':'Master Card','Name':'Mohan Kumar','Number':'784512369815','cvcode':'4512','Expiry':'18/12/2025','cardnumber':'********9815','val':'true'},
-		{'paymentid':'2','cardname':'Visa Card','Name':'Sohan Kumar','Number':'78451236789','cvcode':'4512','Expiry':'05/01/2019','cardnumber':'********6789','val':'false'}
-	];
+	function getPayement(){
+	$scope.loading = true;
+	$http.get(appInfo.url+'vaultapi?id='+x)
+	.then(function(res){
+		$scope.loading = false;
+		console.log(res.data);
+		$scope.paymentDetails = res.data;
+	}).catch(function(err){
+		$scope.loading = false;
+		console.log(err);
+	});
+}
 })
 
 
