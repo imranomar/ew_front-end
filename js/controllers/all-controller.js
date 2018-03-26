@@ -178,8 +178,18 @@ app.run(function($rootScope){
  	    $scope.loading = false;
         let x = localStorage.getItem('laundryUser');
 		$scope.userdata = {};
-   		getPayement();
-     	getAddress();
+		$scope.asteriskPassword  = '';
+		$scope.paymentDetails = [];
+		$scope.cityids = [];
+   		getPayment();
+		getAddress();
+		 
+		function getPassword(){
+			let p = $scope.userdata.password.split('').map(()=>{
+				return '*';
+			})
+			$scope.asteriskPassword = p.join('');
+		}
      	
         $(".edit-btn").click(function(){
             $(this).parent().css("display","none");
@@ -205,8 +215,6 @@ app.run(function($rootScope){
 				password: $scope.userdata.password,
 				phone: $scope.userdata.phone
 			};
-			console.log(data);
-
 			let req = {
 				method: 'PUT',
 				url: appInfo.url+'customersapi/update/?id='+x,
@@ -215,36 +223,50 @@ app.run(function($rootScope){
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}
-
 			$http(req)
 			.then(function(res){
 				console.log(res);
 			 }).catch(function(err){
 				console.log(err);
 			 });
-
-			
 		}
 
      	function getAddress(){
 	 	    $http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
 	       .then(function(res){
-	          console.log(res.data);
-	          let city = res.data.id;
-	          getcity(city);
-	          $scope.userdata = res.data;
+	        //   console.log(res.data);
+			$scope.userdata = res.data;
+			for(let value of  $scope.userdata.addresses){
+				getcity(value.city_id);
+			}
+			getPassword();
 	       }).catch(function(err){
 	             console.log(err);
 	       });
 	   }
+
+	   function getPayment(){
+			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
+			.then(function(res){
+				$scope.loading = false;
+				// console.log(res.data);
+				$scope.userdata.payments = res.data.payments;
+				for(let value of  $scope.userdata.payments){
+					getVault(value.id);
+				}
+			}).catch(function(err){
+				$scope.loading = false;
+				console.log(err);
+			});
+	   }
 	   
-       function getPayement(){
+       function getVault(id){
    	 	    $scope.loading = true;
-	        $http.get(appInfo.url+'vaultapi?id='+x)
+	        $http.get(appInfo.url+'vaultapi/view/?id='+id)
 	        .then(function(res){
 	        	$scope.loading = false;
-	        	console.log(res.data);
-	        	$scope.paymentDetails = res.data;
+	        	// console.log(res.data);
+				$scope.paymentDetails.push(res.data);
 	        }).catch(function(err){
 	        	$scope.loading = false;
                 console.log(err);
@@ -255,8 +277,7 @@ app.run(function($rootScope){
           $http.get(appInfo.url+'citiesapi/view?id='+city)
 	          .then(function(res){
                   console.log(res.data);
-                  $scope.cityid = res.data;
-                  console.log($scope.cityid.title);
+                  $scope.cityids.push(res.data);
 	          }).catch(function(err){
 	          	   console.log(err);
 	          })
@@ -305,10 +326,11 @@ app.controller('NotificationCtrl',function ($scope) {
 
 // Load addresses page of controller 
 
-app.controller('AddressesCtrl',function($scope,$http, appInfo){
+app.controller('AddressesCtrl',function($scope,$http, appInfo, $location){
 	$scope.loading = false;
 	let x = localStorage.getItem('laundryUser');
 	$scope.userdata = {};
+	$scope.cityids = [];
 	getAddress();
 
 
@@ -318,21 +340,21 @@ app.controller('AddressesCtrl',function($scope,$http, appInfo){
 		.then(function(res){
 			$scope.loading = false;
 			console.log(res.data);
-			let city = res.data.id;
-			getcity(city);
 			$scope.userdata = res.data;
+			for(let value of  $scope.userdata.addresses){
+				getcity(value.city_id);
+			}
 		}).catch(function(err){
 			$scope.loading = false;
 			console.log(err);
 		});
 	}
 	  
-	  function getcity(city){
+	function getcity(city){
 		$http.get(appInfo.url+'citiesapi/view?id='+city)
 			.then(function(res){
 				console.log(res.data);
-				$scope.cityid = res.data;
-				console.log($scope.cityid.title);
+				$scope.cityids.push(res.data);
 			}).catch(function(err){
 				   console.log(err);
 			})
@@ -362,22 +384,38 @@ app.controller('OrdersummaryCtrl',function($scope){
 app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	$scope.loading = false;
 	let x = localStorage.getItem('laundryUser');
-	$scope.paymentDetails;
-	getPayement();
+	$scope.userdata = {};
+	$scope.paymentDetails = [];
+	getPayment();
+	
 
-	function getPayement(){
-	$scope.loading = true;
-	$http.get(appInfo.url+'vaultapi?id='+x)
-	.then(function(res){
-		$scope.loading = false;
-		console.log(res.data);
-		$scope.paymentDetails = res.data;
-	}).catch(function(err){
-		$scope.loading = false;
-		console.log(err);
-	});
-}
-})
+	function getPayment(){
+		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
+		.then(function(res){
+			console.log(res.data);
+			$scope.userdata.payments = res.data.payments;
+			for(let value of  $scope.userdata.payments){
+				getVault(value.id);
+			}
+		}).catch(function(err){
+			console.log(err);
+		});
+   }
+   
+   function getVault(id){
+		$scope.loading = true;
+		$http.get(appInfo.url+'vaultapi/view/?id='+id)
+		.then(function(res){
+			$scope.loading = false;
+			// console.log(res.data);
+			$scope.paymentDetails.push(res.data);
+		}).catch(function(err){
+			$scope.loading = false;
+			console.log(err);
+		});
+   }
+
+});
 
 
 // Load Controller of FinaldateCtrl
@@ -401,3 +439,179 @@ app.controller('MyeditCtrl',function($scope,$routeParams){
 		console.log($scope.persondata);
 	}
 })
+
+// edit address
+app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http){
+	$scope.loading = false;
+	getOneAddress();
+	getcity();
+	$scope.addressData = {};
+	$scope.cityData = {};
+
+	$scope.change = function(){
+		console.log('e');
+	}
+
+	$scope.onEditSubmit = function(){
+
+		let data = {
+			street_name: $scope.addressData.street_name,
+			floor: $scope.addressData.floor,
+			pobox: $scope.addressData.pobox,
+			city_id: $scope.addressData.city_id
+		};
+		
+		let req = {
+			method: 'PUT',
+			url: appInfo.url+'addressesapi/update?id='+$routeParams.id,
+			data: data,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+			}).catch(function(err){
+				$scope.loading = false;
+				   console.log(err);
+			})
+	}
+
+	function getOneAddress(){
+		$scope.loading = true;
+		$http.get(appInfo.url+'addressesapi/view?id='+$routeParams.id)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				$scope.addressData = res.data;
+				$scope.addressData.city_id = res.data.city_id.toString();
+			}).catch(function(err){
+				$scope.loading = false;
+				console.log(err);
+			})
+	}
+
+	function getcity(){
+		$http.get(appInfo.url+'citiesapi')
+			.then(function(res){
+				console.log(res.data);
+				$scope.cityData = res.data;
+			}).catch(function(err){
+				   console.log(err);
+			})
+	  }
+
+});
+
+app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams){
+	$scope.paymentDetails = {};
+	getVault();
+
+	$scope.onEditSubmit = function(){
+
+		let data = {
+			name: $scope.paymentDetails.name,
+			number: $scope.paymentDetails.number,
+			cvcode: $scope.paymentDetails.cvcode,
+			expiry_month: $scope.paymentDetails.expiry_month,
+			expiry_year: $scope.paymentDetails.expiry_year
+		};
+		
+		let req = {
+			method: 'PUT',
+			url: appInfo.url+'vaultapi/update?id='+$routeParams.id,
+			data: data,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+			}).catch(function(err){
+				$scope.loading = false;
+				   console.log(err);
+			})
+	}
+
+
+	
+	function getVault(id){
+		$scope.loading = true;
+		$http.get(appInfo.url+'vaultapi/view/?id='+$routeParams.id)
+		.then(function(res){
+			$scope.loading = false;
+			// console.log(res.data);
+			$scope.paymentDetails = res.data;
+		}).catch(function(err){
+			$scope.loading = false;
+			console.log(err);
+		});
+   }
+
+});
+
+
+app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSerializer){
+	let x = localStorage.getItem('laundryUser');
+	$scope.loading = false;
+	$scope.addressData = {};
+	$scope.cityData = [];
+	getcity();
+	$scope.err;
+	$scope.onAddSubmit = function(){
+
+		let data = {
+			street_name: $scope.addressData.street_name,
+			floor: $scope.addressData.floor,
+			pobox: $scope.addressData.pobox,
+			city_id: $scope.addressData.city_id,
+			customer_id: x,
+			unit_number: $scope.addressData.unit_number,
+			as_default: '0'
+		};
+		let req = {
+			method: 'POST',
+			url: appInfo.url+'addressesapi/create',
+			data: $httpParamSerializer(data),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.err = '';
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+			}).catch(function(error){
+				$scope.loading = false;
+				let err = error.data;
+				$scope.err = err[0].message;
+				// console.log(error);
+			})
+	}
+
+	function getcity(){
+		$http.get(appInfo.url+'citiesapi')
+			.then(function(res){
+				// console.log(res.data);
+				$scope.cityData = res.data;
+			}).catch(function(err){
+				   console.log(err);
+			})
+	  }
+
+
+
+});
+
+
+app.controller('AddPaymentCtrl', function($scope, $http, appInfo){
+	$scope.paymentDetails = {};
+});

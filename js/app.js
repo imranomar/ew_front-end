@@ -164,6 +164,18 @@ app.config(function($routeProvider,$locationProvider) {
   	templateUrl: 'views/myedit.html',
   	controller: 'MyeditCtrl'
   })
+  .when('/edit-address/:id', {
+      templateUrl: 'views/edit-address.html'
+  })
+  .when('/edit-payment/:id', {
+      templateUrl: 'views/edit-payment.html'
+  })
+  .when('/add-address', {
+      templateUrl: 'views/add-address.html'
+  })
+  .when('/add-payment', {
+      templateUrl: 'views/add-payment.html'
+  })
   .otherwise({
     redirectTo: '/login'
   });

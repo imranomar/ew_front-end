@@ -49,7 +49,7 @@
 				  	</div>
 				  	<div class="row editable">
 				  		<div class="col col-30 name1">Password</div>
-				  		<div class="col col-60 text-right clk-fade-out"> {{ userdata.password }} </div>
+				  		<div class="col col-60 text-right clk-fade-out"> {{ asteriskPassword }} </div>
 				  		<div class="col col-60 text-right clk-fade-in " ><input type="text"  class="form-control editable" ng-model="userdata.password" name=""> </div>
 				  		<div class="col col-10 sib"> <a class="edit-btn"> <span class="icon ion-edit green"></span>
 				  			</a></div>
@@ -83,8 +83,11 @@
 				<div class="list">
 
 				  <div class="item item-icon-right">
-				    <span class="icon ion-ios-plus-outline"></span>	
-				  	<span class="title mydetailheading"> Payment Details </span>
+				    <!-- <span class="icon ion-ios-plus-outline" href="#/add-payment"></span>	 -->
+					  <span class="title mydetailheading"> Payment Details </span>
+					  <a href="#/add-payment">
+						<i class="icon ion-ios-plus-outline"> </i>	  
+					</a>
 				  </div>
 
 				  <div class="item item-body">
@@ -136,8 +139,11 @@
 				<div class="list">
 
 				  <div class="item item-icon-right">			  	
-					  <span class="title mydetailheading"> Address Details </span>
-					  <span class="icon ion-ios-plus-outline"></span>	
+					<span class="title mydetailheading"> Address Details </span>
+					<!-- <span class="icon ion-ios-plus-outline"> <a href="#/add-address"></a> </span>	 -->
+					<a href="#/add-address">
+						<i class="icon ion-ios-plus-outline"> </i>	  
+					</a>
 				  </div>
 
 				  <div class="item item-body">
@@ -169,7 +175,7 @@
 					  					<span>{{data.pobox}}</span>
 					  				</div>
 					  				<div class="list text-right">
-					  					<span>{{cityid.title}}</span>
+					  					<span>{{cityids[$index].title}}</span>
 					  				</div>		
 					  			</div>
 
