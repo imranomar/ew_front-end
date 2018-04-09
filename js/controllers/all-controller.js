@@ -400,7 +400,13 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 		}).catch(function(err){
 			console.log(err);
 		});
-   }
+
+		$scope.editPayment = function(e){
+			console.log(e);
+			
+		}	
+	
+	}
    
    function getVault(id){
 		$scope.loading = true;
