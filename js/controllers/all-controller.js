@@ -204,7 +204,6 @@ app.run(function($rootScope){
               $(this).siblings(".clk-fade-out").css("display","block");
               $(this).siblings(".clk-fade-in").css("display","none");
               $(this).siblings(".sib").css("display","block");
-
 		});
 		
 
@@ -214,11 +213,12 @@ app.run(function($rootScope){
 				email: $scope.userdata.email,
 				password: $scope.userdata.password,
 				phone: $scope.userdata.phone
-			};
+			};	
+
 			let req = {
 				method: 'PUT',
 				url: appInfo.url+'customersapi/update/?id='+x,
-				data: data,
+				data: $httpParamSerializer(data),
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
@@ -441,7 +441,7 @@ app.controller('MyeditCtrl',function($scope,$routeParams){
 })
 
 // edit address
-app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http){
+app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http, $httpParamSerializer){
 	$scope.loading = false;
 	getOneAddress();
 	getcity();
@@ -464,7 +464,7 @@ app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http)
 		let req = {
 			method: 'PUT',
 			url: appInfo.url+'addressesapi/update?id='+$routeParams.id,
-			data: data,
+			data: $httpParamSerializer(data),
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}

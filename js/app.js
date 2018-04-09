@@ -193,9 +193,10 @@ app.config(function($routeProvider,$locationProvider) {
 //     controller  : 'aboutController'
 // })
 
+// http://thisisbig.ae/advanced/backend/web/
 app.factory('appInfo', function () {
   return {
-      url: 'http://thisisbig.ae/advanced/backend/web/'
+      url: 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/'
   }
 });
 
