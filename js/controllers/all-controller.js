@@ -333,6 +333,29 @@ app.controller('AddressesCtrl',function($scope,$http, appInfo, $location){
 	$scope.cityids = [];
 	getAddress();
 
+	$scope.onDelteAddress = function (data){
+		let req = {
+			method: 'DELETE',
+			url: appInfo.url+'addressesapi/delete?id='+data.id,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.err = '';
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				getAddress();
+			}).catch(function(error){
+				$scope.loading = false;
+				let err = error.data;
+				$scope.err = err[0].message;
+				// console.log(error);
+			})
+	}
+
 
 	function getAddress(){
 		$scope.loading = true;
@@ -387,6 +410,29 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	$scope.userdata = {};
 	$scope.paymentDetails = [];
 	getPayment();
+
+	$scope.onDeltePayment = function(data){
+		let req = {
+			method: 'DELETE',
+			url: appInfo.url+'paymentsapi/delete?id='+data.id,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.err = '';
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				getPayment();
+			}).catch(function(error){
+				$scope.loading = false;
+				let err = error.data;
+				$scope.err = err[0].message;
+				// console.log(error);
+			})
+	}
 	
 
 	function getPayment(){
@@ -512,7 +558,7 @@ app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http,
 
 });
 
-app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams){
+app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams, $httpParamSerializer){
 	$scope.paymentDetails = {};
 	getVault();
 
@@ -529,7 +575,7 @@ app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams)
 		let req = {
 			method: 'PUT',
 			url: appInfo.url+'vaultapi/update?id='+$routeParams.id,
-			data: data,
+			data: $httpParamSerializer(data),
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -571,7 +617,6 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 	getcity();
 	$scope.err;
 	$scope.onAddSubmit = function(){
-
 		let data = {
 			street_name: $scope.addressData.street_name,
 			floor: $scope.addressData.floor,
@@ -620,4 +665,8 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 
 app.controller('AddPaymentCtrl', function($scope, $http, appInfo){
 	$scope.paymentDetails = {};
+
+
+
+
 });

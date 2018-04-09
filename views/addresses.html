@@ -1,4 +1,4 @@
-<div ng-controller="AddressesCtrl" class="Address">
+<div ng-controller="AddressesCtrl" class="Address paymentmethod">
 
 	<div class="ion-content mainAddress">
 
@@ -18,6 +18,25 @@
 			<div class="col"> 
 
 				<div class="list card" ng-repeat="data in userdata.addresses">
+					<div class="item headingfont">
+
+						<div class="row rowbtn">
+
+							<div class="col col-80 col1">
+					
+								{{$index}} Address
+
+							</div>
+
+							<div class="col col-20 col2">
+								<a class="ankartag1">
+								  	<i class="icon icon ion-close-circled deletebtn" ng-click="onDelteAddress(data)"></i>
+								</a>
+							</div>
+
+						</div> 	
+					  	
+					</div>
 
 					<div class="item item-icon-left bodyfont">
 						<div class="row bodyfont1">
@@ -100,7 +119,7 @@
 
 				<div class="col footerbtnlink">
 
-					<a href="#" class="linkpaymentmethod">
+					<a href="#/add-address" class="linkpaymentmethod">
 						<i class="icon ion-plus"> </i>	  
 						ADD ANOTHER ADDRESS	
 					</a>
