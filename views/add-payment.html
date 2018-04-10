@@ -42,17 +42,17 @@
                                 <span class="input-label">Cv code</span>
                                 <input type="text" ng-model="paymentDetails.cvcode">
                               </label>
-                              
-                              <label class="item item-input">
-                                <span class="input-label">Expiry year</span>
-                                <input type="text" ng-model="paymentDetails.expiry_year">
-                              </label>
 
                               <label class="item item-input">
                                 <span class="input-label">Expiry month</span>
                                 <input type="text" ng-model="paymentDetails.expiry_month">
                               </label>
-                              <button class="button button-full button-positive" ng-click="onEditSubmit()">
+
+                              <label class="item item-input">
+                                <span class="input-label">Expiry year</span>
+                                <input type="text" ng-model="paymentDetails.expiry_year">
+                              </label>
+                              <button class="button button-full button-positive" ng-click="onAddPayment()">
                                       Update
                               </button>
     

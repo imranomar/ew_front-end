@@ -252,7 +252,7 @@ app.run(function($rootScope){
 				// console.log(res.data);
 				$scope.userdata.payments = res.data.payments;
 				for(let value of  $scope.userdata.payments){
-					getVault(value.id);
+					getVault(value.vault_id);
 				}
 			}).catch(function(err){
 				$scope.loading = false;
@@ -441,7 +441,7 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 			console.log(res.data);
 			$scope.userdata.payments = res.data.payments;
 			for(let value of  $scope.userdata.payments){
-				getVault(value.id);
+				getVault(value.vault_id);
 			}
 		}).catch(function(err){
 			console.log(err);
@@ -663,9 +663,72 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 });
 
 
-app.controller('AddPaymentCtrl', function($scope, $http, appInfo){
+app.controller('AddPaymentCtrl', function($scope, $http, appInfo, $httpParamSerializer){
+	let userId = localStorage.getItem('laundryUser');
 	$scope.paymentDetails = {};
 
+	$scope.onAddPayment = function(){
+		
+			let data = {
+				name: $scope.paymentDetails.name,
+				number: $scope.paymentDetails.number,
+				cvcode: $scope.paymentDetails.cvcode,
+				expiry_month: $scope.paymentDetails.expiry_month,
+				expiry_year: $scope.paymentDetails.expiry_year,
+			};
+
+			let req = {
+				method: 'POST',
+				url: appInfo.url+'vaultapi/create',
+				data: $httpParamSerializer(data),
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}
+			$scope.err = '';
+			$scope.loading = true;
+			$http(req)
+				.then(function(res){
+					$scope.loading = false;
+					console.log(res.data);
+					addPayment(res.data.id);
+				}).catch(function(error){
+					$scope.loading = false;
+					let err = error.data;
+					$scope.err = err[0].message;
+					// console.log(error);
+				})
+	}
+
+	function addPayment(id){
+		let data = {
+			customer_id: userId,
+			vault_id: id
+		};
+
+		let req = {
+			method: 'POST',
+			url: appInfo.url+'paymentsapi/create',
+			data: $httpParamSerializer(data),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.err = '';
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				$scope.paymentDetails = {};
+			}).catch(function(error){
+				$scope.loading = false;
+				let err = error.data;
+				$scope.err = err[0].message;
+				// console.log(error);
+			})
+	}
+	
 
 
 
