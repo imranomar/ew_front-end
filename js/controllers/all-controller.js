@@ -195,10 +195,9 @@ app.run(function($rootScope){
             $(this).parent().css("display","none");
         	$(this).parent().siblings(".clk-fade-out").css("display","none");
         	$(this).parent().siblings(".clk-fade-in").css("display","block");
-
         	$(this).parent().siblings(".whn-clk-edt").css("display","block");
-
-        });
+		});
+		
         $(".whn-clk-edt").click(function(){
               $(this).css("display","none");
               $(this).siblings(".clk-fade-out").css("display","block");
@@ -223,10 +222,13 @@ app.run(function($rootScope){
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}
 			}
+			$scope.loading = true;
 			$http(req)
 			.then(function(res){
+				$scope.loading = false;
 				console.log(res);
 			 }).catch(function(err){
+				$scope.loading = false;
 				console.log(err);
 			 });
 		}
@@ -326,12 +328,71 @@ app.controller('NotificationCtrl',function ($scope) {
 
 // Load addresses page of controller 
 
-app.controller('AddressesCtrl',function($scope,$http, appInfo, $location){
+app.controller('AddressesCtrl',function($scope,$http, appInfo, $location, $httpParamSerializer){
 	$scope.loading = false;
 	let x = localStorage.getItem('laundryUser');
 	$scope.userdata = {};
 	$scope.cityids = [];
+	$scope.cityData = [];
 	getAddress();
+	getAllcity();
+
+	
+
+	$('body').on('click', '.magic-edit', function(){
+		$(this).css("display","none");
+		$(this).siblings(".magic-check").css("display","block");
+		$(this).siblings(".magic-input").css("display","block");
+		$(this).siblings(".main-data").css("display","none");
+	
+	});
+
+	$('body').on('click', '.magic-check', function(){
+		$(this).css("display","none");
+		$(this).siblings(".magic-edit").css("display","block");
+		$(this).siblings(".magic-input").css("display","none");
+		$(this).siblings(".main-data").css("display","block");
+	});
+
+	$('body').on('click', '.magic-check', function(){
+		let bodyfont = $(this).parents('.bodyfont');
+
+		var streetname = bodyfont.find('.xxx-control[name="streetname"]').val();
+		var pobox = bodyfont.find('.xxx-control[name="pobox"]').val();
+		var floor = bodyfont.find('.xxx-control[name="floor"]').val();
+		var city = bodyfont.find('.xxx-control[name="city"]').val();
+		var id = bodyfont.find('.id[name="id"]').val();
+		var index = bodyfont.find('.index[name="index"]').val();
+
+		let data = {
+			street_name: streetname,
+			floor: floor,
+			pobox: pobox,
+			city_id: city
+		};
+		
+		let req = {
+			method: 'PUT',
+			url: appInfo.url+'addressesapi/update?id='+id,
+			data: $httpParamSerializer(data),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				$scope.userdata.addresses[index] = res.data;
+			}).catch(function(err){
+				$scope.loading = false;
+				   console.log(err);
+			})
+
+	});
+
+	
 
 	$scope.onDelteAddress = function (data){
 		let req = {
@@ -382,6 +443,17 @@ app.controller('AddressesCtrl',function($scope,$http, appInfo, $location){
 				   console.log(err);
 			})
 	  }
+
+	  function getAllcity(){
+		$http.get(appInfo.url+'citiesapi')
+			.then(function(res){
+				$scope.cityData = res.data;
+				console.log($scope.cityData);
+			}).catch(function(err){
+				   console.log(err);
+			})
+	  }
+
 
 
 });

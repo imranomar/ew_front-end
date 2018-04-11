@@ -1533,7 +1533,7 @@
 	    margin: 0;
 	}
 	.paymentmethod .bodyfont1{			
-	    padding: 0;
+	    padding: 0 17px;
 	    margin: 0;
 	}
 	.paymentmethod .bodyfont2{			
@@ -2149,4 +2149,34 @@
 }
 .ml-0{
 	margin-left: 0px !important;
+}
+.rit{
+	float: right;
+}
+.item{
+	border: none;
+	
+}
+.main-data{
+	font-size: 13px;
+    text-align: center;
+}
+.xxx-control{
+	border-bottom: 1px solid black !important;
+    width: 83px;
+    margin-top: -9px;
+}
+.magic-check{
+	display: none;
+}
+.magic-input{
+	display: none;
+}
+.magic{
+	margin: 15px 0px !important;
+}
+.xxx-control.select{
+	background-color: #fff;
+	border: none;
+	width: 100px;
 }

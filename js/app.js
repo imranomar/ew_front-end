@@ -12,13 +12,13 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
           console.log(response);
          if(response.status === 'connected'){
          
-           document.getElementById('status').innerHTML ="You are connected." ;
+          //  document.getElementById('status').innerHTML ="You are connected." ;
          }
          else if (response.status === 'not authorized'){
-          document.getElementById('status').innerHTML ='we are not logged in.';
+          // document.getElementById('status').innerHTML ='we are not logged in.';
          }
          else{
-          document.getElementById('status').innerHTML ='You are logged into the facebook';
+          // document.getElementById('status').innerHTML ='You are logged into the facebook';
          }
     });
   };
@@ -61,13 +61,13 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
             }
           );
         console.log(response);
-           document.getElementById('status').innerHTML ='You are connected.' ;
+          //  document.getElementById('status').innerHTML ='You are connected.' ;
          }
          else if (response.status === 'not authorized'){
-          document.getElementById('status').innerHTML ='we are not logged in.';
+          // document.getElementById('status').innerHTML ='we are not logged in.';
          }
          else{
-          document.getElementById('status').innerHTML ='You are logged into the facebook.';
+          // document.getElementById('status').innerHTML ='You are logged into the facebook.';
          }
 
   });
