@@ -1,3 +1,5 @@
+var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
+
 //initialise and setup facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
@@ -37,7 +39,7 @@
             function(res) {
                $.ajax({
                     type: "POST",
-                    url: "http://thisisbig.ae/advanced/backend/web/customersapi/create",
+                    url: baseUrl+"customersapi/create",
                     data: {
                       "full_name": res.name,
                       "email": res.email,
@@ -46,8 +48,11 @@
                       "phone": '',
                       "sex": ''
                     },
-                    success: function (data) {
-                       console.log(data);
+                    success: function (ress) {
+                       console.log(ress);
+                       localStorage.setItem('laundryUser', ress.data);
+                       localStorage.setItem('laundrylogin', 1);
+                       location.reload();
                     },
                     error: function(err){
                       console.log(err);
