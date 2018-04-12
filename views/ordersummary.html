@@ -1,4 +1,4 @@
-<div ng-controller="OrdersummaryCtrl" class="myorder">
+<div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
 	
 	<div class="ion-content mainmyorder">
 
@@ -14,90 +14,460 @@
 
 		<div class="row topmargin"> </div>
 
-		<div class="list card orderlist" ng-repeat="a in [1,2,3,4]">
+		<div class="list card orderlist">
+			
+			<form>
 
-			<div class="item item-body orderlistbody">
-				<div class="row">
-					<div class="col col-50 orderlistbody1pickup">
-						<h3 class="pickupheading"> PICKUP </h3>
-						<p class="para2heading para2headingmargin"> Tommorow </p>
-						<p class="para2heading"> WED 17th </p>
-						<p class="para2heading"> Between </p>
-						<p class="para2heading"> 16:00 to 17:00 </p>
-					</div>
+				<!-- wizard one start -->
+				 <section class="tab1">
+						<div class="text-center">
+								<h4>Delivery</h4>
+						   </div>
+						<div class="list">
+								<div class="row marginrow">
+										<div class="col next">
+											<div class="h2 title"> TOMORROW </div>			
+											<span class="iconsstyle"> 
+												<i class="icon ion-plus"></i> 
+												<i class="icon ion-social-usd-outline"></i> 
+												10
+											</span>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title"> DAY AFTER </div>
+											<div class="h3 title"> 16th Sun </div>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title tt1"> 17th Mon </div>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title tt1"> 18th Tue </div>
+										</div>
+									</div>
+							
+									<div class="row ">
+										<div class="col next">
+											<div class="h2 title tt1"> OTHER </div>
+										</div>
+									</div>
+							
+									
+							
+															
+						 </div>
+				 </section>
 
-					<div class="col col-50 orderlistbody1delivery">
-						<h3> DELIVERY </h3>
-						<p class="para2heading para2headingmargin"> SAT 19th Dec </p>
-						<p class="para2heading"> Between </p>
-						<p class="para2heading"> 17:00 to 18:00 </p>	
-						<a href="#" class="closeankartag">
-							<i class="icon ion-ios-close-outline"></i>
-						</a>					
-					</div>
-				</div>
-			</div>
+				 <!-- wizard one closed -->
 
-			<div class="item item-body orderlistbody">	
-				<div class="row">
-					<div class="col">
-						<a class="para1"> <i class="icon ion-ios-plus-outline"> </i> $10 - Same day Pickup </a>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<a class="para1"> <i class="icon ion-ios-plus-outline"> </i>  $20 - Fixid time delivery </a>
-					</div>
-				</div>		
-			</div>
+				  <!-- wizard two open -->
+				 
+				 <section class="tab2">
+						<div class="text-center">
+								<h4>Delivery</h4>
+						   </div>
+						<div class="list">
+								<div class="list">
+										<div class="item headingfinal">
+											Please Select the time to pricing
+										</div>
+										<div class="item">
+											<label class="container" for="a">I'will leave at the door.
+											  <input type="checkbox" id='a' class="checky">
+											  <span class="checkmark"></span>
+											</label>
+										</div>
+									</div>
+							
+									<div class="row finaldate1">
+										
+										<div class="col finaldate1col">
+							
+											<div class="list finaldate-list">
+												
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 18:00 </p>
+												  <!-- <button class="button button-clear button-positive"> Free </button> -->
+												  <label class="container" for="b">Free
+														<input type="radio" id='b' class="checky" name="radio">
+														<span class="checkmark unikk"></span>
+												  </label>
+													</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 18:00 to 21:00 </p>
+												  <!-- <button class="button button-clear button-positive">Free</button> -->
+												  <label class="container" for="c">Free
+														<input type="radio" id='c' class="checky" name="radio" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 11:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$20</button> -->
+												  <label class="container" for="d">+$20
+														<input type="radio" id='d' class="checky" name="radio">
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												 
+											      
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="e">+$30
+														<input type="radio" id='e' class="checky" name="radio" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="f">+$30
+														<input type="radio" id='f' class="checky" name="radio">
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="g">+$30
+														<input type="radio" id='g' class="checky" name="radio" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+											</div> 
+							
+										</div>
+							
+									</div>
+								<button class=" wizard-btn next" >
+										Next
+								</button>
+								<button class=" wizard-btn prev" id="prev">
+										Previous
+								</button>
+								
+									  
+						 </div>
+				 </section>
 
-			<div class="item item-body orderlistbody">
+				 <!-- wizard two closed -->
 
-				<div class="row">
-					<div class="col colmargin">
-						<p> Address : - <span class="borderdotdot"> Sargam Talkies , Plot No-184 , Zone-1 MP Nagar,Bhopal </span></p>
-					</div>
-				</div>
+				 <!-- wizard three open -->
+				 
+				 <section class="tab3">
+						<div class="text-center">
+								<h4>Pickup</h4>
+						   </div>
+						<div class="list">
+								<div class="row marginrow">
+										<div class="col next">
+											<div class="h2 title"> TOMORROW </div>			
+											<span class="iconsstyle"> 
+												<i class="icon ion-plus"></i> 
+												<i class="icon ion-social-usd-outline"></i> 
+												10
+											</span>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title"> DAY AFTER </div>
+											<div class="h3 title"> 16th Sun </div>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title tt1"> 17th Mon </div>
+										</div>
+									</div>
+							
+									<div class="row">
+										<div class="col next">
+											<div class="h2 title tt1"> 18th Tue </div>
+										</div>
+									</div>
+							
+									<div class="row ">
+										<div class="col next">
+											<div class="h2 title tt1"> OTHER </div>
+										</div>
+									</div>
+							
+									
+							
+															
+						 </div>
+				 </section>
 
-				<div class="row">
-					<div class="col colmargin">
-						<p> Credit Card : - <span class="borderdotdot"> ********7845 </span> </p>
-					</div>
-				</div>
+				 <!-- wizard three closed -->
+
+				  <!-- wizard four open -->
+				 
+				 <section class="tab4">
+						<div class="text-center">
+								<h4>Pickup</h4>
+						</div>
+						<div class="list">
+								<div class="list">
+										<div class="item headingfinal">
+											Please Select the time to pricing
+										</div>
+										<div class="item">
+											<label class="container" for="1">I'will leave at the door.
+											  <input type="checkbox" id='1' class="checky" >
+											  <span class="checkmark"></span>
+											</label>
+										</div>
+									</div>
+							
+									<div class="row finaldate1">
+										
+										<div class="col finaldate1col">
+							
+											<div class="list finaldate-list">
+												
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 18:00 </p>
+												  <!-- <button class="button button-clear button-positive"> Free </button> -->
+												  <label class="container" for="2">Free
+														<input type="radio" name="radio1" id='2' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+													</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 18:00 to 21:00 </p>
+												  <!-- <button class="button button-clear button-positive">Free</button> -->
+												  <label class="container" for="3">Free
+														<input type="radio" name="radio1" id='3' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 11:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$20</button> -->
+												  <label class="container" for="4">+$20
+														<input type="radio" name="radio1" id='4' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												 
+											      
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="5">+$30
+														<input type="radio" name="radio1" id='5' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="6">+$30
+														<input type="radio" name="radio1" id='6' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+												<div class="item item-thumbnail-left" >
+												  <img src="assets\clock (1).png">
+												  <h2> I'M FLEXIBLE </h2>
+												  <h4> BETWEEN </h4>
+												  <p> 9:00 to 10:00 </p>
+												  <!-- <button class="button button-clear button-positive">+$30</button> -->
+												  <label class="container" for="7">+$30
+														<input  type="radio" name="radio1" id='7' class="checky" >
+														<span class="checkmark unikk"></span>
+												  </label>
+												 
+												</div>
+							
+											</div> 
+							
+										</div>
+							
+									</div>
+								<button class=" wizard-btn next" >
+										Next
+								</button>
+								<button class=" wizard-btn prev" id="prev">
+										Previous
+								</button>
+								
+								
+									  
+						 </div>
+				 </section>
+				  <!-- wizard four closed -->
+
+				   <!-- wizard five open -->
+
+				 <section class="tab5 mainmyorder xcv">
+						<div class="text-center">
+								<h4>Pickup</h4>
+						</div>
+						<div class="item item-body orderlistbody">
+								<div class="row">
+									<div class="col col-50 orderlistbody1pickup">
+										<h3 class="pickupheading"> PICKUP </h3>
+										<p class="para2heading para2headingmargin"> Tommorow </p>
+										<p class="para2heading"> WED 17th </p>
+										<p class="para2heading"> Between </p>
+										<p class="para2heading"> 16:00 to 17:00 </p>
+									</div>
 				
-			</div>
+									<div class="col col-50 orderlistbody1delivery">
+										<h3> DELIVERY </h3>
+										<p class="para2heading para2headingmargin"> SAT 19th Dec </p>
+										<p class="para2heading"> Between </p>
+										<p class="para2heading"> 17:00 to 18:00 </p>	
+										<a href="#" class="closeankartag">
+											<i class="icon ion-ios-close-outline"></i>
+										</a>					
+									</div>
+								</div>
+						</div>
+						<div class="item item-body orderlistbody">	
+								<div class="row">
+									<div class="col">
+										<a class="para1"> <i class="icon ion-ios-plus-outline"> </i> $10 - Same day Pickup </a>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<a class="para1"> <i class="icon ion-ios-plus-outline"> </i>  $20 - Fixid time delivery </a>
+									</div>
+								</div>		
+							</div>
 
-			<div class="item item-body orderlistbody">
+							<div class="item item-body orderlistbody">	
+									<div class="row">
+										<div class="col">
+											<a class="para1"> <i class="icon ion-ios-plus-outline"> </i> $10 - Same day Pickup </a>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<a class="para1"> <i class="icon ion-ios-plus-outline"> </i>  $20 - Fixid time delivery </a>
+										</div>
+									</div>		
+								</div>
+					
+								<div class="item item-body orderlistbody">
+					
+									<div class="row">
+										<div class="col colmargin">
+											<p> Address : - <span class="borderdotdot"> Sargam Talkies , Plot No-184 , Zone-1 MP Nagar,Bhopal </span></p>
+										</div>
+									</div>
+					
+									<div class="row">
+										<div class="col colmargin">
+											<p> Credit Card : - <span class="borderdotdot"> ********7845 </span> </p>
+										</div>
+									</div>
+									
+								</div>
+					
+								<div class="item item-body orderlistbody">
+					
+									<div class="row">
+					
+										<div class="col col-50 orderlistbodypickup colmargin">
+											<h3> PICKUP </h3>
+											<p class="borderdotdot">Sonu Kumar</p>
+											<p class="borderdotdot">17/12/2017</p>
+											<p class="borderdotdot">7894561235</p>
+										</div>
+					
+										<div class="col col-50 orderlistbodydelivery colmargin">
+											<h3> DELIVERY </h3>
+											<p class="borderdotdot">Sanjay Kumar</p>
+											<p class="borderdotdot">19/12/2017</p>
+											<p class="borderdotdot">9985623415</p>
+										</div>
+					
+									</div>
+					
+								</div>
+						
+								
+				 </section>
+				 
+				  <!-- wizard five closed-->
+			</form>
 
-				<div class="row">
-
-					<div class="col col-50 orderlistbodypickup colmargin">
-						<h3> PICKUP </h3>
-						<p class="borderdotdot">Sonu Kumar</p>
-						<p class="borderdotdot">17/12/2017</p>
-						<p class="borderdotdot">7894561235</p>
-					</div>
-
-					<div class="col col-50 orderlistbodydelivery colmargin">
-						<h3> DELIVERY </h3>
-						<p class="borderdotdot">Sanjay Kumar</p>
-						<p class="borderdotdot">19/12/2017</p>
-						<p class="borderdotdot">9985623415</p>
-					</div>
-
-				</div>
-
-			</div>
-
+			
+			
 		</div>
+
+			
 
 		
 
-		<div class="row bottommargin">	</div>
-
-		<div class="bar bar-footer bar-balanced">
-			  <div class="title">Footer</div>
-		</div>	
 
 	</div>
 

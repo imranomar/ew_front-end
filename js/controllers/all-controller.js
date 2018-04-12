@@ -470,7 +470,72 @@ app.controller('DeliverydateCtrl',function($scope) {
 
 app.controller('OrdersummaryCtrl',function($scope){
 
+		
+	 
+    $(".next").click(function(){
+		
+
+		if($(this).parents(".tab1")){
+			$(this).parents(".tab1").css("display","none");
+		    $(this).parents(".tab1").siblings(".tab2").css("display","block");
+		}
+
+		$(".checky").change(function() {
+			$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
+		}).change();
+
+		$('.checky').click(function() {
+			if($(this).is(':checked')){	
+			  $(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").prop('checked', false);
+			  $(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', true);
+			}	  
+			else{
+				$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', false);
+			}
+		});
+		if($(this).parents(".tab2")){
+			$(this).parents(".tab2").siblings(".tab1").css("display","none");
+			$(this).parents(".tab2").css("display","none");
+			$(this).parents(".tab2").siblings(".tab3").css("display","block");
+		}
+
+		if($(this).parents(".tab3")){
+			$(this).parents(".tab3").siblings(".tab2").css("display","none");
+			$(this).parents(".tab3").css("display","none");
+			$(this).parents(".tab3").siblings(".tab4").css("display","block");
+		}  
+
+		if($(this).parents(".tab4")){
+			$(this).parents(".tab4").siblings(".tab3").css("display","none");
+			$(this).parents(".tab4").css("display","none");
+			$(this).parents(".tab4").siblings(".tab5").css("display","block");
+		}  
+		
+	});
+   $(".prev").click(function(){
+		if($(this).parents(".tab2")){
+				$(this).parents(".tab2").siblings(".tab1").css("display","block");
+				$(this).parents(".tab2").css("display","none");
+		}
+		if($(this).parents(".tab3")){
+			$(this).parents(".tab3").siblings(".tab2").css("display","block");
+			$(this).parents(".tab3").css("display","none");
+		}  
+		
+		if($(this).parents(".tab4")){
+			$(this).parents(".tab4").siblings(".tab3").css("display","block");
+			$(this).parents(".tab4").css("display","none");
+		}  
+   });
+
+	$(".checky").each(function(){
+		if ($(this).prop('checked')==true){ 
+			alert("hello");
+		}
+	});
+  
 })
+
 
 
 

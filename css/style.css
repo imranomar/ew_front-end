@@ -2180,3 +2180,67 @@
 	border: none;
 	width: 100px;
 }
+.tab1{
+	display: block;
+	transition: 0.9s;
+}
+.tab2{
+	display: none;
+	transition: 0.9s;
+}
+.tab3{
+	display: none;
+	transition: 0.9s;
+}
+.tab4{
+	display: none;
+	transition: 0.9s;
+}
+.tab5{
+	display: none;
+	transition: 0.9s;
+
+}
+.wizard-btn {
+    border-radius: 2px;
+    background-color: #41c166;
+    float: right;
+    color: #fff;
+    padding: 6px 12px;
+    margin: 4px 10px;
+    border: none;
+}
+.wizard-btn.prev{
+	background-color: grey;
+}
+.card.orderlist{
+	padding: 5px;
+}
+.Deliverydate.finaldate .tab2 .row .col,.Deliverydate.finaldate .tab4 .row .col {
+	margin: 0px;	
+}
+.finaldate-list{
+	height: 300px;
+	overflow-y: scroll;
+}
+.fade{
+	opacity: 0.4;
+}
+.inside-check{
+	margin-top: 17px !important;
+}
+.item-thumbnail-left{
+	position: relative;
+}
+.finaldate .checkmark.unikk {
+    position: absolute;
+    top: 0;
+    left: 53px;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+}
+.mainmyorder.xcv .row .col {  
+  margin: 0px; 
+}
+
