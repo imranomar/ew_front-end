@@ -21,13 +21,14 @@
 				<!-- wizard one start -->
 				 <section class="tab1">
 						<div class="text-center">
-								<h4>Delivery</h4>
+								<h4>Pick up</h4>
 						   </div>
-						<div class="list">
-								<div class="row marginrow">
-										<div class="col next">
-											<div class="h2 title"> TOMORROW </div>			
-											<span class="iconsstyle"> 
+						<div class="list" >
+								<div class="row marginrow" ng-repeat="value in datelist" ng-hide="!showAllDateList && $index > 4" ng-click="savelocallyDate(value)">
+										<div class="col next" >
+											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>
+											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>			
+											<span class="iconsstyle" ng-if="value.price"> 
 												<i class="icon ion-plus"></i> 
 												<i class="icon ion-social-usd-outline"></i> 
 												10
@@ -35,30 +36,11 @@
 										</div>
 									</div>
 							
-									<div class="row">
-										<div class="col next">
-											<div class="h2 title"> DAY AFTER </div>
-											<div class="h3 title"> 16th Sun </div>
-										</div>
-									</div>
-							
-									<div class="row">
-										<div class="col next">
-											<div class="h2 title tt1"> 17th Mon </div>
-										</div>
-									</div>
-							
-									<div class="row">
-										<div class="col next">
-											<div class="h2 title tt1"> 18th Tue </div>
-										</div>
-									</div>
-							
-									<div class="row ">
-										<div class="col next">
+									<div class="row" ng-if="!showAllDateList">
+										<div class="col" ng-click="onOther()">
 											<div class="h2 title tt1"> OTHER </div>
 										</div>
-									</div>
+									</div> 
 							
 									
 							
@@ -72,10 +54,10 @@
 				 
 				 <section class="tab2">
 						<div class="text-center">
-								<h4>Delivery</h4>
+								<h4>Pick up</h4>
 						   </div>
 						<div class="list">
-								<div class="list">
+								  <div class="list">
 										<div class="item headingfinal">
 											Please Select the time to pricing
 										</div>
@@ -93,84 +75,20 @@
 							
 											<div class="list finaldate-list">
 												
-												<div class="item item-thumbnail-left" >
+												<div class="item item-thumbnail-left"  ng-repeat = "value in Timeslot"  >
 												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
+												  <h2 ng-if="value.type == 1"> I'M FLEXIBLE </h2>
+												  <h2 ng-if="value.type == 2"> FIXED </h2>
 												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 18:00 </p>
+												  <p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
 												  <!-- <button class="button button-clear button-positive"> Free </button> -->
-												  <label class="container" for="b">Free
-														<input type="radio" id='b' class="checky" name="radio">
-														<span class="checkmark unikk"></span>
+												  <label class="container" for="{{value}}">{{value.price}}
+														<input type="radio" id='{{value}}' value="{{value}}" class="checky" name="radio">
+														<span class="checkmark unikk" ng-click="savelocallyTime(value)"></span>
 												  </label>
 													</div>
 							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 18:00 to 21:00 </p>
-												  <!-- <button class="button button-clear button-positive">Free</button> -->
-												  <label class="container" for="c">Free
-														<input type="radio" id='c' class="checky" name="radio" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 11:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$20</button> -->
-												  <label class="container" for="d">+$20
-														<input type="radio" id='d' class="checky" name="radio">
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												 
-											      
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="e">+$30
-														<input type="radio" id='e' class="checky" name="radio" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="f">+$30
-														<input type="radio" id='f' class="checky" name="radio">
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="g">+$30
-														<input type="radio" id='g' class="checky" name="radio" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
+											
 							
 											</div> 
 							
@@ -194,13 +112,14 @@
 				 
 				 <section class="tab3">
 						<div class="text-center">
-								<h4>Pickup</h4>
+								<h4>Delivery</h4>
 						   </div>
 						<div class="list">
-								<div class="row marginrow">
+								<div class="row marginrow"  ng-repeat="value in datelist"  ng-hide="!showAllDateList && $index > 4" ng-click="savelocallyDeliveryDate(value)">
 										<div class="col next">
-											<div class="h2 title"> TOMORROW </div>			
-											<span class="iconsstyle"> 
+											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>	
+											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>		
+											<span class="iconsstyle" ng-if="value.price"> 
 												<i class="icon ion-plus"></i> 
 												<i class="icon ion-social-usd-outline"></i> 
 												10
@@ -208,7 +127,7 @@
 										</div>
 									</div>
 							
-									<div class="row">
+									<!-- <div class="row">
 										<div class="col next">
 											<div class="h2 title"> DAY AFTER </div>
 											<div class="h3 title"> 16th Sun </div>
@@ -225,10 +144,10 @@
 										<div class="col next">
 											<div class="h2 title tt1"> 18th Tue </div>
 										</div>
-									</div>
+									</div> -->
 							
-									<div class="row ">
-										<div class="col next">
+									<div class="row " ng-if="!showAllDateList1">
+										<div class="col next" ng-click="onOther1()">
 											<div class="h2 title tt1"> OTHER </div>
 										</div>
 									</div>
@@ -245,7 +164,7 @@
 				 
 				 <section class="tab4">
 						<div class="text-center">
-								<h4>Pickup</h4>
+								<h4>Delivery</h4>
 						</div>
 						<div class="list">
 								<div class="list">
@@ -266,91 +185,26 @@
 							
 											<div class="list finaldate-list">
 												
-												<div class="item item-thumbnail-left" >
+											 <div class="item item-thumbnail-left"  ng-repeat = "value in Timeslot1">
 												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
+												  <h2 ng-if="value.type == 1"> I'M FLEXIBLE </h2>
+												  <h2 ng-if="value.type == 2"> FIXED </h2>
 												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 18:00 </p>
-												  <!-- <button class="button button-clear button-positive"> Free </button> -->
-												  <label class="container" for="2">Free
-														<input type="radio" name="radio1" id='2' class="checky" >
-														<span class="checkmark unikk"></span>
-												  </label>
-													</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 18:00 to 21:00 </p>
-												  <!-- <button class="button button-clear button-positive">Free</button> -->
-												  <label class="container" for="3">Free
-														<input type="radio" name="radio1" id='3' class="checky" >
-														<span class="checkmark unikk"></span>
-												  </label>
+												  <p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
 												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 11:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$20</button> -->
-												  <label class="container" for="4">+$20
-														<input type="radio" name="radio1" id='4' class="checky" >
-														<span class="checkmark unikk"></span>
+												  <label class="container" for="a{{value}}">{{value.price}}
+														<input type="radio" name="radio2" value="" id="a{{value}}" class="checky" >
+														<span class="checkmark unikk"  ng-click="savelocallyDeliveryTime(value)"></span>
 												  </label>
-												 
-												 
-											      
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="5">+$30
-														<input type="radio" name="radio1" id='5' class="checky" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="6">+$30
-														<input type="radio" name="radio1" id='6' class="checky" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
-							
-												<div class="item item-thumbnail-left" >
-												  <img src="assets\clock (1).png">
-												  <h2> I'M FLEXIBLE </h2>
-												  <h4> BETWEEN </h4>
-												  <p> 9:00 to 10:00 </p>
-												  <!-- <button class="button button-clear button-positive">+$30</button> -->
-												  <label class="container" for="7">+$30
-														<input  type="radio" name="radio1" id='7' class="checky" >
-														<span class="checkmark unikk"></span>
-												  </label>
-												 
-												</div>
+												</div>	
+												
 							
 											</div> 
 							
 										</div>
 							
 									</div>
-								<button class=" wizard-btn next" >
+								<button class=" wizard-btn next" ng-click="getLocalDetail()" >
 										Next
 								</button>
 								<button class=" wizard-btn prev" id="prev">
@@ -373,17 +227,18 @@
 								<div class="row">
 									<div class="col col-50 orderlistbody1pickup">
 										<h3 class="pickupheading"> PICKUP </h3>
-										<p class="para2heading para2headingmargin"> Tommorow </p>
-										<p class="para2heading"> WED 17th </p>
+										<p class="para2heading para2headingmargin"> {{getLocalDetail.pickupDate.name}} </p>
+										<p class="para2heading">{{getLocalDetail.pickupDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading"> 16:00 to 17:00 </p>
+										<p class="para2heading"> {{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </p>
 									</div>
 				
 									<div class="col col-50 orderlistbody1delivery">
 										<h3> DELIVERY </h3>
-										<p class="para2heading para2headingmargin"> SAT 19th Dec </p>
+										
+										<p class="para2heading para2headingmargin">  {{getLocalDetail.deliveryDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading"> 17:00 to 18:00 </p>	
+										<p class="para2heading"> {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
 										<a href="#" class="closeankartag">
 											<i class="icon ion-ios-close-outline"></i>
 										</a>					

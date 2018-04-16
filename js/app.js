@@ -155,8 +155,7 @@ app.config(function($routeProvider,$locationProvider) {
     controller: 'DeliverydateCtrl'
   })
   .when('/ordersummary', {
-    templateUrl: 'views/ordersummary.html',
-    controller: 'OrdersummaryCtrl'
+    templateUrl: 'views/ordersummary.html'
   })
   .when('/payment', {
     templateUrl: 'views/paymentmethod.html',

@@ -61,10 +61,38 @@ app.run(function($rootScope){
 
  // Signup of Controller
 
- app.controller('SignupCtrl',function($scope) {
+ app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo) {
  		$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
- 			console.log($scope.signupdata);
+			$scope.loading = true;
+			let data = {
+				full_name: $scope.signupdata.name,
+				email: $scope.signupdata.email,
+				password: $scope.signupdata.password,
+				sex: '0'
+				
+			};
+			let req = {
+				method: 'POST',
+				url: appInfo.url+'customersapi/create',
+				data: $httpParamSerializer(data),
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded'
+				}
+			}
+
+			$scope.err = '';
+			$scope.loading = true;
+			$http(req)
+				.then(function(res){
+					$scope.loading = false;
+					console.log(res.data);
+				}).catch(function(error){
+					$scope.loading = false;
+					let err = error.data;
+					$scope.err = err[0].message;
+					// console.log(error);
+				})
  		}
 
  });
@@ -468,11 +496,246 @@ app.controller('DeliverydateCtrl',function($scope) {
 
 // Load Controller of OrdersummaryCtrl
 
-app.controller('OrdersummaryCtrl',function($scope){
+app.controller('OrdersummaryCtrl',function($scope, $http, appInfo){
+	//  localstorage keys
+	let localData = {
+		pickupDate : {},
+		pickupTime: {},
+		deliveryDate: {},
+		deliveryTime: {}
+	} 
+
+	// wizard one start
+	let date  = new Date();
+	let dateapi=[];
+	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+	let array = [];	
+	$scope.datelist;
+	$scope.getLocalDetail;
+	getDate();
+	$scope.showAllDateList = false;
+	function getDate(){
+		$http.get(appInfo.url+'optionsapi')
+			.then(function(res){
+				dateapi = res.data[0];	
+				console.log(dateapi);
+				conDate();
+			}).catch(function(err){
+				   console.log(err);
+			});
+	}
+
+	function conDate(){
+		let holidays = dateapi.holidays.split(',');
+		let length = dateapi.holidays.split(',').length;
+		if(dateapi.weekend){
+			length += 1;
+		}
+		for(var i = 0; i < 16 + length ; i++){
+			let name = '';
+			let price = '';
+			let d = new Date(date.setDate(date.getDate()+1));
+			
+			if(d.getDate() == new Date().getDate()+1){
+				// if  day is tomorrow
+				name = 'Tomorrow';
+				price = dateapi.next_day_pickup_price;
+			}else if(d.getDate() == new Date().getDate()+2){
+				// if day is day after 
+				name = 'day after';
+			}
+			array.push({
+				date: d,
+				name: name,
+				price: price,
+				shortDate: d.getDate()+'th '+days[d.getDay()]
+			});
+		}
+
+		for(var i = 0; i < array.length; i++){
+			for(let j = 0; j < holidays.length; j++){
+				if(array[i].date.getDate() == new Date(holidays[j] * 1000).getDate()){
+					array.splice(i, 1);
+				}	
+			}
+			if(dateapi.weekend){
+				if(days.indexOf(dateapi.weekend) > -1){
+					if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
+						array.splice(i, 1);
+					}
+				}
+			}	
+		}
+		array.length = 15;
+		console.log(array);
+		$scope.datelist = array;
+
+	}
+
+	$scope.onOther = function(){
+		$scope.showAllDateList = true;
+	}
+	// wizard one closed
+
+
+		// wizard three  start
+	let date1  = localData.pickupDate.date;
+	let dateapi1=[];
+	let array1 = [];	
+    $scope.datelist1;
+	getDate1();
+	$scope.showAllDateList1 = false;
+	function getDate1(){
+		$http.get(appInfo.url+'optionsapi')
+			.then(function(res){
+				dateapi1 = res.data[0];	
+				console.log(dateapi1);
+				conDate();
+			}).catch(function(err){
+				   console.log(err);
+			});
+	}
+
+	function conDate1(){
+		let holidays1 = dateapi.holidays.split(',');
+		let length1 = dateapi.holidays.split(',').length;
+		if(dateapi1.weekend){
+			length1 += 1;
+		}
+		for(var i = 0; i < 16 + length1 ; i++){
+			let name = '';
+			let price = '';
+			let d1 = new Date(date.setDate(date.getDate()+1));
+			
+			if(d1.getDate() == new Date().getDate1()+1){
+				// if  day is tomorrow
+				name = 'Tomorrow';
+				price = dateapi.next_day_pickup_price;
+			}else if(d1.getDate1() == new Date().getDate1()+2){
+				// if day is day after 
+				name = 'day after';
+			}
+			array.push({
+				date: d1,
+				name: name,
+				price: price,
+				shortDate: d1.getDate()+'th '+days[d1.getDay()]
+			});
+		}
+
+		for(var i = 0; i < array1.length; i++){
+			for(let j = 0; j < holidays1.length; j++){
+				if(array[i].date.getDate1() == new Date(holidays1[j] * 1000).getDate1()){
+					array.splice(i, 1);
+				}	
+			}
+			if(dateapi1.weekend){
+				if(days.indexOf(dateapi1.weekend) > -1){
+					if(array1[i].date.getDay1() == days.indexOf(dateapi1.weekend)){
+						array1.splice(i, 1);
+					}
+				}
+			}	
+		}
+		array1.length = 15;
+		console.log(array1);
+		$scope.datelist1 = array1;
+
+	}
+
+	$scope.onOther1 = function(){
+		$scope.showAllDateList1 = true;
+	}
+	
+
+		
+		// wizard three closed
+
+	// wizard two open 
+	$scope.TimeSlot ;
+    function getTimeSlot(){
+		$http.get(appInfo.url+'slotspricingapi')
+			.then(function(res){	
+				$scope.Timeslot = res.data;
+				console.log	($scope.Timeslot);
+			}).catch(function(err){
+				   console.log(err);
+			});
+	}
+	getTimeSlot();
+
+	// wizard two closed 
+
+	// wizard four open 
+	$scope.TimeSlot1 ;
+    function getTimeSlot1(){
+		$http.get(appInfo.url+'slotspricingapi')
+			.then(function(res){	
+				$scope.Timeslot1 = res.data;
+				console.log	($scope.Timeslot1);
+			}).catch(function(err){
+				   console.log(err);
+			});
+	}
+	getTimeSlot1();
+
+	// wizard four closed 
+
+	
+
+	// save into local storage start
+    $scope.savelocallyDate = function(value){
+		console.log(value);
+		localData.pickupDate = value;
+		var stringlocalData = JSON.stringify(localData);
+		localStorage.setItem('Myorder',  stringlocalData);
+		console.log(localData.pickupDate.date);
+	}
+
+	$scope.savelocallyTime = function(value){
+		console.log(value);
+		localData.pickupTime = value;
+		var stringlocalTime = JSON.stringify(localData);
+		localStorage.setItem('Myorder',  stringlocalTime);
+	}
+	$scope.savelocallyDeliveryDate = function(value){
+		console.log(value);
+		localData.deliveryDate = value;
+		var stringlocalTime = JSON.stringify(localData);
+		localStorage.setItem('Myorder',  stringlocalTime);
+	}
+	$scope.savelocallyDeliveryTime = function(value){
+		console.log(value);
+		localData.deliveryTime = value;
+		var stringlocalTime = JSON.stringify(localData);
+		localStorage.setItem('Myorder',  stringlocalTime);
+	}
+	$scope.getLocalDetail = function(){
+		let getItemLocally = localStorage.getItem('Myorder');
+		
+		$scope.getLocalDetail = JSON.parse(getItemLocally);
+		console.log($scope.getLocalDetail.pickupDate);
+		console.log($scope.getLocalDetail);
+
+	}
+	
+
+
+	
+	// let localData = {
+	// 	pickupDate : {},
+	// 	pickupTime: {},
+	// 	deliveryDate: {},
+	// 	deliveryTime: {}
+	// } 
+
+	// save onto local storage closed
+
+
 
 		
 	 
-    $(".next").click(function(){
+    $("body").on('click','.next',function(){
 		
 
 		if($(this).parents(".tab1")){
