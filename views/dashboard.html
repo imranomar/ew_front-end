@@ -11,7 +11,12 @@
 			$('#menuopen').click(function () {				
 				$("#div1").addClass("animationhide");
 				$("#div2").addClass("abcd");
-			})
+			});
+			// $("#signout").click(function($scope,$window){
+				
+			// 	 localStorage.removeItem('laundryUser');
+            //      $location.path('/login');
+			// });
 
 	    });
 </script>
@@ -224,7 +229,7 @@
 					<div class="row">
 
 						<div class="col">
-							<a href="#/http://localhost/LaundryApp/" class="menulink6"> 
+							<a class="menulink6" id="signout" ng-click="Signout()"> 
 								<!-- <i class="icon ion-android-arrow-back"></i>  -->
 								<i class="icon ion-log-out"></i> 
 								Signout 

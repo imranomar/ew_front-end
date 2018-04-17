@@ -1,9 +1,10 @@
  var app = angular.module("laundryApp");
  
 app.run(function($rootScope){
-  
 	$rootScope.a = '​http://thisisbig.ae/advanced/backend/web/';
  });
+
+
  
 
  //Login of Controller
@@ -112,15 +113,22 @@ app.run(function($rootScope){
  // Dashboard of Controller
 
  app.controller('DashboardCtrl',function($scope,$location) {
-
+	console.log('0');
  	$scope.menuopen =function(){
  		//$location.path("/menu");
  		
- 	}
+	 }
+	 console.log("dashboard");
 
 	$scope.closemenu = function(){
 		alert('qwfwefw');
 		angular.element('.Menu').remove();
+	}
+	$scope.Signout = function(){
+		console.log("hello");
+	    localStorage.removeItem('laundryUser');
+	    localStorage.removeItem('laundrylogin');
+        $location.path("/login");
 	}
 
  });
@@ -129,9 +137,15 @@ app.run(function($rootScope){
  // Menu of Controller
 
  app.controller('MenuCtrl',function($scope,$location) {
+	console.log("MenuCtrl");
+	console.log("hello");
+	$scope.Signout = function(){
+		console.log("signout");
+	}
 
  	$scope.closemenu = function () {
- 		$location.path("/dashboard");
+		 $location.path("/dashboard");
+		 console.log("MenuCtrl");
  	}
 
  });
@@ -412,6 +426,7 @@ app.controller('AddressesCtrl',function($scope,$http, appInfo, $location, $httpP
 			.then(function(res){
 				$scope.loading = false;
 				console.log(res.data);
+				console.log("address");
 				$scope.userdata.addresses[index] = res.data;
 			}).catch(function(err){
 				$scope.loading = false;
@@ -451,7 +466,9 @@ app.controller('AddressesCtrl',function($scope,$http, appInfo, $location, $httpP
 		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
 		.then(function(res){
 			$scope.loading = false;
-			console.log(res.data);
+			console.log(res.data.id);
+			$scope.getAddressId = res.data.id;
+
 			$scope.userdata = res.data;
 			for(let value of  $scope.userdata.addresses){
 				getcity(value.city_id);
@@ -496,7 +513,7 @@ app.controller('DeliverydateCtrl',function($scope) {
 
 // Load Controller of OrdersummaryCtrl
 
-app.controller('OrdersummaryCtrl',function($scope, $http, appInfo){
+app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSerializer){
 	//  localstorage keys
 	let localData = {
 		pickupDate : {},
@@ -504,6 +521,9 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo){
 		deliveryDate: {},
 		deliveryTime: {}
 	} 
+	let x = localStorage.getItem('laundryUser');
+	$scope.getAddress;
+	$scope.getpayment;
 
 	// wizard one start
 	let date  = new Date();
@@ -712,12 +732,118 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo){
 	}
 	$scope.getLocalDetail = function(){
 		let getItemLocally = localStorage.getItem('Myorder');
+		let getItemLocallyCustomer = localStorage.getItem('laundryUser');
+		console.log( getItemLocallyCustomer);
 		
 		$scope.getLocalDetail = JSON.parse(getItemLocally);
-		console.log($scope.getLocalDetail.pickupDate);
+		console.log($scope.getLocalDetail.deliveryDate.date);
 		console.log($scope.getLocalDetail);
+		console.log($scope.getLocalDetail.deliveryDate.price);
+		var confuseDate = $scope.getLocalDetail.deliveryDate.date;
+		var simpleDate = new Date(confuseDate).toISOString().substr(0,10);
+		console.log(simpleDate);
+		var confuseDatepickup = $scope.getLocalDetail.pickupDate.date;
+		var simpleDatepickup = new Date(confuseDatepickup).toISOString().substr(0,10);
+		console.log(simpleDatepickup);
+
+		function getAddress(){
+			
+			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
+			.then(function(res){
+				
+				console.log(res.data);
+				$scope.getAddress = res.data;
+				console.log($scope.getAddress.addresses[0].floor);
+				console.log("tahseen");
+			}).catch(function(err){
+				$scope.loading = false;
+				console.log(err);
+			});
+		}
+		getAddress();
+
+		function getPayment(){
+			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
+			.then(function(res){
+				console.log(res.data.payments[0].id);
+				console.log(res);
+				$scope.getpayment = res.data.payments[0];
+				console.log("mil gaya");
+				console.log($scope.getpayment.id);
+				console.log("mil gaya");
+				getVault($scope.getpayment.vault_id)
+			}).catch(function(err){
+				console.log(err);
+			});
+		}
+		getPayment();
+
+		function getVault(id){
+			$scope.loading = true;
+		$http.get(appInfo.url+'vaultapi/view/?id='+id)
+		.then(function(res){
+			$scope.loading = false;
+			console.log(res.data);
+			$scope.getpayment= res.data;
+
+			console.log(res.data.cvcode);
+			console.log(res.data.expiry_month);
+			console.log(res.data.expiry_year);
+		}).catch(function(err){
+			$scope.loading = false;
+			console.log(err);
+		});
+   }
+		
+	//get data in fith wizard
+
+	$scope.createOrder = function(){
+		let data = {
+			payment_id:$scope.getpayment.id,
+			status: '0',
+			pickup_date: simpleDatepickup,
+			pickup_time_from: $scope.getLocalDetail.pickupTime.time_from,
+			pickup_time_to: $scope.getLocalDetail.pickupTime.time_to,
+			pickup_price: $scope.getLocalDetail.pickupTime.price,
+			pickup_type: $scope.getLocalDetail.pickupTime.type,
+			drop_date: simpleDate,
+			drop_time_from: $scope.getLocalDetail.deliveryTime.time_from,
+			drop_time_to: $scope.getLocalDetail.deliveryTime.time_to,
+			drop_price: $scope.getLocalDetail.deliveryTime.price,
+			drop_type: $scope.getLocalDetail.deliveryTime.type,
+			address_id:	$scope.getAddress.addresses[0].id,
+			same_day_pickup: '0',
+			next_day_drop: '0',
+			comments: '0',
+			customer_id: getItemLocallyCustomer,
+	
+		};
+		let req = {
+			method: 'POST',
+			url: appInfo.url+'ordersapi/create',
+			data: $httpParamSerializer(data),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		}
+		$scope.err = '';
+		$scope.loading = true;
+		$http(req)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res);
+				console.log("final");
+			}).catch(function(error){
+				$scope.loading = false;
+				let err = error.data;
+				console.log(error);
+			})
+	}
+	
 
 	}
+	
+
 	
 
 
@@ -806,6 +932,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo){
 
 app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	$scope.loading = false;
+	$scope.paymentId;
 	let x = localStorage.getItem('laundryUser');
 	$scope.userdata = {};
 	$scope.paymentDetails = [];
@@ -838,7 +965,9 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	function getPayment(){
 		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
 		.then(function(res){
-			console.log(res.data);
+			console.log(res.data.payments[0].id);
+			$scope.paymentId = res.data.payments[0].id;
+			
 			$scope.userdata.payments = res.data.payments;
 			for(let value of  $scope.userdata.payments){
 				getVault(value.vault_id);
@@ -926,6 +1055,7 @@ app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http,
 			.then(function(res){
 				$scope.loading = false;
 				console.log(res.data);
+				console.log("0");	
 			}).catch(function(err){
 				$scope.loading = false;
 				   console.log(err);
@@ -938,6 +1068,8 @@ app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http,
 			.then(function(res){
 				$scope.loading = false;
 				console.log(res.data);
+				console.log("0");
+				
 				$scope.addressData = res.data;
 				$scope.addressData.city_id = res.data.city_id.toString();
 			}).catch(function(err){
@@ -1040,6 +1172,7 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 			.then(function(res){
 				$scope.loading = false;
 				console.log(res.data);
+				console.log("add");
 			}).catch(function(error){
 				$scope.loading = false;
 				let err = error.data;

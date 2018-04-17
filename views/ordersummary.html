@@ -221,7 +221,7 @@
 
 				 <section class="tab5 mainmyorder xcv">
 						<div class="text-center">
-								<h4>Pickup</h4>
+				
 						</div>
 						<div class="item item-body orderlistbody">
 								<div class="row">
@@ -247,26 +247,26 @@
 						</div>
 						<div class="item item-body orderlistbody">	
 								<div class="row">
-									<div class="col">
-										<a class="para1"> <i class="icon ion-ios-plus-outline"> </i> $10 - Same day Pickup </a>
+									<div class="col" ng-show="getLocalDetail.pickupDate.price != ''">
+										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i> ${{getLocalDetail.pickupDate.price}} - Same day Pickup </a>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col">
-										<a class="para1"> <i class="icon ion-ios-plus-outline"> </i>  $20 - Fixid time delivery </a>
+									<div class="col" ng-show="getLocalDetail.pickupTime.price != '0'">
+										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.pickupTime.price}} - Fixid time delivery </a>
 									</div>
 								</div>		
 							</div>
 
 							<div class="item item-body orderlistbody">	
 									<div class="row">
-										<div class="col">
-											<a class="para1"> <i class="icon ion-ios-plus-outline"> </i> $10 - Same day Pickup </a>
+										<div class="col" ng-show="getLocalDetail.deliveryDate.price != ''">
+											<a class="para1"> <i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - Same day Pickup </a>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col">
-											<a class="para1"> <i class="icon ion-ios-plus-outline"> </i>  $20 - Fixid time delivery </a>
+										<div class="col" ng-show="getLocalDetail.deliveryTime.price != '0'">
+											<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.deliveryTime.price}} - Fixid time delivery </a>
 										</div>
 									</div>		
 								</div>
@@ -275,13 +275,27 @@
 					
 									<div class="row">
 										<div class="col colmargin">
-											<p> Address : - <span class="borderdotdot"> Sargam Talkies , Plot No-184 , Zone-1 MP Nagar,Bhopal </span></p>
+											<p> Address : - <span class="borderdotdot"> {{getAddress.addresses[0].floor}}  {{getAddress.addresses[0].street_name}}</span></p>
 										</div>
 									</div>
 					
 									<div class="row">
 										<div class="col colmargin">
-											<p> Credit Card : - <span class="borderdotdot"> ********7845 </span> </p>
+											<p> CvCode : - <span class="borderdotdot"> {{getpayment.cvcode}} </span> </p>
+										</div>
+								
+									</div>
+									<div class="row">
+							
+										<div class="col colmargin">
+											<p> Expiry month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span> </p>
+										</div>
+					
+									</div>
+									<div class="row">
+										
+										<div class="col colmargin">
+											<p> Expiry year : - <span class="borderdotdot"> {{getpayment.expiry_year}} </span> </p>
 										</div>
 									</div>
 									
@@ -293,21 +307,20 @@
 					
 										<div class="col col-50 orderlistbodypickup colmargin">
 											<h3> PICKUP </h3>
-											<p class="borderdotdot">Sonu Kumar</p>
-											<p class="borderdotdot">17/12/2017</p>
-											<p class="borderdotdot">7894561235</p>
+								
 										</div>
 					
 										<div class="col col-50 orderlistbodydelivery colmargin">
 											<h3> DELIVERY </h3>
-											<p class="borderdotdot">Sanjay Kumar</p>
-											<p class="borderdotdot">19/12/2017</p>
-											<p class="borderdotdot">9985623415</p>
+								
 										</div>
 					
 									</div>
 					
 								</div>
+								<button class=" wizard-btn submit" ng-click="createOrder()" >
+									Submit
+							  </button>
 						
 								
 				 </section>
