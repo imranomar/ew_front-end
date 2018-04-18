@@ -31,7 +31,7 @@
 											<span class="iconsstyle" ng-if="value.price"> 
 												<i class="icon ion-plus"></i> 
 												<i class="icon ion-social-usd-outline"></i> 
-												10
+												{{value.price}}
 											</span>
 										</div>
 									</div>
@@ -63,7 +63,7 @@
 										</div>
 										<div class="item">
 											<label class="container" for="a">I'will leave at the door.
-											  <input type="checkbox" id='a' class="checky">
+											  <input type="checkbox" id='a' class="checky" name="pickAtDoor">
 											  <span class="checkmark"></span>
 											</label>
 										</div>
@@ -75,7 +75,7 @@
 							
 											<div class="list finaldate-list">
 												
-												<div class="item item-thumbnail-left"  ng-repeat = "value in Timeslot"  >
+												<div class="item item-thumbnail-left"  ng-repeat="value in Timeslot">
 												  <img src="assets\clock (1).png">
 												  <h2 ng-if="value.type == 1"> I'M FLEXIBLE </h2>
 												  <h2 ng-if="value.type == 2"> FIXED </h2>
@@ -83,10 +83,11 @@
 												  <p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
 												  <!-- <button class="button button-clear button-positive"> Free </button> -->
 												  <label class="container" for="{{value}}">{{value.price}}
-														<input type="radio" id='{{value}}' value="{{value}}" class="checky" name="radio">
-														<span class="checkmark unikk" ng-click="savelocallyTime(value)"></span>
+														<input type="radio" id='{{value}}' value="{{value}}" class="checky" name="pickUpRadio">
+														<span class="checkmark unikk" ></span>
+														<!-- ng-click="savelocallyTime(value)" -->
 												  </label>
-													</div>
+											</div>
 							
 											
 							
@@ -95,7 +96,7 @@
 										</div>
 							
 									</div>
-								<button class=" wizard-btn next" >
+								<button class="wizard-btn next" >
 										Next
 								</button>
 								<button class=" wizard-btn prev" id="prev">
@@ -115,14 +116,14 @@
 								<h4>Delivery</h4>
 						   </div>
 						<div class="list">
-								<div class="row marginrow"  ng-repeat="value in datelist"  ng-hide="!showAllDateList && $index > 4" ng-click="savelocallyDeliveryDate(value)">
+								<div class="row marginrow"  ng-repeat="value in datelist1"  ng-hide="!showAllDateList1 && $index > 4" ng-click="savelocallyDeliveryDate(value)">
 										<div class="col next">
 											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>	
 											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>		
 											<span class="iconsstyle" ng-if="value.price"> 
 												<i class="icon ion-plus"></i> 
 												<i class="icon ion-social-usd-outline"></i> 
-												10
+												{{value.price}}
 											</span>
 										</div>
 									</div>
@@ -153,7 +154,9 @@
 									</div>
 							
 									
-							
+									<button class=" wizard-btn prev" id="prev">
+											Previous
+									</button>
 															
 						 </div>
 				 </section>
@@ -173,7 +176,7 @@
 										</div>
 										<div class="item">
 											<label class="container" for="1">I'will leave at the door.
-											  <input type="checkbox" id='1' class="checky" >
+											  <input type="checkbox" id='1' class="checky" name="deliveryAtDoor" >
 											  <span class="checkmark"></span>
 											</label>
 										</div>
@@ -193,8 +196,9 @@
 												  <p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
 												 
 												  <label class="container" for="a{{value}}">{{value.price}}
-														<input type="radio" name="radio2" value="" id="a{{value}}" class="checky" >
-														<span class="checkmark unikk"  ng-click="savelocallyDeliveryTime(value)"></span>
+														<input type="radio" value="{{value}}" id="a{{value}}" class="checky" name="deliveryRadio" >
+														<span class="checkmark unikk" ></span>
+														<!-- ng-click="savelocallyDeliveryTime(value)" -->
 												  </label>
 												</div>	
 												
@@ -204,7 +208,8 @@
 										</div>
 							
 									</div>
-								<button class=" wizard-btn next" ng-click="getLocalDetail()" >
+								<button class=" wizard-btn next"  >
+										<!-- ng-click="getLocalDetail()" -->
 										Next
 								</button>
 								<button class=" wizard-btn prev" id="prev">
@@ -230,7 +235,9 @@
 										<p class="para2heading para2headingmargin"> {{getLocalDetail.pickupDate.name}} </p>
 										<p class="para2heading">{{getLocalDetail.pickupDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading"> {{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </p>
+										<p class="para2heading" *ngIf="!getLocalDetail.pickupTime.leaveAtdoor">
+											 {{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </p>
+										<p *ngIf="getLocalDetail.pickupTime.leaveAtdoor">leave at the door  </p>
 									</div>
 				
 									<div class="col col-50 orderlistbody1delivery">
@@ -238,7 +245,9 @@
 										
 										<p class="para2heading para2headingmargin">  {{getLocalDetail.deliveryDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading"> {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
+										<p class="para2heading" *ngIf="!getLocalDetail.deliveryTime.leaveAtdoor">
+											 {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
+										<p *ngIf="getLocalDetail.deliveryTime.leaveAtdoor">leave at the door  </p>
 										<a href="#" class="closeankartag">
 											<i class="icon ion-ios-close-outline"></i>
 										</a>					
@@ -301,7 +310,7 @@
 									
 								</div>
 					
-								<div class="item item-body orderlistbody">
+								<!-- <div class="item item-body orderlistbody">
 					
 									<div class="row">
 					
@@ -317,7 +326,7 @@
 					
 									</div>
 					
-								</div>
+								</div> -->
 								<button class=" wizard-btn submit" ng-click="createOrder()" >
 									Submit
 							  </button>

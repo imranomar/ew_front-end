@@ -113,32 +113,26 @@ app.run(function($rootScope){
  // Dashboard of Controller
 
  app.controller('DashboardCtrl',function($scope,$location) {
-	console.log('0');
- 	$scope.menuopen =function(){
+ 	$scope.menuopen = function(){
  		//$location.path("/menu");
- 		
-	 }
-	 console.log("dashboard");
+	}
 
 	$scope.closemenu = function(){
-		alert('qwfwefw');
 		angular.element('.Menu').remove();
 	}
+
 	$scope.Signout = function(){
-		console.log("hello");
 	    localStorage.removeItem('laundryUser');
 	    localStorage.removeItem('laundrylogin');
         $location.path("/login");
 	}
-
+	
  });
 
 
  // Menu of Controller
 
  app.controller('MenuCtrl',function($scope,$location) {
-	console.log("MenuCtrl");
-	console.log("hello");
 	$scope.Signout = function(){
 		console.log("signout");
 	}
@@ -513,7 +507,7 @@ app.controller('DeliverydateCtrl',function($scope) {
 
 // Load Controller of OrdersummaryCtrl
 
-app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSerializer){
+app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSerializer, $location){
 	//  localstorage keys
 	let localData = {
 		pickupDate : {},
@@ -521,75 +515,127 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		deliveryDate: {},
 		deliveryTime: {}
 	} 
+
+	function getLocalStorageData(){
+		let a = localStorage.getItem('Myorder');
+		let obj = {};
+		if(a){
+			obj = JSON.parse(a);
+			return obj;
+		}
+		return null;
+		
+	}
+
+	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 	let x = localStorage.getItem('laundryUser');
 	$scope.getAddress;
 	$scope.getpayment;
 
-	// wizard one start
-	let date  = new Date();
-	let dateapi=[];
-	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-	let array = [];	
-	$scope.datelist;
-	$scope.getLocalDetail;
-	getDate();
-	$scope.showAllDateList = false;
-	function getDate(){
-		$http.get(appInfo.url+'optionsapi')
-			.then(function(res){
-				dateapi = res.data[0];	
-				console.log(dateapi);
-				conDate();
-			}).catch(function(err){
-				   console.log(err);
-			});
+	function getObjectLength(obj){
+		return Object.keys(obj).length;
 	}
 
-	function conDate(){
-		let holidays = dateapi.holidays.split(',');
-		let length = dateapi.holidays.split(',').length;
-		if(dateapi.weekend){
-			length += 1;
+	if(getLocalStorageData()){
+		localData = getLocalStorageData();
+		$(".tab1").css("display","none");
+		console.log(getObjectLength(localData.pickupDate));
+		if(getObjectLength(localData.deliveryTime) != 0){
+			getLocalDetail();
+			$(".tab4").siblings(".tab3").css("display","none");
+			$(".tab4").css("display","none");
+			$(".tab4").siblings(".tab5").css("display","block");
+		}else
+		if(getObjectLength(localData.deliveryDate) != 0){
+			functionForForth();
+			$(".tab3").siblings(".tab2").css("display","none");
+			$(".tab3").css("display","none");
+			$(".tab3").siblings(".tab4").css("display","block");
+		}else
+		if(getObjectLength(localData.pickupTime) != 0){
+			functionForThird();
+			$(".tab2").siblings(".tab1").css("display","none");
+			$(".tab2").css("display","none");
+			$(".tab2").siblings(".tab3").css("display","block");
+		}else
+		if(getObjectLength(localData.pickupDate) != 0){
+			functionForSecond();
+			$(".tab1").css("display","none");
+		    $(".tab1").siblings(".tab2").css("display","block");
+		}else{
+			$(".tab1").css("display","block");
+			functionForFirst();
 		}
-		for(var i = 0; i < 16 + length ; i++){
-			let name = '';
-			let price = '';
-			let d = new Date(date.setDate(date.getDate()+1));
-			
-			if(d.getDate() == new Date().getDate()+1){
-				// if  day is tomorrow
-				name = 'Tomorrow';
-				price = dateapi.next_day_pickup_price;
-			}else if(d.getDate() == new Date().getDate()+2){
-				// if day is day after 
-				name = 'day after';
-			}
-			array.push({
-				date: d,
-				name: name,
-				price: price,
-				shortDate: d.getDate()+'th '+days[d.getDay()]
-			});
+	}else{
+		$(".tab1").css("display","block");
+		functionForFirst();
+	}
+
+	// wizard one start
+	$scope.datelist;
+	$scope.getLocalDetail;
+	function functionForFirst(){
+		let date  = new Date();
+		let dateapi = [];
+		let array = [];	
+		getDate();
+
+		$scope.showAllDateList = false;
+		function getDate(){
+			$http.get(appInfo.url+'optionsapi')
+				.then(function(res){
+					dateapi = res.data[0];	
+					console.log(dateapi);
+					makeDate();
+				}).catch(function(err){
+					console.log(err);
+				});
 		}
 
-		for(var i = 0; i < array.length; i++){
-			for(let j = 0; j < holidays.length; j++){
-				if(array[i].date.getDate() == new Date(holidays[j] * 1000).getDate()){
-					array.splice(i, 1);
+		function makeDate(){
+			let holidays = dateapi.holidays.split(',');
+			let length = dateapi.holidays.split(',').length;
+			if(dateapi.weekend){
+				length += 1;
+			}
+			for(var i = 0; i < 16 + length ; i++){
+				let name = '';
+				let price = '';
+				let d = new Date(date.setDate(date.getDate()+1));
+				
+				if(d.getDate() == new Date().getDate()+1){
+					// if  day is tomorrow
+					name = 'Tomorrow';
+					price = dateapi.next_day_pickup_price;
+				}else if(d.getDate() == new Date().getDate()+2){
+					// if day is day after 
+					name = 'day after';
+				}
+				array.push({
+					date: d,
+					name: name,
+					price: price,
+					shortDate: d.getDate()+'th '+days[d.getDay()]
+				});
+			}
+
+			for(var i = 0; i < array.length; i++){
+				for(let j = 0; j < holidays.length; j++){
+					if(array[i].date.getDate() == new Date(holidays[j] * 1000).getDate()){
+						array.splice(i, 1);
+					}	
+				}
+				if(dateapi.weekend){
+					if(days.indexOf(dateapi.weekend) > -1){
+						if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
+							array.splice(i, 1);
+						}
+					}
 				}	
 			}
-			if(dateapi.weekend){
-				if(days.indexOf(dateapi.weekend) > -1){
-					if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
-						array.splice(i, 1);
-					}
-				}
-			}	
+			array.length = 15;
+			$scope.datelist = array;
 		}
-		array.length = 15;
-		console.log(array);
-		$scope.datelist = array;
-
 	}
 
 	$scope.onOther = function(){
@@ -598,44 +644,46 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 	// wizard one closed
 
 
-		// wizard three  start
-	let date1  = localData.pickupDate.date;
-	let dateapi1=[];
-	let array1 = [];	
-    $scope.datelist1;
-	getDate1();
+	// wizard three  start
+	$scope.datelist1;
 	$scope.showAllDateList1 = false;
+	function functionForThird(){
+	let date1  = new Date(getLocalStorageData().pickupDate.date);
+	let dateapi1 = [];
+	let array1 = [];	
+    
+	getDate1();
 	function getDate1(){
 		$http.get(appInfo.url+'optionsapi')
 			.then(function(res){
 				dateapi1 = res.data[0];	
 				console.log(dateapi1);
-				conDate();
+				makeDate1();
 			}).catch(function(err){
 				   console.log(err);
 			});
 	}
 
-	function conDate1(){
-		let holidays1 = dateapi.holidays.split(',');
-		let length1 = dateapi.holidays.split(',').length;
+	function makeDate1(){
+		let holidays1 = dateapi1.holidays.split(',');
+		let length1 = dateapi1.holidays.split(',').length;
 		if(dateapi1.weekend){
 			length1 += 1;
 		}
 		for(var i = 0; i < 16 + length1 ; i++){
 			let name = '';
 			let price = '';
-			let d1 = new Date(date.setDate(date.getDate()+1));
+			let d1 = new Date(date1.setDate(date1.getDate()+1));
 			
-			if(d1.getDate() == new Date().getDate1()+1){
+			if(d1.getDate() == new Date().getDate()+1){
 				// if  day is tomorrow
 				name = 'Tomorrow';
-				price = dateapi.next_day_pickup_price;
-			}else if(d1.getDate1() == new Date().getDate1()+2){
+				price = dateapi1.next_day_pickup_price;
+			}else if(d1.getDate() == new Date().getDate()+2){
 				// if day is day after 
 				name = 'day after';
 			}
-			array.push({
+			array1.push({
 				date: d1,
 				name: name,
 				price: price,
@@ -645,161 +693,155 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 
 		for(var i = 0; i < array1.length; i++){
 			for(let j = 0; j < holidays1.length; j++){
-				if(array[i].date.getDate1() == new Date(holidays1[j] * 1000).getDate1()){
-					array.splice(i, 1);
+				if(array1[i].date.getDate() == new Date(holidays1[j] * 1000).getDate()){
+					array1.splice(i, 1);
 				}	
 			}
 			if(dateapi1.weekend){
 				if(days.indexOf(dateapi1.weekend) > -1){
-					if(array1[i].date.getDay1() == days.indexOf(dateapi1.weekend)){
+					if(array1[i].date.getDay() == days.indexOf(dateapi1.weekend)){
 						array1.splice(i, 1);
 					}
 				}
 			}	
 		}
 		array1.length = 15;
-		console.log(array1);
 		$scope.datelist1 = array1;
-
+		}
 	}
 
 	$scope.onOther1 = function(){
 		$scope.showAllDateList1 = true;
 	}
-	
-
-		
-		// wizard three closed
+	// wizard three closed
 
 	// wizard two open 
-	$scope.TimeSlot ;
-    function getTimeSlot(){
-		$http.get(appInfo.url+'slotspricingapi')
-			.then(function(res){	
-				$scope.Timeslot = res.data;
-				console.log	($scope.Timeslot);
-			}).catch(function(err){
-				   console.log(err);
-			});
+	$scope.TimeSlot;
+	function functionForSecond() {
+		getTimeSlot();
+		function getTimeSlot(){
+			$http.get(appInfo.url+'slotspricingapi')
+				.then(function(res){	
+					$scope.Timeslot = res.data;
+					console.log	($scope.Timeslot);
+				}).catch(function(err){
+					console.log(err);
+				});
+		}
 	}
-	getTimeSlot();
-
 	// wizard two closed 
 
-	// wizard four open 
-	$scope.TimeSlot1 ;
-    function getTimeSlot1(){
-		$http.get(appInfo.url+'slotspricingapi')
-			.then(function(res){	
-				$scope.Timeslot1 = res.data;
-				console.log	($scope.Timeslot1);
-			}).catch(function(err){
-				   console.log(err);
-			});
-	}
-	getTimeSlot1();
 
+	// wizard four open 
+	$scope.TimeSlot1;
+	function functionForForth(){
+		getTimeSlot1();
+		function getTimeSlot1(){
+			$http.get(appInfo.url+'slotspricingapi')
+				.then(function(res){	
+					$scope.Timeslot1 = res.data;
+					console.log	($scope.Timeslot1);
+				}).catch(function(err){
+					console.log(err);
+				});
+		}
+	}
+	// getTimeSlot1();
 	// wizard four closed 
 
 	
-
 	// save into local storage start
     $scope.savelocallyDate = function(value){
-		console.log(value);
+		if(getLocalStorageData()){
+			localData = getLocalStorageData();
+		}
 		localData.pickupDate = value;
-		var stringlocalData = JSON.stringify(localData);
-		localStorage.setItem('Myorder',  stringlocalData);
-		console.log(localData.pickupDate.date);
+		let obj = JSON.stringify(localData);
+		saveLocalData(obj);
 	}
 
 	$scope.savelocallyTime = function(value){
-		console.log(value);
-		localData.pickupTime = value;
-		var stringlocalTime = JSON.stringify(localData);
-		localStorage.setItem('Myorder',  stringlocalTime);
+		// console.log(value);
+		// localData.pickupTime = value;
+		// var stringlocalTime = JSON.stringify(localData);
+		// localStorage.setItem('Myorder',  stringlocalTime);
 	}
-	$scope.savelocallyDeliveryDate = function(value){
-		console.log(value);
-		localData.deliveryDate = value;
-		var stringlocalTime = JSON.stringify(localData);
-		localStorage.setItem('Myorder',  stringlocalTime);
-	}
-	$scope.savelocallyDeliveryTime = function(value){
-		console.log(value);
-		localData.deliveryTime = value;
-		var stringlocalTime = JSON.stringify(localData);
-		localStorage.setItem('Myorder',  stringlocalTime);
-	}
-	$scope.getLocalDetail = function(){
-		let getItemLocally = localStorage.getItem('Myorder');
-		let getItemLocallyCustomer = localStorage.getItem('laundryUser');
-		console.log( getItemLocallyCustomer);
-		
-		$scope.getLocalDetail = JSON.parse(getItemLocally);
-		console.log($scope.getLocalDetail.deliveryDate.date);
-		console.log($scope.getLocalDetail);
-		console.log($scope.getLocalDetail.deliveryDate.price);
-		var confuseDate = $scope.getLocalDetail.deliveryDate.date;
-		var simpleDate = new Date(confuseDate).toISOString().substr(0,10);
-		console.log(simpleDate);
-		var confuseDatepickup = $scope.getLocalDetail.pickupDate.date;
-		var simpleDatepickup = new Date(confuseDatepickup).toISOString().substr(0,10);
-		console.log(simpleDatepickup);
 
+
+	$scope.savelocallyDeliveryDate = function(value){
+		if(getLocalStorageData()){
+			localData = getLocalStorageData();
+		}
+		localData.deliveryDate = value;
+		let obj = JSON.stringify(localData);
+		saveLocalData(obj);
+	}
+
+	$scope.savelocallyDeliveryTime = function(value){
+		// console.log(value);
+		// localData.deliveryTime = value;
+		// var stringlocalTime = JSON.stringify(localData);
+		// localStorage.setItem('Myorder',  stringlocalTime);
+	}
+
+	// forth wizard
+	let myPayment;
+	function getLocalDetail(){
+		// let getItemLocally = getLocalStorageData();
+		
+		$scope.getLocalDetail = getLocalStorageData();
+	
+		getAddress();
 		function getAddress(){
-			
 			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
 			.then(function(res){
-				
 				console.log(res.data);
 				$scope.getAddress = res.data;
-				console.log($scope.getAddress.addresses[0].floor);
-				console.log("tahseen");
 			}).catch(function(err){
 				$scope.loading = false;
 				console.log(err);
 			});
 		}
-		getAddress();
-
+		
+		getPayment();
 		function getPayment(){
 			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
 			.then(function(res){
-				console.log(res.data.payments[0].id);
 				console.log(res);
 				$scope.getpayment = res.data.payments[0];
-				console.log("mil gaya");
-				console.log($scope.getpayment.id);
-				console.log("mil gaya");
+				myPayment = res.data.payments[0];
 				getVault($scope.getpayment.vault_id)
 			}).catch(function(err){
 				console.log(err);
 			});
 		}
-		getPayment();
 
 		function getVault(id){
 			$scope.loading = true;
-		$http.get(appInfo.url+'vaultapi/view/?id='+id)
-		.then(function(res){
-			$scope.loading = false;
-			console.log(res.data);
-			$scope.getpayment= res.data;
-
-			console.log(res.data.cvcode);
-			console.log(res.data.expiry_month);
-			console.log(res.data.expiry_year);
-		}).catch(function(err){
-			$scope.loading = false;
-			console.log(err);
-		});
-   }
-		
+			$http.get(appInfo.url+'vaultapi/view/?id='+id)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				$scope.getpayment= res.data;
+			}).catch(function(err){
+				$scope.loading = false;
+				console.log(err);
+			});
+		   }
+		   
+	}
+	
+		   
 	//get data in fith wizard
-
 	$scope.createOrder = function(){
+		let getItemLocallyCustomer = localStorage.getItem('laundryUser');
+		var confuseDatepickup = $scope.getLocalDetail.pickupDate.date;
+		var simpleDatepickup = new Date(confuseDatepickup).toISOString().substr(0,10);
+		var confuseDate = $scope.getLocalDetail.deliveryDate.date;
+		var simpleDate = new Date(confuseDate).toISOString().substr(0,10);
+
 		let data = {
-			payment_id:$scope.getpayment.id,
+			payment_id: myPayment.id,
 			status: '0',
 			pickup_date: simpleDatepickup,
 			pickup_time_from: $scope.getLocalDetail.pickupTime.time_from,
@@ -816,7 +858,8 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			next_day_drop: '0',
 			comments: '0',
 			customer_id: getItemLocallyCustomer,
-	
+			pickup_at_door: $scope.getLocalDetail.pickupTime.leaveAtdoor == 'y' ? 1 : 0,
+			drop_at_door: $scope.getLocalDetail.deliveryTime.leaveAtdoor == 'y' ? 1 : 0
 		};
 		let req = {
 			method: 'POST',
@@ -831,97 +874,123 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		$http(req)
 			.then(function(res){
 				$scope.loading = false;
+				localStorage.removeItem('Myorder');
+				$location.path('/dashboard');
 				console.log(res);
-				console.log("final");
 			}).catch(function(error){
 				$scope.loading = false;
 				let err = error.data;
 				console.log(error);
-			})
+			});
 	}
-	
-
-	}
-	
-
-	
-
-
-	
-	// let localData = {
-	// 	pickupDate : {},
-	// 	pickupTime: {},
-	// 	deliveryDate: {},
-	// 	deliveryTime: {}
-	// } 
-
 	// save onto local storage closed
 
 
+	function saveLocalData(data){
+		localStorage.setItem('Myorder',  data);
+	}
+	
 
-		
-	 
     $("body").on('click','.next',function(){
-		
-
-		if($(this).parents(".tab1")){
+		if($(this).parents(".tab1").length != 0){
+			functionForSecond();
 			$(this).parents(".tab1").css("display","none");
 		    $(this).parents(".tab1").siblings(".tab2").css("display","block");
 		}
 
-		$(".checky").change(function() {
-			$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
-		}).change();
-
-		$('.checky').click(function() {
-			if($(this).is(':checked')){	
-			  $(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").prop('checked', false);
-			  $(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', true);
-			}	  
-			else{
-				$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', false);
+		if($(this).parents(".tab2").length != 0){
+			let value = $('input[name="pickUpRadio"]:checked').val();
+			let leaveVal = $('input[name="pickAtDoor"]:checked').val();
+			if(value || leaveVal){
+				if(getLocalStorageData()){
+					localData = getLocalStorageData();
+				}
+				if(value){
+					let a = JSON.parse(value);
+					localData.pickupTime = a;
+				}else{
+					localData.pickupTime.leaveAtdoor = 'y';
+				}
+				let obj = JSON.stringify(localData);
+				saveLocalData(obj);
+				functionForThird();
+				$(this).parents(".tab2").siblings(".tab1").css("display","none");
+				$(this).parents(".tab2").css("display","none");
+				$(this).parents(".tab2").siblings(".tab3").css("display","block");
+			}else {
+				console.log('else pickup time !');
 			}
-		});
-		if($(this).parents(".tab2")){
-			$(this).parents(".tab2").siblings(".tab1").css("display","none");
-			$(this).parents(".tab2").css("display","none");
-			$(this).parents(".tab2").siblings(".tab3").css("display","block");
+			return;
 		}
 
-		if($(this).parents(".tab3")){
+		if($(this).parents(".tab3").length != 0){
+			functionForForth();
 			$(this).parents(".tab3").siblings(".tab2").css("display","none");
 			$(this).parents(".tab3").css("display","none");
 			$(this).parents(".tab3").siblings(".tab4").css("display","block");
 		}  
 
-		if($(this).parents(".tab4")){
-			$(this).parents(".tab4").siblings(".tab3").css("display","none");
-			$(this).parents(".tab4").css("display","none");
-			$(this).parents(".tab4").siblings(".tab5").css("display","block");
+		if($(this).parents(".tab4").length != 0){
+			let value = $('input[name="deliveryRadio"]:checked').val();
+			let deliveryAtDoor = $('input[name="deliveryAtDoor"]:checked').val();
+			if(value || deliveryAtDoor){
+				if(getLocalStorageData()){
+					localData = getLocalStorageData();
+				}
+				if(value){
+					let a = JSON.parse(value);
+					localData.deliveryTime = a;
+				}else{
+					localData.deliveryTime.leaveAtdoor = 'y';
+				}
+				let obj = JSON.stringify(localData);
+				saveLocalData(obj);
+				getLocalDetail();
+				$(this).parents(".tab4").siblings(".tab3").css("display","none");
+				$(this).parents(".tab4").css("display","none");
+				$(this).parents(".tab4").siblings(".tab5").css("display","block");
+			}else {
+				console.log('else pickup time !');
+			}
 		}  
 		
 	});
+
    $(".prev").click(function(){
-		if($(this).parents(".tab2")){
+		if($(this).parents(".tab2").length != 0){
 				$(this).parents(".tab2").siblings(".tab1").css("display","block");
 				$(this).parents(".tab2").css("display","none");
 		}
-		if($(this).parents(".tab3")){
+		if($(this).parents(".tab3").length != 0){
 			$(this).parents(".tab3").siblings(".tab2").css("display","block");
 			$(this).parents(".tab3").css("display","none");
 		}  
 		
-		if($(this).parents(".tab4")){
+		if($(this).parents(".tab4").length != 0){
 			$(this).parents(".tab4").siblings(".tab3").css("display","block");
 			$(this).parents(".tab4").css("display","none");
 		}  
    });
 
-	$(".checky").each(function(){
-		if ($(this).prop('checked')==true){ 
-			alert("hello");
+   	$(".checky").change(function() {
+		$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
+	}).change();
+
+	$('.checky').click(function() {
+		if($(this).is(':checked')){	
+		$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").prop('checked', false);
+		$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', true);
+		}	  
+		else{
+			$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', false);
 		}
 	});
+
+	// $(".checky").each(function(){
+	// 	if ($(this).prop('checked')==true){ 
+	// 		alert("hello");
+	// 	}
+	// });
   
 })
 
