@@ -881,8 +881,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		$http(req)
 			.then(function(res){
 				$scope.loading = false;
-				localStorage.removeItem('Myorder');
-				$location.path('/dashboard');
+				removeLoalStorageAndGoToDashboard();
 				console.log(res);
 			}).catch(function(error){
 				$scope.loading = false;
@@ -891,6 +890,15 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			});
 	}
 	// save onto local storage closed
+
+	function removeLoalStorageAndGoToDashboard(){
+		localStorage.removeItem('Myorder');
+		$location.path('/dashboard');
+	}
+
+	$scope.onCancelOrder = function(){
+		removeLoalStorageAndGoToDashboard();
+	}
 
 
 	function saveLocalData(data){
@@ -965,17 +973,27 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 
    $(".prev").click(function(){
 		if($(this).parents(".tab2").length != 0){
-				$(this).parents(".tab2").siblings(".tab1").css("display","block");
-				$(this).parents(".tab2").css("display","none");
+			functionForFirst();
+			$(this).parents(".tab2").siblings(".tab1").css("display","block");
+			$(this).parents(".tab2").css("display","none");
 		}
+
 		if($(this).parents(".tab3").length != 0){
+			functionForSecond();
 			$(this).parents(".tab3").siblings(".tab2").css("display","block");
 			$(this).parents(".tab3").css("display","none");
 		}  
 		
 		if($(this).parents(".tab4").length != 0){
+			functionForThird();
 			$(this).parents(".tab4").siblings(".tab3").css("display","block");
 			$(this).parents(".tab4").css("display","none");
+		}
+
+		if($(this).parents(".tab5").length != 0){
+			functionForForth();
+			$(this).parents(".tab5").siblings(".tab4").css("display","block");
+			$(this).parents(".tab5").css("display","none");
 		}  
    });
 

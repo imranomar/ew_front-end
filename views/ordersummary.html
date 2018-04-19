@@ -25,7 +25,7 @@
 						   </div>
 						<div class="list" >
 								<div class="row marginrow" ng-repeat="value in datelist" ng-hide="!showAllDateList && $index > 4" ng-click="savelocallyDate(value)">
-										<div class="col next" >
+										<div class="col next">
 											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>
 											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>			
 											<span class="iconsstyle" ng-if="value.price"> 
@@ -248,7 +248,7 @@
 										<p class="para2heading" *ngIf="!getLocalDetail.deliveryTime.leaveAtdoor">
 											 {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
 										<p *ngIf="getLocalDetail.deliveryTime.leaveAtdoor">leave at the door  </p>
-										<a href="#" class="closeankartag">
+										<a class="closeankartag" ng-click="onCancelOrder()">
 											<i class="icon ion-ios-close-outline"></i>
 										</a>					
 									</div>
@@ -329,9 +329,10 @@
 								</div> -->
 								<button class=" wizard-btn submit" ng-click="createOrder()" >
 									Submit
-							  </button>
-						
-								
+								</button>
+								<button class=" wizard-btn prev" id="prev">
+									Previous
+								</button>
 				 </section>
 				 
 				  <!-- wizard five closed-->
