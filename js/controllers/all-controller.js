@@ -861,6 +861,13 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			pickup_at_door: $scope.getLocalDetail.pickupTime.leaveAtdoor == 'y' ? 1 : 0,
 			drop_at_door: $scope.getLocalDetail.deliveryTime.leaveAtdoor == 'y' ? 1 : 0
 		};
+
+		for(let key in data){
+			if(!data[key]){
+				data[key] = '0';
+			}
+		}
+
 		let req = {
 			method: 'POST',
 			url: appInfo.url+'ordersapi/create',
