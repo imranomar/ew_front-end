@@ -948,6 +948,8 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		if($(this).parents(".tab4").length != 0){
 			let value = $('input[name="deliveryRadio"]:checked').val();
 			let deliveryAtDoor = $('input[name="deliveryAtDoor"]:checked').val();
+			
+			
 			if(value || deliveryAtDoor){
 				if(getLocalStorageData()){
 					localData = getLocalStorageData();
@@ -971,26 +973,38 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		
 	});
 
+	function test(key){
+		console.log('key', key);
+		let localData = getLocalStorageData();
+		localData[key] = {};
+		let obj = JSON.stringify(localData);
+		saveLocalData(obj);
+	}
+
    $(".prev").click(function(){
 		if($(this).parents(".tab2").length != 0){
+			test('pickupDate');
 			functionForFirst();
 			$(this).parents(".tab2").siblings(".tab1").css("display","block");
 			$(this).parents(".tab2").css("display","none");
 		}
 
 		if($(this).parents(".tab3").length != 0){
+			test('pickupTime');
 			functionForSecond();
 			$(this).parents(".tab3").siblings(".tab2").css("display","block");
 			$(this).parents(".tab3").css("display","none");
 		}  
 		
 		if($(this).parents(".tab4").length != 0){
+			test('deliveryDate');
 			functionForThird();
 			$(this).parents(".tab4").siblings(".tab3").css("display","block");
 			$(this).parents(".tab4").css("display","none");
 		}
 
 		if($(this).parents(".tab5").length != 0){
+			test('deliveryTime');
 			functionForForth();
 			$(this).parents(".tab5").siblings(".tab4").css("display","block");
 			$(this).parents(".tab5").css("display","none");
