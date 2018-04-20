@@ -11,50 +11,43 @@ app.run(function($rootScope){
 
  app.controller('LoginCtrl', function($scope,$location,$http, appInfo){
  	$scope.loading = false;
- 	$scope.logindata={};
+ 	$scope.logindata = {
+		email: '',
+		password: ''
+	};
  	$scope.err = false;
- 	$scope.checkbox = true;
- 	
+	$scope.checkbox = true;
 
 	$scope.loginsubmit = function () {
-		
-         $scope.loading = true;
-		// $location.path('/dashboard');
-		// console.log($scope.logindata);
-
+		$scope.loading = true;
 		let email= $scope.logindata.email;
 		let password= $scope.logindata.password;
+		
+		$http.get(appInfo.url+'customersapi/authenticate?email='+email+'&password='+password)
+			.then(function(res){
+				console.log(res);
+				$scope.loading = false;
+					if(res.data != 0){
+						localStorage.setItem('laundryUser', res.data);
+						let date = new Date();
+						if($scope.checkbox == true){
+							let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
+							document.cookie = 'laundryCookie=y; expires=' + date1;
+						}else{
+							let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+							document.cookie = 'laundryCookie=y; expires=' + date1;
+						}
+						$location.path('/dashboard');
+					}
+					else{
+						$scope.err = true;
+					}
 
-
-		// console.log("helloqwerty");
-       $http.get(appInfo.url+'customersapi/authenticate?email='+email+'&password='+password)
-       .then(function(res){
-       	$scope.loading = false;
-       	   console.log("success");
-       	   
-   	     	if(res.data != 0){
-   	     		localStorage.setItem('laundryUser', res.data);
-   	     		
-   	     		// console.log(localStorage.getItem('laundryUser'));
-   	     		$location.path('/dashboard');
-   	     	 	if($scope.checkbox == true){
-	    			localStorage.setItem('laundrylogin', 1);
-       	    	}else{
-       	    		localStorage.removeItem('laundrylogin');
-       	    	}
-       	     }
-       	     else{
-       	     	$scope.err = true;
-       	     }
-
-       }).catch(function(err){
-       	$scope.loading = false;
-             console.log("error");
-             console.log(err);
-       });
-
-
-			
+			}).catch(function(err){
+				$scope.loading = false;
+					console.log("error");
+					console.log(err);
+			});
 	}		
 
  });
@@ -62,7 +55,7 @@ app.run(function($rootScope){
 
  // Signup of Controller
 
- app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo) {
+ app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location) {
  		$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
 			$scope.loading = true;
@@ -88,6 +81,11 @@ app.run(function($rootScope){
 				.then(function(res){
 					$scope.loading = false;
 					console.log(res.data);
+					let date = new Date();
+					localStorage.setItem('laundryUser', res.data.id);
+					let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+					document.cookie = 'laundryCookie=y; expires=' + date1;
+					$location.path('/dashboard');
 				}).catch(function(error){
 					$scope.loading = false;
 					let err = error.data;
@@ -113,6 +111,7 @@ app.run(function($rootScope){
  // Dashboard of Controller
 
  app.controller('DashboardCtrl',function($scope,$location) {
+
  	$scope.menuopen = function(){
  		//$location.path("/menu");
 	}
@@ -122,9 +121,10 @@ app.run(function($rootScope){
 	}
 
 	$scope.Signout = function(){
-	    localStorage.removeItem('laundryUser');
-	    localStorage.removeItem('laundrylogin');
-        $location.path("/login");
+		let date = new Date().toUTCString();
+		document.cookie = 'laundryCookie=y; expires=' + date;
+		localStorage.removeItem('laundryUser');
+		$location.path('/login');
 	}
 	
  });
@@ -263,6 +263,8 @@ app.run(function($rootScope){
 			.then(function(res){
 				$scope.loading = false;
 				console.log(res);
+				$scope.userdata.password = res.data.password;
+				getPassword();
 			 }).catch(function(err){
 				$scope.loading = false;
 				console.log(err);

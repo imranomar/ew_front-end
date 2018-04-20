@@ -35,7 +35,6 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
   FB.login(function(response){
        if(response.status === 'connected'){
           FB.api('/me', { locale: 'en_US', fields: 'name, email' },
-
             function(res) {
                $.ajax({
                     type: "POST",
@@ -49,9 +48,17 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
                       "sex": ''
                     },
                     success: function (ress) {
-                       console.log(ress);
-                       localStorage.setItem('laundryUser', ress.data);
-                       localStorage.setItem('laundrylogin', 1);
+                      console.log(ress.id);
+                      let check = document.getElementsByClassName('rememberMeCheck')[0];
+                       localStorage.setItem('laundryUser', ress.id);
+                       let date = new Date();
+                        if(check){
+                          let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
+                          document.cookie = 'laundryCookie=y; expires=' + date1;
+                        }else{
+                          let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+                          document.cookie = 'laundryCookie=y; expires=' + date1;
+                        }
                        location.reload();
                     },
                     error: function(err){
@@ -78,107 +85,213 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
 var app = angular.module("laundryApp", ["ngRoute"]);
 
 app.config(function($routeProvider,$locationProvider) {
+  let cookieName = 'laundryCookie';
+  function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  }
 
   $routeProvider
-
   .when("/login", {
     templateUrl : "views/login.html",
-    controller: 'LoginCtrl',
-       resolve:{
-          "check": function($location){
-                   if(localStorage.getItem('laundrylogin')){
-                      $location.path('/dashboard');
-                   }
-            }
-      }
+    resolve:{
+      "check": function($location){
+            if(getCookie(cookieName) == 'y'){
+              $location.path('/dashboard');
+            }  
+        }
+    }
   })
   .when('/signup', {
     templateUrl: 'views/signup.html',
-    controller: 'SignupCtrl' ,
       resolve:{
         "check": function ($location){
-            if(localStorage.getItem('laundrylogin')){
-              $location.path('/dashboard');
-            }
+          if(getCookie(cookieName) == 'y'){
+            $location.path('/dashboard');
+          } 
         }
       }
-    
-
-
-   
   })
   .when('/forget', {
     templateUrl: 'views/forget.html',
-    controller: 'ForgetCtrl',
     resolve :{
       "check": function($location){
-        if(localStorage.getItem('laundrylogin')){
+        if(getCookie(cookieName) == 'y'){
           $location.path('/dashboard');
-        }
+        } 
       }
     }
-
-
   })
   .when('/dashboard', {
     templateUrl: 'views/dashboard.html',
-    controller: 'DashboardCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/menu', {
     templateUrl: 'views/menu.html',
-    controller: 'MenuCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/pricing', {
     templateUrl: 'views/pricing.html',
-    controller: 'PricingCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/aboutus', {
     templateUrl: 'views/aboutus.html',
-    controller: 'AboutusCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/faqs', {
     templateUrl: 'views/faqs.html',
-    controller: 'FaqsCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/mydetails', {
-    templateUrl: 'views/mydetails.html'
+    templateUrl: 'views/mydetails.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/notification', {
     templateUrl: 'views/notifications.html',
-    controller: 'NotificationCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/address', {
-    templateUrl: 'views/addresses.html'
+    templateUrl: 'views/addresses.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/deliverydate', {
     templateUrl: 'views/deliverydate.html',
-    controller: 'DeliverydateCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/ordersummary', {
-    templateUrl: 'views/ordersummary.html'
+    templateUrl: 'views/ordersummary.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/payment', {
     templateUrl: 'views/paymentmethod.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/finaldate',{
   	templateUrl: 'views/selecttimefinal.html',
-  	controller: 'FinaldateCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/myedit/:person',{
   	templateUrl: 'views/myedit.html',
-  	controller: 'MyeditCtrl'
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/edit-address/:id', {
-      templateUrl: 'views/edit-address.html'
+    templateUrl: 'views/edit-address.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/edit-payment/:id', {
-      templateUrl: 'views/edit-payment.html'
+    templateUrl: 'views/edit-payment.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/add-address', {
-      templateUrl: 'views/add-address.html'
+    templateUrl: 'views/add-address.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .when('/add-payment', {
-      templateUrl: 'views/add-payment.html'
+    templateUrl: 'views/add-payment.html',
+    resolve :{
+      "check": function($location){
+        if(!getCookie(cookieName)){
+          $location.path('/login');
+        } 
+      }
+    }
   })
   .otherwise({
     redirectTo: '/login'
