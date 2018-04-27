@@ -855,7 +855,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			drop_time_to: $scope.getLocalDetail.deliveryTime.time_to,
 			drop_price: $scope.getLocalDetail.deliveryTime.price,
 			drop_type: $scope.getLocalDetail.deliveryTime.type,
-			address_id:	$scope.getAddress.addresses[0].id,
+			address_id: $scope.getAddress.addresses[0] ? $scope.getAddress.addresses[0].id: 0,
 			same_day_pickup: '0',
 			next_day_drop: '0',
 			comments: '0',
