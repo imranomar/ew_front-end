@@ -1,5 +1,13 @@
 var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
 
+
+window.addEventListener("beforeunload", function (e) {
+  if(!localStorage.getItem('rememberMe')){
+    let date1 = new Date().toUTCString();
+    document.cookie = 'laundryCookie=y; expires=' + date1;
+  }
+});
+
 //initialise and setup facebook js sdk
   window.fbAsyncInit = function() {
     FB.init({
@@ -53,13 +61,15 @@ var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
                        localStorage.setItem('laundryUser', ress.id);
                        
                        let date = new Date();
-                        if(check){
-                          let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
-                          document.cookie = 'laundryCookie=y; expires=' + date1;
-                        }else{
-                          let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
-                          document.cookie = 'laundryCookie=y; expires=' + date1;
-                        }
+                       if(check){
+                        localStorage.setItem('rememberMe', 'y');
+                        let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
+                        document.cookie = 'laundryCookie=y; expires=' + date1;
+                      }else{
+                        localStorage.removeItem('rememberMe');
+                        let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+                        document.cookie = 'laundryCookie=y; expires=' + date1;
+                      }
                         
                         test();
 

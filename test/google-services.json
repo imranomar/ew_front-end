@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "430881004117",
-    "firebase_url": "https://oshop-1cbf7.firebaseio.com",
-    "project_id": "oshop-1cbf7",
-    "storage_bucket": "oshop-1cbf7.appspot.com"
+    "project_number": "539107621860",
+    "firebase_url": "https://laundry-53e0d.firebaseio.com",
+    "project_id": "laundry-53e0d",
+    "storage_bucket": "laundry-53e0d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:430881004117:android:2305cf95b9245e54",
+        "mobilesdk_app_id": "1:539107621860:android:2305cf95b9245e54",
         "android_client_info": {
           "package_name": "com.hackerkernel.laundry"
         }
       },
       "oauth_client": [
         {
-          "client_id": "430881004117-rskgguulahj19l4sfkt8gifgv2880m8t.apps.googleusercontent.com",
+          "client_id": "539107621860-qng284cse96rosru8jm3om3rtnq96lds.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDGEhAd4N6HIJwIC03IS0e4-D1lgq9hFsc"
+          "current_key": "AIzaSyCH-TJB3EsaXWt05L89h1vw8Wb8-oRmiv0"
         }
       ],
       "services": {

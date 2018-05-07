@@ -12,19 +12,34 @@ app.run(function($rootScope){
  app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
 	console.log('1')
 	// console.log(updateFCMToken.test());
- 	$scope.loading = false;
+	 $scope.loading = false;
+	 $scope.field = 'email';
  	$scope.logindata = {
 		email: '',
 		password: ''
 	};
  	$scope.err = false;
+ 	$scope.required = false;
 	$scope.checkbox = true;
 
 	$scope.loginsubmit = function () {
-		$scope.loading = true;
+		$scope.err = false;
+ 		$scope.required = false;
+		
 		let email= $scope.logindata.email;
 		let password= $scope.logindata.password;
-		
+
+		if(!email || !password){
+			if(!email){
+				$scope.field = 'please enter valid email address';
+			}else
+			if(!password){
+				$scope.field = 'please enter password field';
+			}
+			$scope.required = true;
+			return;
+		}
+		$scope.loading = true;
 		$http.get(appInfo.url+'customersapi/authenticate?email='+email+'&password='+password)
 			.then(function(res){
 				console.log(res);
@@ -34,9 +49,11 @@ app.run(function($rootScope){
 						let date = new Date();
 						updateFCMToken.test();
 						if($scope.checkbox == true){
+							localStorage.setItem('rememberMe', 'y');
 							let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
 							document.cookie = 'laundryCookie=y; expires=' + date1;
 						}else{
+							localStorage.removeItem('rememberMe');
 							let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
 							document.cookie = 'laundryCookie=y; expires=' + date1;
 						}
@@ -128,6 +145,7 @@ app.run(function($rootScope){
 		let date = new Date().toUTCString();
 		document.cookie = 'laundryCookie=y; expires=' + date;
 		localStorage.removeItem('laundryUser');
+		localStorage.removeItem('rememberMe');
 		$location.path('/login');
 	}
 	
