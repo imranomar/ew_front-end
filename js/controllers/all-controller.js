@@ -1,4 +1,4 @@
- var app = angular.module("laundryApp");
+var app = angular.module("laundryApp");
  
 app.run(function($rootScope){
 	$rootScope.a = '​http://thisisbig.ae/advanced/backend/web/';
@@ -9,23 +9,26 @@ app.run(function($rootScope){
 
  //Login of Controller
 
- app.controller('LoginCtrl', function($scope,$location,$http, appInfo){
+ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
+	console.log('1')
+	// console.log(updateFCMToken.test());
 	 $scope.loading = false;
 	 $scope.field = 'email';
-	 
  	$scope.logindata = {
 		email: '',
 		password: ''
 	};
-	$scope.err = false;
-	$scope.required = false;
+ 	$scope.err = false;
+ 	$scope.required = false;
 	$scope.checkbox = true;
 
 	$scope.loginsubmit = function () {
 		$scope.err = false;
-		$scope.required = false;
-		let email = $scope.logindata.email;
+ 		$scope.required = false;
+		
+		let email= $scope.logindata.email;
 		let password= $scope.logindata.password;
+
 		if(!email || !password){
 			if(!email){
 				$scope.field = 'please enter valid email address';
@@ -44,6 +47,7 @@ app.run(function($rootScope){
 					if(res.data != 0){
 						localStorage.setItem('laundryUser', res.data);
 						let date = new Date();
+						updateFCMToken.test();
 						if($scope.checkbox == true){
 							localStorage.setItem('rememberMe', 'y');
 							let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
@@ -51,7 +55,6 @@ app.run(function($rootScope){
 						}else{
 							localStorage.removeItem('rememberMe');
 							let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
-							// let date1 = new Date().toUTCString();
 							document.cookie = 'laundryCookie=y; expires=' + date1;
 						}
 						$location.path('/dashboard');
@@ -72,7 +75,7 @@ app.run(function($rootScope){
 
  // Signup of Controller
 
- app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location) {
+ app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location, updateFCMToken) {
  		$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
 			$scope.loading = true;
@@ -100,6 +103,7 @@ app.run(function($rootScope){
 					console.log(res.data);
 					let date = new Date();
 					localStorage.setItem('laundryUser', res.data.id);
+					updateFCMToken.test();
 					let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
 					document.cookie = 'laundryCookie=y; expires=' + date1;
 					$location.path('/dashboard');
@@ -669,6 +673,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 	$scope.showAllDateList1 = false;
 	function functionForThird(){
 	let date1  = new Date(getLocalStorageData().pickupDate.date);
+	let pickupD = new Date(getLocalStorageData().pickupDate.date);
 	let dateapi1 = [];
 	let array1 = [];	
     
@@ -694,8 +699,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			let name = '';
 			let price = '';
 			let d1 = new Date(date1.setDate(date1.getDate()+1));
-			
-			if(d1.getDate() == new Date().getDate()+1){
+			if(d1.getDate() == pickupD.getDate()+1){
 				// if  day is tomorrow
 				name = 'Tomorrow';
 				price = dateapi1.next_day_pickup_price;
@@ -830,6 +834,9 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 				console.log(res);
 				$scope.getpayment = res.data.payments[0];
 				myPayment = res.data.payments[0];
+				if(!$scope.getpayment){
+					return;
+				}
 				getVault($scope.getpayment.vault_id)
 			}).catch(function(err){
 				console.log(err);
@@ -854,6 +861,15 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		   
 	//get data in fith wizard
 	$scope.createOrder = function(){
+		if($scope.getAddress.addresses.length == 0){
+			alert('Please add address');
+			return;
+		}
+		if(!myPayment){
+			alert('Please add payment');
+			return;
+		}
+
 		let getItemLocallyCustomer = localStorage.getItem('laundryUser');
 		var confuseDatepickup = $scope.getLocalDetail.pickupDate.date;
 		var simpleDatepickup = new Date(confuseDatepickup).toISOString().substr(0,10);
@@ -873,7 +889,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			drop_time_to: $scope.getLocalDetail.deliveryTime.time_to,
 			drop_price: $scope.getLocalDetail.deliveryTime.price,
 			drop_type: $scope.getLocalDetail.deliveryTime.type,
-			address_id: $scope.getAddress.addresses[0] ? $scope.getAddress.addresses[0].id: 0,
+			address_id:	$scope.getAddress.addresses[0].id,
 			same_day_pickup: '0',
 			next_day_drop: '0',
 			comments: '0',
@@ -917,8 +933,18 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 	}
 
 	$scope.onCancelOrder = function(){
-		removeLoalStorageAndGoToDashboard();
+		$('.modal.cancel-order-modal').css('display', 'block');
 	}
+
+	$('body').on('click', '.cancel-order-btn', function(){
+		let modal = $(this).parents('.modal.cancel-order-modal')[0];
+		modalClose(modal);
+		localStorage.removeItem('Myorder');
+		$scope.$apply(function(){
+			$location.path('/dashboard');
+		});
+	});
+
 
 
 	function saveLocalData(data){
@@ -1001,7 +1027,40 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		saveLocalData(obj);
 	}
 
-   $(".prev").click(function(){
+	$('body').on('click', '.close, .close-modal', function(){
+		let modal = $(this).parents('section').find('.modal')[0];
+		if(modal){
+			modalClose(modal);
+		}else{
+			modal = $(this).parents('.modal.cancel-order-modal')[0];
+			modalClose(modal);
+		}
+	});
+
+
+	window.onclick = function(event) {
+		if (event.target.className == 'modal' ||event.target.className == 'modal cancel-order-modal') {
+			modalClose(event.target);
+		}
+	}
+
+	function modalShow(modal){
+		modal.style.display = "block";
+	}
+
+	function modalClose(modal){
+		modal.style.display = "none";
+	}
+
+	$('body').on('click', '.prev', function(){
+		let modal = $(this).parents('section').find('.modal')[0];
+		if($(modal).is(':visible')) {
+			modalClose(modal);
+		}else{
+			modalShow(modal);
+			return;
+		}
+	
 		if($(this).parents(".tab2").length != 0){
 			test('pickupDate');
 			functionForFirst();
@@ -1066,10 +1125,11 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	$scope.paymentDetails = [];
 	getPayment();
 
-	$scope.onDeltePayment = function(data){
+	$scope.onDeltePayment = function(data, i){
+		let id = $scope.userdata.payments[i].id;
 		let req = {
 			method: 'DELETE',
-			url: appInfo.url+'paymentsapi/delete?id='+data.id,
+			url: appInfo.url+'paymentsapi/delete?id='+id,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -1093,8 +1153,8 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	function getPayment(){
 		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
 		.then(function(res){
-			console.log(res.data.payments[0].id);
-			$scope.paymentId = res.data.payments[0].id;
+			// console.log(res.data.payments[0].id);
+			// $scope.paymentId = res.data.payments[0].id;
 			
 			$scope.userdata.payments = res.data.payments;
 			for(let value of  $scope.userdata.payments){

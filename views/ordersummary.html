@@ -1,4 +1,31 @@
 <div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
+
+	<!-- The Modal -->
+	<div class="modal cancel-order-modal">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<h3>Alert !!</h3>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to cancel</p>
+			</div>
+			<div class="modal-footer">
+				<div class="row">
+					<div class="col border-0">
+							<button class=" wizard-btn cancel-order-btn">
+									Yes
+							</button>
+							<button class="wizard-btn close-modal ">
+									No
+							</button>
+					</div> 
+				</div>
+			</div>
+		</div> 
+	</div>
 	
 	<div class="ion-content mainmyorder">
 
@@ -10,6 +37,9 @@
 
 		  <div class="h1 title"> My Orders </div>
 
+		  <button class="button button-icon icon ion-ios-close" ng-click="onCancelOrder()"></button>
+		 
+
 		</div>
 
 		<div class="row topmargin"> </div>
@@ -20,31 +50,37 @@
 
 				<!-- wizard one start -->
 				 <section class="tab1">
+
 						<div class="text-center">
 								<h4>Pick up</h4>
 						   </div>
 						<div class="list" >
-								<div class="row marginrow" ng-repeat="value in datelist" ng-hide="!showAllDateList && $index > 4" ng-click="savelocallyDate(value)">
-										<div class="col next">
-											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>
-											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>			
-											<span class="iconsstyle" ng-if="value.price"> 
-												<i class="icon ion-plus"></i> 
-												<i class="icon ion-social-usd-outline"></i> 
-												{{value.price}}
-											</span>
-										</div>
+								<div 
+									class="row marginrow"
+									ng-repeat="value in datelist" 
+									ng-hide="!showAllDateList && $index > 4" 
+									ng-click="savelocallyDate(value)"
+									ng-class="{
+										'tomorrow-div': value.name == 'Tomorrow',
+										'day-after-div': value.name == 'day after',
+									}">
+									<div class="col next">
+											<!-- ng-if="!value.name" -->
+										<div class="h2 title" ng-if="value.name"> {{value.name}} </div>
+										<div class="h3 title"> {{value.shortDate}} </div>			
+										<span class="iconsstyle" ng-if="value.price"> 
+											<i class="icon ion-plus"></i> 
+											<i class="icon ion-social-usd-outline"></i> 
+											{{value.price}}
+										</span>
 									</div>
+								</div>
 							
-									<div class="row" ng-if="!showAllDateList">
-										<div class="col" ng-click="onOther()">
-											<div class="h2 title tt1"> OTHER </div>
-										</div>
-									</div> 
-							
-									
-							
-															
+								<div class="row" ng-if="!showAllDateList">
+									<div class="col" ng-click="onOther()">
+										<div class="h2 title tt1"> OTHER </div>
+									</div>
+								</div> 
 						 </div>
 				 </section>
 
@@ -53,6 +89,36 @@
 				  <!-- wizard two open -->
 				 
 				 <section class="tab2">
+
+					<!-- The Modal -->
+					<div class="modal">
+
+							<!-- Modal content -->
+							<div class="modal-content">
+							<div class="modal-header">
+								<span class="close">&times;</span>
+								<h3>Alert !!</h3>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure you want to go back</p>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<div class="col border-0">
+											<button class="wizard-btn prev">
+													Previous
+											</button>
+											<button class="wizard-btn close-modal ">
+													close
+											</button>
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</div>
+	
+
+
 						<div class="text-center">
 								<h4>Pick up</h4>
 						   </div>
@@ -112,14 +178,53 @@
 				 <!-- wizard three open -->
 				 
 				 <section class="tab3">
+
+					<!-- The Modal -->
+					<div class="modal">
+
+							<!-- Modal content -->
+							<div class="modal-content">
+							<div class="modal-header">
+								<span class="close">&times;</span>
+								<h3>Alert !!</h3>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure you want to go back</p>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<div class="col border-0">
+											<button class=" wizard-btn prev">
+													Previous
+											</button>
+											<button class="wizard-btn close-modal ">
+													close
+											</button>
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</div>
+
+
+
 						<div class="text-center">
 								<h4>Delivery</h4>
 						   </div>
 						<div class="list">
-								<div class="row marginrow"  ng-repeat="value in datelist1"  ng-hide="!showAllDateList1 && $index > 4" ng-click="savelocallyDeliveryDate(value)">
+								<div 
+									class="row marginrow"  
+									ng-repeat="value in datelist1"  
+									ng-hide="!showAllDateList1 && $index > 4" 
+									ng-click="savelocallyDeliveryDate(value)"
+									ng-class="{
+										'tomorrow-div': value.name == 'Tomorrow',
+										'day-after-div': value.name == 'day after',
+									}">
 										<div class="col next">
+												<!-- ng-if="!value.name" -->
 											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>	
-											<div class="h3 title"ng-if="!value.name"> {{value.shortDate}} </div>		
+											<div class="h3 title"> {{value.shortDate}} </div>		
 											<span class="iconsstyle" ng-if="value.price"> 
 												<i class="icon ion-plus"></i> 
 												<i class="icon ion-social-usd-outline"></i> 
@@ -166,6 +271,34 @@
 				  <!-- wizard four open -->
 				 
 				 <section class="tab4">
+
+					<!-- The Modal -->
+					<div class="modal">
+
+							<!-- Modal content -->
+							<div class="modal-content">
+							<div class="modal-header">
+								<span class="close">&times;</span>
+								<h3>Alert !!</h3>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure you want to go back</p>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<div class="col border-0">
+											<button class=" wizard-btn prev">
+													Previous
+											</button>
+											<button class="wizard-btn close-modal ">
+													close
+											</button>
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</div>
+
 						<div class="text-center">
 								<h4>Delivery</h4>
 						</div>
@@ -225,6 +358,37 @@
 				   <!-- wizard five open -->
 
 				 <section class="tab5 mainmyorder xcv">
+
+					<!-- The Modal -->
+					<div class="modal">
+
+							<!-- Modal content -->
+							<div class="modal-content">
+							<div class="modal-header">
+								<span class="close">&times;</span>
+								<h3>Alert !!</h3>
+							</div>
+							<div class="modal-body">
+								<p>Are you sure you want to go back</p>
+							</div>
+							<div class="modal-footer">
+								<div class="row">
+									<div class="col border-0">
+											<button class=" wizard-btn prev">
+													Previous
+											</button>
+											<button class="wizard-btn close-modal ">
+													close
+											</button>
+									</div> 
+								</div>
+							</div>
+						</div> 
+					</div>
+
+					
+
+
 						<div class="text-center">
 				
 						</div>
@@ -235,9 +399,9 @@
 										<p class="para2heading para2headingmargin"> {{getLocalDetail.pickupDate.name}} </p>
 										<p class="para2heading">{{getLocalDetail.pickupDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading" *ngIf="!getLocalDetail.pickupTime.leaveAtdoor">
+										<p class="para2heading" ng-if="getLocalDetail.pickupTime.leaveAtdoor != 'y'">
 											 {{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </p>
-										<p *ngIf="getLocalDetail.pickupTime.leaveAtdoor">leave at the door  </p>
+										<p ng-if="getLocalDetail.pickupTime.leaveAtdoor == 'y'">leave at the door  </p>
 									</div>
 				
 									<div class="col col-50 orderlistbody1delivery">
@@ -245,12 +409,12 @@
 										
 										<p class="para2heading para2headingmargin">  {{getLocalDetail.deliveryDate.shortDate}} </p>
 										<p class="para2heading"> Between </p>
-										<p class="para2heading" *ngIf="!getLocalDetail.deliveryTime.leaveAtdoor">
+										<p class="para2heading" ng-if="getLocalDetail.deliveryTime.leaveAtdoor != 'y'">
 											 {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
-										<p *ngIf="getLocalDetail.deliveryTime.leaveAtdoor">leave at the door  </p>
-										<a class="closeankartag" ng-click="onCancelOrder()">
+										<p ng-if="getLocalDetail.deliveryTime.leaveAtdoor == 'y'">leave at the door  </p>
+										<!-- <a class="closeankartag" ng-click="onCancelOrder()">
 											<i class="icon ion-ios-close-outline"></i>
-										</a>					
+										</a>					 -->
 									</div>
 								</div>
 						</div>
@@ -261,8 +425,8 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col" ng-show="getLocalDetail.pickupTime.price != '0'">
-										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.pickupTime.price}} - Fixid time delivery </a>
+									<div class="col" ng-show="getLocalDetail.pickupTime.price && getLocalDetail.pickupTime.price != '0'">
+										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.pickupTime.price}} - Fixid time Pickup </a>
 									</div>
 								</div>		
 							</div>
@@ -270,38 +434,50 @@
 							<div class="item item-body orderlistbody">	
 									<div class="row">
 										<div class="col" ng-show="getLocalDetail.deliveryDate.price != ''">
-											<a class="para1"> <i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - Same day Pickup </a>
+											<a class="para1"> <i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - Same day delivery </a>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col" ng-show="getLocalDetail.deliveryTime.price != '0'">
+										<div class="col" ng-show="getLocalDetail.deliveryTime.price && getLocalDetail.deliveryTime.price != '0'">
 											<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.deliveryTime.price}} - Fixid time delivery </a>
 										</div>
 									</div>		
 								</div>
 					
 								<div class="item item-body orderlistbody">
+
+									<div class="row" ng-if="getAddress.addresses.length == 0">
+										<div class="col colmargin p-10">
+											<a href="#/add-address">Add Address <a>
+										</div>
+									</div>
+
+									<div class="row" ng-if="!getpayment.cvcode">
+										<div class="col colmargin p-10">
+											<a href="#/add-payment">Add Payment <a>
+										</div>
+									</div>
 					
-									<div class="row">
+									<div class="row" ng-if="getAddress.addresses.length != 0">
 										<div class="col colmargin">
 											<p> Address : - <span class="borderdotdot"> {{getAddress.addresses[0].floor}}  {{getAddress.addresses[0].street_name}}</span></p>
 										</div>
 									</div>
 					
-									<div class="row">
+									<div class="row" ng-if="getpayment.cvcode">
 										<div class="col colmargin">
 											<p> CvCode : - <span class="borderdotdot"> {{getpayment.cvcode}} </span> </p>
 										</div>
 								
 									</div>
-									<div class="row">
+									<div class="row" ng-if="getpayment.cvcode">
 							
 										<div class="col colmargin">
 											<p> Expiry month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span> </p>
 										</div>
 					
 									</div>
-									<div class="row">
+									<div class="row" ng-if="getpayment.cvcode">
 										
 										<div class="col colmargin">
 											<p> Expiry year : - <span class="borderdotdot"> {{getpayment.expiry_year}} </span> </p>

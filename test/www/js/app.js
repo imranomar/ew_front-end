@@ -112,7 +112,7 @@ window.addEventListener("beforeunload", function (e) {
           // document.getElementById('status').innerHTML ='You are logged into the facebook.';
          }
 
-  });
+  },{ scope: 'email' });
  }
 
 
