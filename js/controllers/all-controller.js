@@ -625,15 +625,15 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			for(var i = 0; i < 16 + length ; i++){
 				let name = '';
 				let price = '';
-				let d = new Date(date.setDate(date.getDate()+1));
+				let d = new Date(date.setDate(date.getDate()+i));
 				
-				if(d.getDate() == new Date().getDate()+1){
+				if(d.getDate() == new Date().getDate()){
 					// if  day is tomorrow
-					name = 'Tomorrow';
-					price = dateapi.next_day_pickup_price;
-				}else if(d.getDate() == new Date().getDate()+2){
+					name = 'Today';
+					price = dateapi.same_day_pickup_price;
+				}else if(d.getDate() == new Date().getDate()+1){
 					// if day is day after 
-					name = 'day after';
+					name = 'Tomorrow';
 				}
 				array.push({
 					date: d,
@@ -642,17 +642,22 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 					shortDate: d.getDate()+'th '+days[d.getDay()]
 				});
 			}
-
+        
 			for(var i = 0; i < array.length; i++){
 				for(let j = 0; j < holidays.length; j++){
-					if(array[i].date.getDate() == new Date(holidays[j] * 1000).getDate()){
-						array.splice(i, 1);
-					}	
-				}
-				if(dateapi.weekend){
-					if(days.indexOf(dateapi.weekend) > -1){
-						if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
+					if(array[i]){
+						if(array[i].date.toLocaleDateString() == new Date(holidays[j] * 1000).toLocaleDateString()){
 							array.splice(i, 1);
+						}	
+					}
+				}
+				
+				if(dateapi.weekend){
+					if(array[i]){
+						if(days.indexOf(dateapi.weekend) > -1){
+							if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
+								array.splice(i, 1);
+							}
 						}
 					}
 				}	
@@ -699,14 +704,17 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			let name = '';
 			let price = '';
 			let d1 = new Date(date1.setDate(date1.getDate()+1));
+			if(d1.getDate() == new Date().getDate()+1){
+				// if day is day after 
+				name = 'Tomorrow';
+				price = dateapi1.next_day_delivery_price;
+			}else
 			if(d1.getDate() == pickupD.getDate()+1){
 				// if  day is tomorrow
-				name = 'Tomorrow';
-				price = dateapi1.next_day_pickup_price;
-			}else if(d1.getDate() == new Date().getDate()+2){
-				// if day is day after 
 				name = 'day after';
+				price = dateapi1.next_day_delivery_price;
 			}
+			 
 			array1.push({
 				date: d1,
 				name: name,
@@ -714,20 +722,25 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 				shortDate: d1.getDate()+'th '+days[d1.getDay()]
 			});
 		}
-
 		for(var i = 0; i < array1.length; i++){
+
 			for(let j = 0; j < holidays1.length; j++){
-				if(array1[i].date.getDate() == new Date(holidays1[j] * 1000).getDate()){
-					array1.splice(i, 1);
+				if(array1[i]){
+					if(array1[i].date.toLocaleDateString() == new Date(holidays1[j] * 1000).toLocaleDateString()){
+						array1.splice(i, 1);
+						
+					}	
+				}
+			}
+			if(array1[i]){
+				if(dateapi1.weekend){
+					if(days.indexOf(dateapi1.weekend) > -1){
+						if(array1[i].date.getDay() == days.indexOf(dateapi1.weekend)){
+							array1.splice(i, 1);
+						}
+					}
 				}	
 			}
-			if(dateapi1.weekend){
-				if(days.indexOf(dateapi1.weekend) > -1){
-					if(array1[i].date.getDay() == days.indexOf(dateapi1.weekend)){
-						array1.splice(i, 1);
-					}
-				}
-			}	
 		}
 		array1.length = 15;
 		$scope.datelist1 = array1;
@@ -931,10 +944,13 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 		localStorage.removeItem('Myorder');
 		$location.path('/dashboard');
 	}
-
+    $scope.onGoBack = function(){
+		$('.modal').css('display', 'block');
+	}
 	$scope.onCancelOrder = function(){
 		$('.modal.cancel-order-modal').css('display', 'block');
 	}
+	
 
 	$('body').on('click', '.cancel-order-btn', function(){
 		let modal = $(this).parents('.modal.cancel-order-modal')[0];
@@ -1053,6 +1069,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 	}
 
 	$('body').on('click', '.prev', function(){
+
 		let modal = $(this).parents('section').find('.modal')[0];
 		if($(modal).is(':visible')) {
 			modalClose(modal);
@@ -1141,6 +1158,7 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 				$scope.loading = false;
 				console.log(res.data);
 				getPayment();
+				console.log("tyahsee");
 			}).catch(function(error){
 				$scope.loading = false;
 				let err = error.data;
@@ -1151,15 +1169,20 @@ app.controller('PaymentmethodCtrl',function($scope, $http, appInfo){
 	
 
 	function getPayment(){
+	
 		$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
 		.then(function(res){
 			// console.log(res.data.payments[0].id);
 			// $scope.paymentId = res.data.payments[0].id;
 			
 			$scope.userdata.payments = res.data.payments;
+			if($scope.userdata.payments.length == 0){
+				$scope.paymentDetails = [];
+			}
 			for(let value of  $scope.userdata.payments){
 				getVault(value.vault_id);
 			}
+			console.log("tahsss");
 		}).catch(function(err){
 			console.log(err);
 		});
@@ -1361,6 +1384,7 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 				$scope.loading = false;
 				console.log(res.data);
 				console.log("add");
+				
 			}).catch(function(error){
 				$scope.loading = false;
 				let err = error.data;
@@ -1387,6 +1411,7 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 app.controller('AddPaymentCtrl', function($scope, $http, appInfo, $httpParamSerializer){
 	let userId = localStorage.getItem('laundryUser');
 	$scope.paymentDetails = {};
+	
 
 	$scope.onAddPayment = function(){
 		
@@ -1413,6 +1438,7 @@ app.controller('AddPaymentCtrl', function($scope, $http, appInfo, $httpParamSeri
 					$scope.loading = false;
 					console.log(res.data);
 					addPayment(res.data.id);
+					
 				}).catch(function(error){
 					$scope.loading = false;
 					let err = error.data;
@@ -1449,6 +1475,8 @@ app.controller('AddPaymentCtrl', function($scope, $http, appInfo, $httpParamSeri
 				// console.log(error);
 			})
 	}
+
+	
 	
 
 
