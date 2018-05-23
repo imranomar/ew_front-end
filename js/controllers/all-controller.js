@@ -625,8 +625,8 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			for(var i = 0; i < 16 + length ; i++){
 				let name = '';
 				let price = '';
+				date  = new Date();
 				let d = new Date(date.setDate(date.getDate()+i));
-				
 				if(d.getDate() == new Date().getDate()){
 					// if  day is tomorrow
 					name = 'Today';
@@ -635,6 +635,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 					// if day is day after 
 					name = 'Tomorrow';
 				}
+				
 				array.push({
 					date: d,
 					name: name,
@@ -1062,19 +1063,25 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 
 	function modalShow(modal){
 		modal.style.display = "block";
+		console.log('11',modal);
 	}
 
 	function modalClose(modal){
 		modal.style.display = "none";
+		console.log('00', modal);
 	}
 
-	$('body').on('click', '.prev', function(){
+	
 
+	$('body').on('click', '.prev', function(e){
+       console.log("hello");
 		let modal = $(this).parents('section').find('.modal')[0];
 		if($(modal).is(':visible')) {
 			modalClose(modal);
+			console.log('0',modal);
 		}else{
 			modalShow(modal);
+			console.log('1',modal);
 			return;
 		}
 	
