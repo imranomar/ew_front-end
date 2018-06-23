@@ -422,8 +422,8 @@
 						</div>
 						<div class="item item-body orderlistbody">	
 								<div class="row">
-									<div class="col" ng-show="getLocalDetail.pickupDate.price != ''">
-										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i> ${{getLocalDetail.pickupDate.price}} - Same day Pickup </a>
+									<div class="col" ng-show="getLocalDetail.pickupDate.name">
+										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i> ${{getLocalDetail.pickupDate.price}} - {{getLocalDetail.pickupDate.name}} Pickup </a>
 									</div>
 								</div>
 								<div class="row">
@@ -436,12 +436,12 @@
 							<div class="item item-body orderlistbody">	
 									<div class="row">
 										<div class="col" ng-show="getLocalDetail.deliveryDate.price != ''">
-											<a class="para1"> <i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - Same day delivery </a>
+											<a class="para1"> <i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - next day delievery </a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col" ng-show="getLocalDetail.deliveryTime.price && getLocalDetail.deliveryTime.price != '0'">
-											<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.deliveryTime.price}} - Fixid time delivery </a>
+											<a class="para1"> <i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.deliveryTime.price}} - Fixid time delievery </a>
 										</div>
 									</div>		
 								</div>

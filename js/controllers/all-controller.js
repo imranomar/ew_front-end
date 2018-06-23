@@ -665,6 +665,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			}
 			array.length = 15;
 			$scope.datelist = array;
+			console.log($scope.datelist);
 		}
 	}
 
@@ -712,7 +713,8 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 			}else
 			if(d1.getDate() == pickupD.getDate()+1){
 				// if  day is tomorrow
-				name = 'day after';
+				// name = 'day after';
+				name = 'next day deliever';
 				price = dateapi1.next_day_delivery_price;
 			}
 			 

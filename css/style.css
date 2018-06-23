@@ -2220,8 +2220,8 @@
 	margin: 0px;	
 }
 .finaldate-list{
-	height: 300px;
-	overflow-y: scroll;
+	/* height: 300px;
+	overflow-y: scroll; */
 }
 .fade{
 	opacity: 0.4;
