@@ -532,6 +532,7 @@ app.controller('DeliverydateCtrl',function($scope) {
 // Load Controller of OrdersummaryCtrl
 
 app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSerializer, $location){
+	console.log('chala');
 	//  localstorage keys
 	let localData = {
 		pickupDate : {},
@@ -1065,56 +1066,57 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 
 	function modalShow(modal){
 		modal.style.display = "block";
-		console.log('11',modal);
+		console.log('show', modal);
 	}
 
 	function modalClose(modal){
 		modal.style.display = "none";
-		console.log('00', modal);
+		console.log('none', modal);
 	}
 
 	
 
-	$('body').on('click', '.prev', function(e){
-       console.log("hello");
+	$('body').on('click', '.prev-modal, .prev-2-btn', function(e){
+		e.stopImmediatePropagation();
+       console.log("hello", $(this));
 		let modal = $(this).parents('section').find('.modal')[0];
 		if($(modal).is(':visible')) {
 			modalClose(modal);
-			console.log('0',modal);
+			prevFunction($(this));
 		}else{
 			modalShow(modal);
-			console.log('1',modal);
-			return;
 		}
-	
-		if($(this).parents(".tab2").length != 0){
-			test('pickupDate');
-			functionForFirst();
-			$(this).parents(".tab2").siblings(".tab1").css("display","block");
-			$(this).parents(".tab2").css("display","none");
-		}
-
-		if($(this).parents(".tab3").length != 0){
-			test('pickupTime');
-			functionForSecond();
-			$(this).parents(".tab3").siblings(".tab2").css("display","block");
-			$(this).parents(".tab3").css("display","none");
-		}  
-		
-		if($(this).parents(".tab4").length != 0){
-			test('deliveryDate');
-			functionForThird();
-			$(this).parents(".tab4").siblings(".tab3").css("display","block");
-			$(this).parents(".tab4").css("display","none");
-		}
-
-		if($(this).parents(".tab5").length != 0){
-			test('deliveryTime');
-			functionForForth();
-			$(this).parents(".tab5").siblings(".tab4").css("display","block");
-			$(this).parents(".tab5").css("display","none");
-		}  
    });
+
+   function prevFunction(thisElement){
+	if(thisElement.parents(".tab2").length != 0){
+		test('pickupDate');
+		functionForFirst();
+		thisElement.parents(".tab2").siblings(".tab1").css("display","block");
+		thisElement.parents(".tab2").css("display","none");
+	}
+
+	if(thisElement.parents(".tab3").length != 0){
+		test('pickupTime');
+		functionForSecond();
+		thisElement.parents(".tab3").siblings(".tab2").css("display","block");
+		thisElement.parents(".tab3").css("display","none");
+	}  
+	
+	if(thisElement.parents(".tab4").length != 0){
+		test('deliveryDate');
+		functionForThird();
+		thisElement.parents(".tab4").siblings(".tab3").css("display","block");
+		thisElement.parents(".tab4").css("display","none");
+	}
+
+	if(thisElement.parents(".tab5").length != 0){
+		test('deliveryTime');
+		functionForForth();
+		thisElement.parents(".tab5").siblings(".tab4").css("display","block");
+		thisElement.parents(".tab5").css("display","none");
+	} 
+   }
 
    	$(".checky").change(function() {
 		$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
