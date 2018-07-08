@@ -1,7 +1,7 @@
 var app = angular.module("laundryApp");
  
 app.run(function($rootScope){
-	$rootScope.a = '​http://thisisbig.ae/advanced/backend/web/';
+	$rootScope.a = '​http://localhost/advanced/backend/web/';
  });
 
 

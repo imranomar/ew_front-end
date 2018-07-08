@@ -1,4 +1,4 @@
-var baseUrl = 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/';
+var baseUrl = 'http://localhost/advanced/backend/web/';
 
 
 window.addEventListener("beforeunload", function (e) {
@@ -354,7 +354,7 @@ app.config(function($routeProvider,$locationProvider) {
 // http://thisisbig.ae/advanced/backend/web/
 app.factory('appInfo', function () {
   return {
-      url: 'http://139.59.95.219/demo/easywash_laundry_app_api/backend/web/'
+      url: 'http://localhost/advanced/backend/web/'
   }
 });
 
