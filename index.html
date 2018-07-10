@@ -69,15 +69,95 @@
     </head>
 
    <body ng-app="laundryApp">
-       
+
+    
 
        
-
+        <div  style='display:none' class="navbar-fixed">
+    
+                <div  class="nav-wrapper">
+                 
+                  <!-- <a style='margin-top: 4.3vw;font-size: 0px; line-height:0px' href="#" class="brand-logo center"></a> -->
+                  <!-- <ul id="nav-mobile" class="left">
+                    <ul id="nav-mobile" class="left hide-on-med-and-down"> 
+                    <li></li>
+                  </ul>
+                  <ul id="nav-mobile" class="right">
+                 <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li></li>
+                  </ul> -->
+                  <table class='top_bar' style='' cellspcaing=0 cellpadding=0><tr>
+                    
+                    <td width='20%' valign='center' align='middle'><a href="#" style='display:block;' data-target="slide-out" class="sidenav-trigger"><i style='font-size: 7vw' class="material-icons">dehaze</i></a></td>
+                    <td width='60%'  valign='center' align='middle'><img src="images/logo-top.png" style="height:7vw" alt=""></td>
+                    <td width='20%' valign='center' align='middle'><a href="#"><i style='font-size: 7vw; ' class="material-icons">local_phone</i></a></td>
+                  
+                  </tr></table>
+                </div>
+                <div class='curve'></div>
+          
+              </div>
             <ng-view>
                 
             </ng-view>
 
        
+    <!-- menu starts here -->
+    <div ng-controller="MenuCtrl">
+    <ul id="slide-out" class="sidenav" >
+            <li >
+            <div class="" style='text-align:center; margin-top: 20px; width: 100%'>
+                <img class="" style='width:4em' src="images/logo.png">
+            </div>
+            </li>
+           
+            <!-- <li><a href="#!">Second Link</a></li> -->
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">local_shipping</i>Request Pickup</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">person</i>My Details</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">notifications</i>Notifications</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">question_answer</i>FAQs</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">attach_money</i>Pricing</a></li>
+            <li><div class="divider"></div></li>
+            <li><a href="#!"><i class="tiny material-icons">cloud</i>About EazyWash</a></li>
+            <li><div class="divider"></div></li>
+            <li><a class="sidenav-close" href="#!" id="signout" ng-click="signout()"><i class="tiny material-icons">power_settings_new</i>Sign Out</a></li>
+            <li><div class="divider"></div></li>
+            <!-- <li><a class="subheader"><i class="material-icons">cloud</i>Subheader</a></li> -->
+            <!-- <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> -->
+          </ul>
+          <!-- menu ends here -->
+        </div>
     </body>
+
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script src="js/materialize.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, options);
+  });
+
+    // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+    // var collapsibleElem = document.querySelector('.collapsible');
+    // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+    // Or with jQuery
+
+    $(document).ready(function(){
+      $('.sidenav').sidenav();
+    });
+    </script>
     
 </html>

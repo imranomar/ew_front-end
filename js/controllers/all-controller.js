@@ -4,16 +4,13 @@ app.run(function($rootScope){
 	$rootScope.a = '​http://localhost/advanced/backend/web/';
  });
 
-
- 
-
  //Login of Controller
-
  app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
-	console.log('1')
+	
+	$('.navbar-fixed').hide();
 	// console.log(updateFCMToken.test());
-	 $scope.loading = false;
-	 $scope.field = 'email';
+	$scope.loading = false;
+	$scope.field = 'email';
  	$scope.logindata = {
 		email: '',
 		password: ''
@@ -133,20 +130,14 @@ app.run(function($rootScope){
 
  app.controller('DashboardCtrl',function($scope,$location) {
 
+	$('.navbar-fixed').show();
+
  	$scope.menuopen = function(){
  		//$location.path("/menu");
 	}
 
 	$scope.closemenu = function(){
 		angular.element('.Menu').remove();
-	}
-
-	$scope.Signout = function(){
-		let date = new Date().toUTCString();
-		document.cookie = 'laundryCookie=y; expires=' + date;
-		localStorage.removeItem('laundryUser');
-		localStorage.removeItem('rememberMe');
-		$location.path('/login');
 	}
 	
  });
@@ -155,8 +146,13 @@ app.run(function($rootScope){
  // Menu of Controller
 
  app.controller('MenuCtrl',function($scope,$location) {
-	$scope.Signout = function(){
-		console.log("signout");
+
+	$scope.signout = function(){
+		let date = new Date().toUTCString();
+		document.cookie = 'laundryCookie=y; expires=' + date;
+		localStorage.removeItem('laundryUser');
+		localStorage.removeItem('rememberMe');
+		$location.path('/login');
 	}
 
  	$scope.closemenu = function () {
