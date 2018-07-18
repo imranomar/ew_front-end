@@ -1,4 +1,4 @@
-var baseUrl = 'http://localhost/advanced/backend/web/';
+var baseUrl = 'http://thisisbig.ae/advanced/backend/web/';
 
 
 window.addEventListener("beforeunload", function (e) {
@@ -354,7 +354,7 @@ app.config(function($routeProvider,$locationProvider) {
 // http://thisisbig.ae/advanced/backend/web/
 app.factory('appInfo', function () {
   return {
-      url: 'http://localhost/advanced/backend/web/'
+      url: 'http://thisisbig.ae/advanced/backend/web/'
   }
 });
 

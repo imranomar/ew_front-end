@@ -1,13 +1,16 @@
 var app = angular.module("laundryApp");
  
 app.run(function($rootScope){
-	$rootScope.a = '​http://localhost/advanced/backend/web/';
+	$rootScope.a = '​http://thisisbig.ae/advanced/backend/web/';
  });
 
  //Login of Controller
  app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
+
+	
 	
 	$('.navbar-fixed').hide();
+	
 	// console.log(updateFCMToken.test());
 	$scope.loading = false;
 	$scope.field = 'email';
