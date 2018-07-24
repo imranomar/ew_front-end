@@ -1,3 +1,10 @@
+<style>
+	html {
+        background-image: none !important;
+	}
+	
+	
+</style>
 <div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
 
 	<!-- The Modal -->
@@ -26,64 +33,103 @@
 			</div>
 		</div> 
 	</div>
+	<!-- MODEL ENDS HERE -->
+
 
 	
 	
 	<div class="ion-content mainmyorder">
 
-		<div class="bar bar-header bar-balanced">
+		<!-- <div class="bar bar-header bar-balanced">
 
-		  <!-- <a href="#/dashboard"> -->
+		<a href="#/dashboard"> 
 		  	<button class="button button-icon icon ion-android-arrow-back" ng-click="onCancelOrder()"></button>
-		  <!-- </a> -->
+		</a> 
 
-		  <div class="h1 title"> My Orders </div>
-
-		  <button class="button button-icon icon ion-ios-close" ng-click="onCancelOrder()"></button>
-		 
-
-		</div>
+		</div> -->
 
 		<div class="row topmargin"> </div>
 
-		<div class="list card orderlist">
+		<div class="">
 			
 			<form>
 
 				<!-- wizard one start -->
 				 <section class="tab1">
-
-						<div class="text-center">
-								<h4>Pick up</h4>
-						   </div>
-						<div class="list" >
-								<div 
-									class="row marginrow"
-									ng-repeat="value in datelist" 
-									ng-hide="!showAllDateList && $index > 4" 
-									ng-click="savelocallyDate(value)"
-									ng-class="{
-										'tomorrow-div': value.name == 'Today',
-										'day-after-div': value.name == 'Tomorrow',
-									}">
-									<div class="col next">
-											<!-- ng-if="!value.name" -->
-										<div class="h2 title" ng-if="value.name"> {{value.name}} </div>
-										<div class="h3 title"> {{value.shortDate}} </div>			
+					<div class="container">
+						<div class="row"  style='margin-bottom: 7vw; margin-top: 7vw'>
+							<div style='padding:0' class="col s10"><div class='left-align'><h5>Select Pickup Date</h5></div></div>
+							<div class="col s2" style='padding:0'>
+							<div class='right-align'>
+									<div class="div_close_icon right-align" ng-click="onCancelOrder()">
+											<span class="material-icons">close</span>
+										</div>
+							</div>
+							</div>
+						</div>
+						<div 
+							class="row"
+							ng-repeat="value in datelist" 
+							ng-hide="!showAllDateList && $index > 4" 
+							ng-click="savelocallyDate(value)"
+							ng-class="{
+								'tomorrow-div': value.name == 'Today',
+								'day-after-div': value.name == 'Tomorrow',
+							}">
+							<div class="col s12">
+								<div class=" mybutton next row z-depth-4" >
+									<div class="col s6"  style='height: 100%'>
+										<div class="row">
+											<div class="col s12" style='margin:0.75rem  0px  0px  0px;text-transform: capitalize; '><h6>{{value.name}}</h6></div>
+										</div>
+										<div class="row">
+											<div class="col s12" style='margin:0rem  0px  0.75rem  0px; color: #b1b1b1 '>{{value.shortDate}} </div>
+										</div>
+									</div>
+									<div class="col s4 valign-wrapper" style='height: 100%'>
 										<span class="iconsstyle" ng-if="value.price"> 
-											<i class="icon ion-plus"></i> 
-											<i class="icon ion-social-usd-outline"></i> 
-											{{value.price}}
+											
+												
+											<span style='background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;font-weight: bold;' class=""><i style='font-size: 1rem; position: relative;top: -2px;left:7px' class="tiny material-icons"> attach_money </i> {{value.price}}</span>
 										</span>
 									</div>
+									<div class="col s2 valign-wrapper" style='height: 100%'><span style='color: #1fbae6' class="large material-icons">chevron_right</span>		</div>
 								</div>
-							
-								<div class="row" ng-if="!showAllDateList">
-									<div class="col" ng-click="onOther()">
-										<div class="h2 title tt1"> OTHER </div>
+									<!-- ng-if="!value.name" -->
+								<!-- <div class="h2 title" ng-if="value.name"> {{value.name}} </div>
+								<div class="h3 title"> {{value.shortDate}} </div>			
+								<span class="iconsstyle" ng-if="value.price"> 
+									<i class="icon ion-plus"></i> 
+									<i class="icon ion-social-usd-outline"></i> 
+									{{value.price}}
+								</span> -->
+							</div>
+						</div>
+						<div id='row_other' class="row">
+							<div class="col s12">
+								<div ng-click="onOther()" class=" mybutton  row z-depth-4" >
+									<div class="col s6"  style='height: 100%'>
+										<div class="row">
+											<div class="col s12" style='margin:0.75rem  0px  0px  0px '><h6>Other</h6></div>
+										</div>
+										<div class="row">
+											<div class="col s12" style='margin:0rem  0px  0.75rem  0px; color: #6c8b9f '>{{value.shortDate}} </div>
+										</div>
 									</div>
-								</div> 
-						 </div>
+									<div class="col s4 valign-wrapper" style='height: 100%'>
+										<span class="iconsstyle" ng-if="value.price"> 
+											
+												
+											<span style='background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;font-weight: bold;' class=""><i style='font-size: 1rem; position: relative;top: -2px;left:7px' class="tiny material-icons"> attach_money </i> {{value.price}}</span>
+										</span>
+									</div>
+									<div class="col s2 valign-wrapper" style='height: 100%'><span style='color: #1fbae6; transform: rotate(90deg);' class="large material-icons">chevron_down</span>		</div>
+								</div>
+							</div>
+						</div>
+
+						
+					</div>
 				 </section>
 
 				 <!-- wizard one closed -->

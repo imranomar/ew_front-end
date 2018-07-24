@@ -531,7 +531,7 @@ app.controller('DeliverydateCtrl',function($scope) {
 // Load Controller of OrdersummaryCtrl
 
 app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSerializer, $location){
-	console.log('chala');
+	$('.navbar-fixed').show();
 	//  localstorage keys
 	let localData = {
 		pickupDate : {},
@@ -552,6 +552,19 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 	}
 
 	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+	var months = new Array();
+	months[0] = "January";
+	months[1] = "February";
+	months[2] = "March";
+	months[3] = "April";
+	months[4] = "May";
+	months[5] = "June";
+	months[6] = "July";
+	months[7] = "August";
+	months[8] = "September";
+	months[9] = "October";
+	months[10] = "November";
+	months[11] = "December";
 	let x = localStorage.getItem('laundryUser');
 	$scope.getAddress;
 	$scope.getpayment;
@@ -635,12 +648,16 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 					// if day is day after 
 					name = 'Tomorrow';
 				}
+				else
+				{ 
+					name = days[d.getDay()];
+				}
 				
 				array.push({
 					date: d,
 					name: name,
 					price: price,
-					shortDate: d.getDate()+'th '+days[d.getDay()]
+					shortDate: d.getDate()+'th '+months[d.getMonth()]
 				});
 			}
         
@@ -671,6 +688,7 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
 
 	$scope.onOther = function(){
 		$scope.showAllDateList = true;
+		$('#row_other').hide();
 	}
 	// wizard one closed
 
