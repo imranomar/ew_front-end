@@ -17,6 +17,21 @@ html
   font-family: Roboto;
 }
 
+base_color
+{
+  color: #1fbae6
+}
+
+base_color_dark
+{
+  color: #0c3d57
+}
+
+base_color_light
+{
+  color: #E1F5FE
+}
+
 h1,h2,h3,h4,h5
 {
   margin: 0 0 0 0;
@@ -98,6 +113,18 @@ nav
   top: -2px;
 } 
 
+
+.page-title-row
+{
+  margin-bottom: 7vw; margin-top: 7vw
+}
+
+.page-title-row-col
+{
+  padding: 0;
+}
+
+
  /* TOP BAR ENDS HERE */
 
 
@@ -141,6 +168,32 @@ td
 }
 
 /* CREATE OTDER STARTS HERE */
+
+
+.my_button_column
+{
+  height: 100%
+}
+
+.my_button_title
+{
+  margin:0.75rem  0px  0px  0px;text-transform: capitalize; 
+}
+
+.my_button_sub_title
+{
+  margin:0rem  0px  0.75rem  0px; color: #b1b1b1 
+}
+
+.my_close_button
+{
+  background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;font-weight: bold;
+}
+
+.my_close_button_icon
+{
+  font-size: 1rem; position: relative;top: -2px;left:7px
+}
 
 .div_close_icon
 {
