@@ -3,8 +3,11 @@
         background-image: none !important;
 	}
 
+	.mybutton2
+	{
+		height: 25vw;
+	}
 
-	
 </style>
 <div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
 
@@ -61,7 +64,7 @@
 						<div class="row page-title-row">
 							<div class="col s10 page-title-row-col">
 								<div class='left-align'>
-									<h5>Select Pickup Date</h5>
+									<h4>Select Pickup Date</h4>
 								</div>
 							</div>
 							<div class="col s2 page-title-row-col" >
@@ -85,7 +88,7 @@
 								<div class="mybutton next row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
-											<div class="col s12 my_button_title" ><h6>{{value.name}}</h6></div>
+											<div class="col s12 my_button_title" ><h5>{{value.name}}</h5></div>
 										</div>
 										<div class="row">
 											<div class="col s12 my_button_sub_title" >{{value.shortDate}} </div>
@@ -100,14 +103,6 @@
 										<span  class="large material-icons  base_color">chevron_right</span>
 									</div>
 								</div>
-									<!-- ng-if="!value.name" -->
-								<!-- <div class="h2 title" ng-if="value.name"> {{value.name}} </div>
-								<div class="h3 title"> {{value.shortDate}} </div>			
-								<span class="iconsstyle" ng-if="value.price"> 
-									<i class="icon ion-plus"></i> 
-									<i class="icon ion-social-usd-outline"></i> 
-									{{value.price}}
-								</span> -->
 							</div>
 						</div>
 						
@@ -118,7 +113,7 @@
 								<div class="mybutton row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
-											<div class="col s12 my_button_title" ><h6>Other</h6></div>
+											<div class="col s12 my_button_title" ><h5>Other</h5></div>
 										</div>
 										<div class="row">
 											<div class="col s12 my_button_sub_title" >{{value.shortDate}} </div>
@@ -133,14 +128,6 @@
 										<span  class="large material-icons  base_color">chevron_right</span>
 									</div>
 								</div>
-									<!-- ng-if="!value.name" -->
-								<!-- <div class="h2 title" ng-if="value.name"> {{value.name}} </div>
-								<div class="h3 title"> {{value.shortDate}} </div>			
-								<span class="iconsstyle" ng-if="value.price"> 
-									<i class="icon ion-plus"></i> 
-									<i class="icon ion-social-usd-outline"></i> 
-									{{value.price}}
-								</span> -->
 							</div>
 						</div>
 
@@ -180,17 +167,15 @@
 							</div>
 						</div> 
 					</div>
+
+					
+					
 	
 
 
-						<div class="text-center">
-								<h4>Pick up</h4>
-						</div>
-						<div class="list">
+					
+						<!-- <div class="list">
 								  <div class="list">
-										<div class="item headingfinal">
-											Please Select the time to pricing
-										</div>
 										<div class="item">
 											<label class="container" for="a">I'will leave at the door.
 											  <input type="checkbox" id='a' class="checky" name="pickAtDoor">
@@ -206,34 +191,117 @@
 											<div class="list finaldate-list">
 												
 												<div class="item item-thumbnail-left"  ng-repeat="value in Timeslot">
-												  <img src="assets\clock (1).png">
-												  <h2 ng-if="value.type == 1">FLEXIBLE </h2>
-												  <h2 ng-if="value.type == 2"> ONE HOUR SLOT </h2>
-												  <h4> BETWEEN </h4>
-												  <p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
-												  <!-- <button class="button button-clear button-positive"> Free </button> -->
-												  <label class="container" for="{{value}}">{{value.price}}
-														<input type="radio" id='{{value}}' value="{{value}}" class="checky" name="pickUpRadio">
-														<span class="checkmark unikk" ></span>
-														<!-- ng-click="savelocallyTime(value)" -->
-												  </label>
-											</div>
-							
-											
-							
+													<img src="assets\clock (1).png">
+													<h2 ng-if="value.type == 1">FLEXIBLE </h2>
+													<h2 ng-if="value.type == 2"> ONE HOUR SLOT </h2>
+													<h4> BETWEEN </h4>
+													<p> {{value.time_from}}:00 to  {{value.time_to}}:00 </p>
+													 <button class="button button-clear button-positive"> Free </button> -->
+													<!-- <label class="container" for="{{value}}">{{value.price}} -->
+															<!-- <input type="radio" id='{{value}}' value="{{value}}" class="checky" name="pickUpRadio"> -->
+															<!-- <span class="checkmark unikk" ></span> -->
+															<!-- ng-click="savelocallyTime(value)" -->
+													<!-- </label>
+												</div>
+
 											</div> 
 							
 										</div>
 							
-									</div>
-								<button class="wizard-btn next" >
-										Next
-								</button>
-								<button class=" wizard-btn prev-2-btn" id="prev" >
-										Previous
-								</button>
+									</div> 
+								
 																  
-						 </div>
+						 </div> -->
+						 <div class="container">
+								<div class="row page-title-row">
+									<div class="col s10 page-title-row-col">
+										<div class='left-align'>
+											<h4>Select Pickup Time</h4>
+										</div>
+									</div>
+									<div class="col s2 page-title-row-col" >
+										<div class='right-align'>
+												<div class="div_close_icon right-align" ng-click="onCancelOrder()">
+														<span class="material-icons">close</span>
+												</div>
+										</div>
+									</div>
+								</div>
+								<div id='div_slots'>
+								<div 
+								class="row"
+								ng-repeat="value in Timeslot" 
+								>
+									<div class="col s12">
+											<label class="container" for="{{value}}">
+										<div class="mybutton2 row z-depth-4" >
+											<div class="col s3 my_button_column" style='padding-right:0px'  >
+												<div class="row">
+													<div class="col s12 my_button_title" ><img width="100%" src="images\{{value.time_from}}.png"></div>
+												</div>
+											</div>
+											<div class="col s6 valign-wrapper my_button_column" style='padding-right:0px' >
+												<div class="row">
+													<div class="col s12 my_button_title" >
+														<!-- we do not have one hour slot option now -->
+														<!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+														<span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+														<h6> BETWEEN </h6>
+														<h5> {{value.time_from}}:00 to  {{value.time_to}}:00 </h5>
+													</div>
+												</div>
+											</div>
+											<div class="col s3 valign-wrapper my_button_column"  style='padding-right:0px'>
+												<span class="iconsstyle"> 
+													<span  class="my_close_button"><i class="tiny material-icons my_close_button_icon"> attach_money </i> {{value.price}}</span>
+												</span>
+												
+															<input type="radio" id='{{value}}' value="{{value}}" class="checky" name="pickUpRadio">
+															<span class="checkmark unikk" ></span>
+															<!-- ng-click="savelocallyTime(value)" -->
+												
+											</div>
+										</div></label>
+									</div>
+								</div>
+								</div>
+								<div class="row"><div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div></div>
+								<div class='mybutton row  z-depth-4  valign-wrapper '>
+									
+										<div class="col s9">
+											<div class="item ">
+												<label class="container" for="a">I'will leave at the door.
+													<input type="checkbox" id='a' class="checky" name="pickAtDoor">
+													<span class="checkmark"></span>
+												</label>
+											</div>
+										</div>
+										<div class="col s3 valign-wrapper my_button_column"  style='padding-right:0px'>
+											<span class="iconsstyle"> 
+												<span  class="">Free</span>
+											</span>
+											
+
+											
+										</div>
+									
+								</div>
+								<div class="row"  style='margin-top: 8vw'>
+									<div class="col s6">
+										<button class="wizard-btn next" >
+											Next
+										</button>
+									</div>
+									<div class="col s6">
+										<button class=" wizard-btn prev-2-btn" id="prev" >
+											Previous
+									</button>
+									</div>
+								</div>
+								
+								
+							</div> <!-- container ends here -->
+							
 				 </section>
 
 				 <!-- wizard two closed -->
@@ -268,14 +336,23 @@
 							</div>
 						</div> 
 					</div>
+					<div class="container">
+						<div class="row page-title-row">
+							<div class="col s10 page-title-row-col">
+								<div class='left-align'>
+									<h4>Select Drop Date</h4>
+								</div>
+							</div>
+							<div class="col s2 page-title-row-col" >
+								<div class='right-align'>
+										<div class="div_close_icon right-align" ng-click="onCancelOrder()">
+												<span class="material-icons">close</span>
+										</div>
+								</div>
+							</div>
+						</div>
 
-
-
-						<div class="text-center">
-								<h4>Delivery</h4>
-						   </div>
-						<div class="list">
-								<div 
+						<div 
 									class="row marginrow"  
 									ng-repeat="value in datelist1"  
 									ng-hide="!showAllDateList1 && $index > 4" 
@@ -284,49 +361,75 @@
 										'tomorrow-div': value.name == 'Tomorrow',
 										'day-after-div': value.name == 'day after',
 									}">
-										<div class="col next">
-												<!-- ng-if="!value.name" -->
-											<div class="h2 title" ng-if="value.name"> {{value.name}} </div>	
-											<div class="h3 title"> {{value.shortDate}} </div>		
-											<span class="iconsstyle" ng-if="value.price"> 
-												<i class="icon ion-plus"></i> 
-												<i class="icon ion-social-usd-outline"></i> 
-												{{value.price}}
-											</span>
+							<div class="col s12">
+								<div class="mybutton next row z-depth-4" >
+									<div class="col s6 my_button_column"  >
+										<div class="row">
+											<div class="col s12 my_button_title" ><h5>{{value.name}}</h5></div>
+										</div>
+										<div class="row">
+											<div class="col s12 my_button_sub_title" >{{value.shortDate}} </div>
 										</div>
 									</div>
-							
-									<!-- <div class="row">
-										<div class="col next">
-											<div class="h2 title"> DAY AFTER </div>
-											<div class="h3 title"> 16th Sun </div>
+									<div class="col s4 valign-wrapper my_button_column" >
+										<span class="iconsstyle" ng-if="value.price"> 
+											<span  class="my_close_button"><i class="tiny material-icons my_close_button_icon"> attach_money </i> {{value.price}}</span>
+										</span>
+									</div>
+									<div class="col s2 valign-wrapper my_button_column" >
+										<span  class="large material-icons  base_color">chevron_right</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div 
+						class="row" ng-if="!showAllDateList1"
+						>
+							<div  ng-click="onOther1()"  class="col s12 next">
+								<div class="mybutton row z-depth-4" >
+									<div class="col s6 my_button_column"  >
+										<div class="row">
+											<div class="col s12 my_button_title" ><h5>Other</h5></div>
+										</div>
+										<div class="row">
+											<div class="col s12 my_button_sub_title" >{{value.shortDate}} </div>
 										</div>
 									</div>
-							
-									<div class="row">
-										<div class="col next">
-											<div class="h2 title tt1"> 17th Mon </div>
-										</div>
+									<div class="col s4 valign-wrapper my_button_column" >
+										<span class="iconsstyle" ng-if="value.price"> 
+											<span  class="my_close_button"><i class="tiny material-icons my_close_button_icon"> attach_money </i> {{value.price}}</span>
+										</span>
 									</div>
+									<div class="col s2 valign-wrapper my_button_column" >
+										<span  class="large material-icons  base_color">chevron_right</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<button class=" wizard-btn prev-2-btn" id="prev">
+								Previous
+						</button>
+					</div> <!-- container ends here -->
+
+
+					
+					
+						
+								
 							
-									<div class="row">
-										<div class="col next">
-											<div class="h2 title tt1"> 18th Tue </div>
-										</div>
-									</div> -->
+									
 							
-									<div class="row " ng-if="!showAllDateList1">
+									<!-- <div class="row " ng-if="!showAllDateList1">
 										<div class="col next" ng-click="onOther1()">
 											<div class="h2 title tt1"> OTHER </div>
 										</div>
-									</div>
+									</div> -->
 							
 									
-									<button class=" wizard-btn prev-2-btn" id="prev">
-											Previous
-									</button>
+									
 															
-						 </div>
+						
 				 </section>
 
 				 <!-- wizard three closed -->
@@ -361,11 +464,93 @@
 							</div>
 						</div> 
 					</div>
-
-						<div class="text-center">
-								<h4>Delivery</h4>
+					<div class="container">
+						<div class="row page-title-row">
+							<div class="col s10 page-title-row-col">
+								<div class='left-align'>
+									<h4>Select Drop Time</h4>
+								</div>
+							</div>
+							<div class="col s2 page-title-row-col" >
+								<div class='right-align'>
+										<div class="div_close_icon right-align" ng-click="onCancelOrder()">
+												<span class="material-icons">close</span>
+										</div>
+								</div>
+							</div>
 						</div>
-						<div class="list">
+						<div id='div_slots'>
+								<div 
+								class="row"
+								ng-repeat="value in Timeslot1" 
+								>
+									<div class="col s12">
+											<label class="container" for="a{{value}}">
+										<div class="mybutton2 row z-depth-4" >
+											<div class="col s3 my_button_column" style='padding-right:0px'  >
+												<div class="row">
+													<div class="col s12 my_button_title" ><img width="100%" src="images\{{value.time_from}}.png"></div>
+												</div>
+											</div>
+											<div class="col s6 valign-wrapper my_button_column" style='padding-right:0px' >
+												<div class="row">
+													<div class="col s12 my_button_title" >
+														<!-- we do not have one hour slot option now -->
+														<!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+														<span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+														<h6> BETWEEN </h6>
+														<h5> {{value.time_from}}:00 to  {{value.time_to}}:00 </h5>
+													</div>
+												</div>
+											</div>
+											<div class="col s3 valign-wrapper my_button_column"  style='padding-right:0px'>
+												<span class="iconsstyle"> 
+													<span  class="my_close_button"><i class="tiny material-icons my_close_button_icon"> attach_money </i> {{value.price}}</span>
+												</span>
+												
+															<input type="radio" id='a{{value}}' value="{{value}}" class="checky" name="deliveryRadio">
+															<span class="checkmark unikk" ></span>
+															<!-- ng-click="savelocallyTime(value)" -->
+												
+											</div>
+										</div></label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row"><div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div></div>
+					
+							<div class='mybutton row  z-depth-4  valign-wrapper '>
+									
+								<div class="col s9">
+									<div class="item ">
+										<label class="container" for="1">I'will leave at the door.
+											<input type="checkbox" id='1' class="checky" name="deliveryAtDoor" >
+											<span class="checkmark"></span>
+										  </label>
+									</div>
+								</div>
+								<div class="col s3 valign-wrapper my_button_column"  style='padding-right:0px'>
+									<span class="iconsstyle"> 
+										<span  class="">Free</span>
+									</span>
+									
+
+									
+								</div>
+							
+						</div>
+						<button class=" wizard-btn next"  >
+							<!-- ng-click="getLocalDetail()" -->
+							Next
+						</button>
+						<button class=" wizard-btn prev-2-btn" id="prev" >
+								Previous
+						</button>
+					</div> <!-- container ends here -->
+
+					
+						<!-- <div class="list">
 								<div class="list">
 										<div class="item headingfinal">
 											Please Select the time to pricing
@@ -394,7 +579,7 @@
 												  <label class="container" for="a{{value}}">{{value.price}}
 														<input type="radio" value="{{value}}" id="a{{value}}" class="checky" name="deliveryRadio" >
 														<span class="checkmark unikk" ></span>
-														<!-- ng-click="savelocallyDeliveryTime(value)" -->
+														<!-- ng-click="savelocallyDeliveryTime(value)" 
 												  </label>
 												</div>	
 												
@@ -404,17 +589,11 @@
 										</div>
 							
 									</div>
-								<button class=" wizard-btn next"  >
-										<!-- ng-click="getLocalDetail()" -->
-										Next
-								</button>
-								<button class=" wizard-btn prev-2-btn" id="prev" >
-										Previous
-								</button>
+								
 								
 								
 									  
-						 </div>
+						 </div> -->
 				 </section>
 				  <!-- wizard four closed -->
 

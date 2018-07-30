@@ -1136,16 +1136,17 @@ app.controller('OrdersummaryCtrl',function($scope, $http, appInfo,$httpParamSeri
    }
 
    	$(".checky").change(function() {
-		$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
+		//$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
+		$(".mybutton2").toggleClass("fade", this.checked);
 	}).change();
 
 	$('.checky').click(function() {
 		if($(this).is(':checked')){	
-		$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").prop('checked', false);
-		$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', true);
+			$("#div_slots").find("input[type=radio]").prop('checked', false);
+			$("#div_slots").find("input[type=radio]").attr('disabled', true);
 		}	  
 		else{
-			$(this).parents(".list").siblings(".finaldate1").find("input[type=radio]").attr('disabled', false);
+			$("#div_slots").find("input[type=radio]").attr('disabled', false);
 		}
 	});
 

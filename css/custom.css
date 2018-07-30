@@ -36,11 +36,23 @@ h1,h2,h3,h4,h5
 {
   margin: 0 0 0 0;
 }
-
+h4
+{
+  font-size:1.64rem
+}
+h5
+{
+  font-size:1.35rem
+}
 h6
 {
   
   margin: 0px;
+}
+
+label
+{
+  color: unset;
 }
 
 /* SIDE NAV START */
@@ -187,7 +199,7 @@ td
 
 .my_close_button
 {
-  background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;font-weight: bold;
+  background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;
 }
 
 .my_close_button_icon
@@ -247,9 +259,7 @@ td
 .card.orderlist{
 	padding: 5px;
 }
-.Deliverydate.finaldate .tab2 .row .col,.Deliverydate.finaldate .tab4 .row .col {
-	margin: 0px;	
-}
+
 .finaldate-list{
 	/* height: 300px;
 	overflow-y: scroll; */
