@@ -628,13 +628,135 @@
 						</div> 
 					</div>
 
+					<div class="container">
+						<div class="row page-title-row">
+							<div class="col s10 page-title-row-col">
+								<div class='left-align'>
+									<h4>Order Summary</h4>
+								</div>
+							</div>
+							<div class="col s2 page-title-row-col" >
+								<div class='right-align'>
+										<div class="div_close_icon right-align" ng-click="onCancelOrder()">
+												<span class="material-icons">close</span>
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="row summary-tabs">
+							<div class="col s6 center-align z-depth-4">
+								<div class="row">
+									<div class="col s12  center-align" style="background-color:#E1F5FE;;padding: 10px;    border-top-left-radius: 8px;"><h4 style='text-transform: uppercase'>Pickup</h4></div>
+								</div>
+								<div class="row">
+									<div class="col s12  center-align" style="">
+											{{getLocalDetail.pickupDate.name}} {{getLocalDetail.pickupDate.shortDate}}
+										<br>
+										<span class="para2heading" ng-if="getLocalDetail.pickupTime.leaveAtdoor != 'y'">
+												{{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </span>
+										<span ng-if="getLocalDetail.pickupTime.leaveAtdoor == 'y'">leave at the door  </span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s12  center-align"  >
+										<table style='margin: 15px 0px 15px 0px;   border-collapse:  none'><tr><td><a class='my_close_button'  >CHANGE</a></td></tr></table>
+										
+									</div>
+								</div>
+							</div>
+							<div class="col s6 center-align z-depth-4">
+								<div class="row">
+									<div class="col s12  center-align" style="background-color:#E1F5FE;;padding: 10px;    border-top-right-radius: 8px;"><h4 style='text-transform: uppercase'>Delievery</h4></div>
+								</div>
+								<div class="row">
+									<div class="col s12  center-align" style="">
+											{{getLocalDetail.deliveryDate.name}} {{getLocalDetail.deliveryDate.shortDate}} <br>
+										<span class="para2heading" ng-if="getLocalDetail.pickupTime.leaveAtdoor != 'y'">
+												{{getLocalDetail.pickupTime.time_from}}:00 to {{getLocalDetail.pickupTime.time_to}}:00 </span>
+										<span ng-if="getLocalDetail.pickupTime.leaveAtdoor == 'y'">leave at the door  </span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s12  center-align" style="">
+											<table style='margin: 15px 0px 15px 0px;   border-collapse:  none'><tr><td><a class='my_close_button'  >Change</a></td></tr></table>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row  valign-wrapper mybutton  z-depth-4" style='height: unset; background-color: #E1F5FE'>
+							<div class="col s2"><img src='images/dollar.png' width="100%"></div>
+							<div class="col s10">
+								<b>Extra Charges</b><br>
+								<div class="item item-body orderlistbody">	
+									
+										<div  ng-show="getLocalDetail.pickupDate.price">
+											<i class="icon ion-ios-plus-outline" > </i> ${{getLocalDetail.pickupDate.price}} - {{getLocalDetail.pickupDate.name}} Pickup
+										</div>
+									
+									
+										<div  ng-show="getLocalDetail.pickupTime.price && getLocalDetail.pickupTime.price != '0'">
+											<i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.pickupTime.price}} - Fixid time Pickup 
+										</div>
+										
+								</div>
+		
+								<div class="item item-body orderlistbody">	
+									
+										<div ng-show="getLocalDetail.deliveryDate.price != ''">
+											<i class="icon ion-ios-plus-outline"  > </i> ${{getLocalDetail.deliveryDate.price}} - next day delievery
+										</div>
+									
+									
+										<div  ng-show="getLocalDetail.deliveryTime.price && getLocalDetail.deliveryTime.price != '0'">
+											<i class="icon ion-ios-plus-outline" > </i>  ${{getLocalDetail.deliveryTime.price}} - Fixid time delievery
+										</div>
+										
+								</div>
+								
+							</div>
+							
+						</div>
+						<div class="row  valign-wrapper mybutton  z-depth-4 ">
+							<div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
+							<div class="col s6">
+								<span  ng-if="!getpayment.cvcode">
+									<a href="#/add-payment">Add Payment </a>
+								</span>
+								<span class="row" ng-if="getpayment.cvcode">
+									CvCode : - <span class="borderdotdot"> {{getpayment.cvcode}} </span>
+								</span>
+								<span class="row" ng-if="getpayment.cvcode">
+									Expiry month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
+								</span>
+								<span class="row" ng-if="getpayment.cvcode">
+									Expiry year : - <span class="borderdotdot"> {{getpayment.expiry_year}} </span>
+								</span>
+							</div>
+							<div class="col s4"><table style='margin: 15px 0px 15px 0px;   border-collapse:  none'><tr><td><a class='my_close_button'  >Change</a></td></tr></table>
+							</div>
+						</div>
+
+						<div class="row mybutton  valign-wrapper  z-depth-4 ">
+							<div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
+							<div class="col s6">
+								<span ng-if="getAddress.addresses.length == 0">
+									<a href="#/add-address">Add Address </a>
+								</span>
+								<span  ng-if="getAddress.addresses.length != 0">
+									<span class="borderdotdot">{{getAddress.addresses[0].street_name}}, Floor:{{getAddress.addresses[0].floor}}, Unit Number:{{getAddress.addresses[0].unit_number}}   </span>
+								</span>
+							</div>
+							<div class="col s4"><table style='margin: 15px 0px 15px 0px;   border-collapse:  none'><tr><td><a class='my_close_button'  >Change</a></td></tr></table>
+							</div>
+						</div>
+					</div> <!-- end container -->
+
 					
 
 
-						<div class="text-center">
-				
-						</div>
-						<div class="item item-body orderlistbody">
+					
+						<!-- <div class="item item-body orderlistbody">
 								<div class="row">
 									<div class="col col-50 orderlistbody1pickup">
 										<h3 class="pickupheading"> PICKUP </h3>
@@ -654,13 +776,14 @@
 										<p class="para2heading" ng-if="getLocalDetail.deliveryTime.leaveAtdoor != 'y'">
 											 {{getLocalDetail.deliveryTime.time_from}}:00 to {{getLocalDetail.deliveryTime.time_to}}:00 </p>	
 										<p ng-if="getLocalDetail.deliveryTime.leaveAtdoor == 'y'">leave at the door  </p>
-										<!-- <a class="closeankartag" ng-click="onCancelOrder()">
+										<!-3333- <a class="closeankartag" ng-click="onCancelOrder()">
 											<i class="icon ion-ios-close-outline"></i>
-										</a>					 -->
+										</a>					 -3333->
 									</div>
 								</div>
-						</div>
-						<div class="item item-body orderlistbody">	
+						</div> -->
+						
+							<!-- <div class="item item-body orderlistbody">	
 								<div class="row">
 									<div class="col" ng-show="getLocalDetail.pickupDate.name">
 										<a class="para1"> <i class="icon ion-ios-plus-outline" > </i> ${{getLocalDetail.pickupDate.price}} - {{getLocalDetail.pickupDate.name}} Pickup </a>
@@ -727,7 +850,7 @@
 									</div>
 									
 								</div>
-					
+					 -->
 								<!-- <div class="item item-body orderlistbody">
 					
 									<div class="row">

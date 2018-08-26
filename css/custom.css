@@ -281,8 +281,13 @@ td
     width: 20px;
     background-color: #eee;
 }
-.mainmyorder.xcv .row .col {  
-  margin: 0px; 
+
+.summary-tabs .row
+{
+  margin-bottom:0px
+}
+tr {
+  border-bottom: 0px;
 }
 .tomorrow-div>.col{
 	border-color: #354C8C !important;
