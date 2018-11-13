@@ -55,6 +55,11 @@ label
   color: unset;
 }
 
+.line-through
+{
+  text-decoration: line-through
+}
+
 /* SIDE NAV START */
 
 .sidenav
@@ -99,14 +104,16 @@ nav
 {
   background-color: #0d435d;
   box-shadow: none;
-  background: url('../../images/top-bar.png');
+  background: url('images/top-bar.png');
   background-size: 100% 100%;
   height: 16vw;
 }
 
 .top_bar
 {
-  background-color: #0c3f5a;padding: 0px; margin:0px; height: 17vw; width:100%
+  background-color: #0c3f5a;padding: 0px; margin:0px; height: 17vw; width:100%;
+  position: fixed;
+  top: 0px;
 }
 
 .top_bar a
@@ -177,6 +184,17 @@ td
 {
   text-align: center;
   padding: 0px 0px 0px 0px;
+}
+
+/* MY DETAILS STARTS HERE */
+
+.clk-fade-in
+{
+  display: none;
+}
+
+input:not([type]), input[type="text"]:not(.browser-default), input[type="password"]:not(.browser-default), input[type="email"]:not(.browser-default), input[type="url"]:not(.browser-default), input[type="time"]:not(.browser-default), input[type="date"]:not(.browser-default), input[type="datetime"]:not(.browser-default), input[type="datetime-local"]:not(.browser-default), input[type="tel"]:not(.browser-default), input[type="number"]:not(.browser-default), input[type="search"]:not(.browser-default), textarea.materialize-textarea {
+  height: 2rem;
 }
 
 /* CREATE OTDER STARTS HERE */
@@ -289,20 +307,26 @@ td
 tr {
   border-bottom: 0px;
 }
-.tomorrow-div>.col{
+
+.today-div>.col{
 	border-color: #354C8C !important;
 }
+
+.tomorrow-div>.col{
+	border-color: #444 !important;
+}
+
 .day-after-div>.col{
 	border-color: #444 !important;
 }
+
+
+/* CREATE ORDER ENDS HERE */
 
 #div_slots>.row.active .mybutton2 {
   background: #E1F5FE;
   /* color: #fff; */
 }
-
-
-
 
 .myorder span.checkmark {
   vertical-align: middle;

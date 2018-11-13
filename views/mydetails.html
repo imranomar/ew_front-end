@@ -1,16 +1,132 @@
-<div ng-controller="MydetailsCtrl" class="mydetailspage">
-	
-	<div class="ion-content mainmydetailspage">
+<style>
+	html {
+		background-image: none !important;
+	}
+</style>	
+<div ng-controller="MydetailsCtrl" class="">
+	<div class="container personal" style='margin-bottom: 20px'>
+			<div class="row page-title-row">
+				<div class="col s12">
+					<div class='left-align'>
+						<h4>My Details</h4>
+					</div>
+				</div>
+			</div>
+			<div class="row page-title-row"><div class="col"><b>PERSONAL DETAILS</b></div></div>
+			<div class="row   valign-wrapper mybutton z-depth-4">
+				<div class="col s8">
+					<div class="row">
+						<div class="col s12"><small>NAME</small></div>
+					</div>
+					<div class="row">
+						<div class="col s12 clk-fade-out">{{userdata.full_name}}</div>
+						<div class="col s12  clk-fade-in"><input class="form-control editable ng-pristine ng-untouched ng-valid" ng-model="userdata.full_name" name="" type="text"></div>
+					</div>
+				</div>
+				<div class="col s4 valign-wrapper">
+					<a class='my_close_button edit-btn'  >Change</a>
+					<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt '  style='background-color: orange;  color:white; display:none'  >Save</a>
+				</div>
+			</div>
+			<div class="row   valign-wrapper mybutton z-depth-4">
+				<div class="col s8">
+					<div class="row">
+						<div class="col s12"><small>EMAIL</small></div>
+					</div>
+					<div class="row">
+						<div class="col s12 clk-fade-out">{{userdata.email}}</div>
+						<div class="col s12  clk-fade-in"><input class="form-control editable ng-pristine ng-untouched ng-valid" ng-model="userdata.email" name="" type="text"></div>
+					</div>
+				</div>
+				<div class="col s4 valign-wrapper">
+					<a class='my_close_button edit-btn'  >Change</a>
+					<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt '  style='background-color: orange;  color:white; display:none'  >Save</a>
+				</div>
+			</div>
 
-		<div class="bar bar-header bar-balanced">
-			<a href="#/dashboard">
-			 	<button class="button button-icon icon ion-android-arrow-back"></button>
-			</a>
-		  	<div class="h1 title"> My Details </div>	
-		</div>
 
-		<div class="row topmargin">	</div>
+			<div class="row   valign-wrapper mybutton z-depth-4">
+					<div class="col s8">
+						<div class="row">
+							<div class="col s12"><small>PASSWORD</small></div>
+						</div>
+						<div class="row">
+							<div class="col s12 clk-fade-out">{{asteriskPassword}}</div>
+							<div class="col s12  clk-fade-in"><input class="form-control editable ng-pristine ng-untouched ng-valid" ng-model="asteriskPassword" name="" type="text"></div>
+						</div>
+					</div>
+					<div class="col s4 valign-wrapper">
+						<a class='my_close_button edit-btn'  >Change</a>
+						<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt '  style='background-color: orange;  color:white; display:none'  >Save</a>
+					</div>
+				</div>
+			<div class="row   valign-wrapper mybutton z-depth-4">
+				<div class="col s8">
+					<div class="row">
+						<div class="col s12"><small>PHONE</small></div>
+					</div>
+					<div class="row">
+						<div class="col s12 clk-fade-out">{{userdata.phone}}</div>
+						<div class="col s12  clk-fade-in"><input class="form-control editable ng-pristine ng-untouched ng-valid" ng-model="userdata.phone" name="" type="text"></div>
+					</div>
+				</div>
+				<div class="col s4 valign-wrapper">
+					<a class='my_close_button edit-btn'  >Change</a>
+					<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt '  style='background-color: orange;  color:white; display:none'  >Save</a>
+				</div>
+			</div>
+			<div class="row page-title-row"><div class="col"><b>PAYMENT DETAILS</b></div></div>
+			<div class="row mybutton z-depth-4" style='height:unset;padding: 10px 0px 10px 0px' ng-repeat="paymentDetail in paymentDetails">
+				<div class="col s12">
+						<div class="row">
+							<div class="col s5">CARD TYPE</div>
+							<div class="col s7">{{paymentDetail.payment_type}}</div>
+						</div>
+						<div class="row">
+							<div class="col s5">CARD NUMBER</div>
+							<div class="col s7">{{paymentDetail.number}}</div>
+						</div>
+						<div class="row">
+							<div class="col s5">EXPIRY DATE</div>
+							<div class="col s7">{{paymentDetail.expiry_date}}</div>
+						</div>
+						<div class="row">
+							<div class="col s5">EXPIRY MONTH</div>
+							<div class="col s7">{{paymentDetail.expiry_month}}</div>
+						</div>
+					
+				</div>
+			</div>
+			<div class="row" style='margin-top: 20px'><div class="col s12 center-align"><a class='my_close_button z-depth-3' href="#/add-payment">Add Payment</a></div></div>
+			<div class="row page-title-row"><div class="col"><b>ADDRESS DETAILS</b></div></div>
+			<div class="row mybutton z-depth-4" style='height:unset;padding: 10px 0px 10px 0px' ng-repeat="data in userdata.addresses">
+				<div class="col s12">
+					<div class="row">
+						<div class="col s5">STREET NAME</div>
+						<div class="col s7">{{data.street_name}}</div>
+					</div>
+					<div class="row">
+						<div class="col s5">FLOOR</div>
+						<div class="col s7">{{data.floor}}</div>
+					</div>
+					<div class="row">
+						<div class="col s5">POBOX</div>
+						<div class="col s7">{{data.pobox}}</div>
+					</div>
+					<div class="row">
+						<div class="col s5">CITY</div>
+						<div class="col s7">{{cityids[$index].title}}</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="row" style='margin-top: 20px'><div class="col s12 center-align" ><a class='my_close_button z-depth-3' href="#/add-address">Add Address</a></div></div>
+	</div>
+	<!-- container ends here -->
+	<!-- <div>
 
+		
+			
 
 		<div class="row row1">
 
@@ -20,7 +136,7 @@
 
 				  <div class="item item-icon-right">	  	
 					  <span class="title mydetailheading"> Personal Details </span>
-					  <!-- <span class="icon ion-checkmark-circled" ng-click="onSavePersonDetail()"></span> -->
+					  <!-- <span class="icon ion-checkmark-circled" ng-click="onSavePersonDetail()"></span> --3>
 				  </div>
 
 				  <div class="item item-body Personal">
@@ -83,7 +199,7 @@
 				<div class="list">
 
 				  <div class="item item-icon-right">
-				    <!-- <span class="icon ion-ios-plus-outline" href="#/add-payment"></span>	 -->
+				    <!-- <span class="icon ion-ios-plus-outline" href="#/add-payment"></span>	 --3>
 					  <span class="title mydetailheading"> Payment Details </span>
 					  <a href="#/add-payment">
 						<i class="icon ion-ios-plus-outline"> </i>	  
@@ -96,28 +212,28 @@
 
 				  			<div class="col">
 				  				<div class="list">
-			  						<span>Card Number </span>
+			  						<span>CARD TYPE</span>
 				  				</div>
 				  				<div class="list">
-			  						<span>CVCODE </span>
+			  						<span>CARD NUMBER </span>
 				  				</div>
 				  				<div class="list">
-			  						<span>Expiry year</span>
+			  						<span>EXPIRY DATE</span>
 				  				</div>
 				  				<div class="list">
-			  						<span>Expiry month </span>
+			  						<span>EXPIRY MONTH </span>
 				  				</div>
 				  			</div>
 
 				  			<div class="col">			  				
 				  				<div class="list text-right">
-				  					<span>{{paymentDetail.number}}</span>
+				  					<span>{{paymentDetail.payment_type}}</span>
 				  				</div>			  				
 				  				<div class="list text-right">
-				  					<span>{{paymentDetail.cvcode}}</span>
+				  					<span>{{paymentDetail.number}}</span>
 				  				</div>
 				  				<div class="list text-right">
-				  					<span>{{paymentDetail.expiry_year}}</span>
+				  					<span>{{paymentDetail.expiry_date}}</span>
 				  				</div>
 				  				<div class="list text-right">
 				  					<span>{{paymentDetail.expiry_month}}</span>
@@ -140,7 +256,7 @@
 
 				  <div class="item item-icon-right">			  	
 					<span class="title mydetailheading"> Address Details </span>
-					<!-- <span class="icon ion-ios-plus-outline"> <a href="#/add-address"></a> </span>	 -->
+					<!-- <span class="icon ion-ios-plus-outline"> <a href="#/add-address"></a> </span>	 --3>
 					<a href="#/add-address">
 						<i class="icon ion-ios-plus-outline"> </i>	  
 					</a>
@@ -192,7 +308,7 @@
 			  <div class="title">Footer</div>
 		</div>	
 		
-	</div>
+	</div> -->
 
 </div>
 

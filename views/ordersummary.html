@@ -29,8 +29,8 @@
                 </div>
                 <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 4" wz-next="performAction('SAVE_PICKUP_DATE', value)"
                     ng-class="{
-								'tomorrow-div': value.name == 'Today',
-								'day-after-div': value.name == 'Tomorrow',
+								'today-div': value.name == 'Today',
+								'tomorrow-div': value.name == 'Tomorrow',
 							}">
                     <div class="col s12">
                         <div class="mybutton next row z-depth-4">
@@ -376,7 +376,7 @@
 
 
                             <div ng-show="localData.pickupTime.price && localData.pickupTime.price != '0'">
-                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupTime.price}} - Fixid
+                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupTime.price}} - Fixed
                                 time Pickup
                             </div>
 
@@ -392,7 +392,7 @@
 
                             <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price != '0'">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryTime.price}} -
-                                Fixid time delievery
+                                Fixed time delievery
                             </div>
                         </div>
                     </div>
@@ -400,19 +400,24 @@
                 <div class="row  valign-wrapper mybutton  z-depth-4 ">
                     <div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
                     <div class="col s6">
-                        <span ng-if="!getpayment.cvcode">
+                        <span  ng-if="!getpayment.number">
                             <a href="#/add-payment">Add Payment </a>
                         </span>
-                        <span class="row" ng-if="getpayment.cvcode">
-                            CvCode : - <span class="borderdotdot"> {{getpayment.cvcode}} </span>
+                        <span ng-if="getpayment.payment_type">
+                            <span class="borderdotdot"> {{getpayment.payment_type}}<br> </span>
                         </span>
-                        <span class="row" ng-if="getpayment.cvcode">
-                            Expiry month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
+                        <span  ng-if="getpayment.number">
+                            Ends With: -<span class="borderdotdot"> {{getpayment.number | limitTo:-4}} </span>
                         </span>
-                        <span class="row" ng-if="getpayment.cvcode">
-                            Expiry year : - <span class="borderdotdot"> {{getpayment.expiry_year}} </span>
+                        <span  ng-if="getpayment.expiry_date">
+                            Expiry Date : - <span class="borderdotdot"> {{getpayment.expiry_date}} </span>
+                        </span>
+                        <span  ng-if="getpayment.expiry_month">
+                            Expiry Month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
                         </span>
                     </div>
+
+                    
                     <div class="col s4">
                         <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                             <tr>

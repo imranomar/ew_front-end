@@ -1,6 +1,8 @@
+//Login of Controller
+app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
 
- //Login of Controller
- app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
+	
+	
 	$('.navbar-fixed').hide();
 	
 	// console.log(updateFCMToken.test());
@@ -68,7 +70,9 @@
  // Signup of Controller
 
  app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location, updateFCMToken) {
- 		$scope.signupdata = [];
+	$('.navbar-fixed').hide();
+		 
+	$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
 			$scope.loading = true;
 			let data = {
@@ -126,6 +130,7 @@
  app.controller('DashboardCtrl',function($scope,$location) {
 
 	$('.navbar-fixed').show();
+	$('.sidenav').sidenav('close');
 
  	$scope.menuopen = function(){
  		//$location.path("/menu");
@@ -142,7 +147,8 @@
 
  app.controller('MenuCtrl',function($scope,$location) {
 
-	$scope.signout = function(){
+	$scope.signout = function()
+	{
 		let date = new Date().toUTCString();
 		document.cookie = 'laundryCookie=y; expires=' + date;
 		localStorage.removeItem('laundryUser');
@@ -150,10 +156,17 @@
 		$location.path('/login');
 	}
 
- 	$scope.closemenu = function () {
+	 $scope.closemenu = function ()
+	 {
 		 $location.path("/dashboard");
 		 console.log("MenuCtrl");
- 	}
+	 }
+	 
+	 $scope.goTo = function(route)
+	 {
+		$('.sidenav').sidenav('close');
+		$location.path(route);
+	 }
 
  });
 
@@ -222,7 +235,9 @@
  // My details Page of Controller
 
  app.controller('MydetailsCtrl',function($scope,$location,$http, appInfo, $httpParamSerializer) {
-
+		$('.navbar-fixed').show();
+		$('.sidenav').sidenav('close');
+		
 	 // body...
  	    $scope.loading = false;
         let x = localStorage.getItem('laundryUser');
@@ -232,6 +247,7 @@
 		$scope.cityids = [];
    		getPayment();
 		getAddress();
+		getVault(x);
 		 
 		function getPassword(){
 			let p = $scope.userdata.password.split('').map(()=>{
@@ -241,17 +257,23 @@
 		}
      	
         $(".edit-btn").click(function(){
-            $(this).parent().css("display","none");
-        	$(this).parent().siblings(".clk-fade-out").css("display","none");
-        	$(this).parent().siblings(".clk-fade-in").css("display","block");
-        	$(this).parent().siblings(".whn-clk-edt").css("display","block");
+            $(this).css("display","none"); //working
+			$(this).parent().parent().find(".clk-fade-in").css("display","block");
+			$(this).parent().parent().find(".clk-fade-out").css("display","none");
+			$(this).parent().parent().find(".whn-clk-edt").css("display","block");
+			$(this).parent().parent().find('.form-control').css("display","block"); //working
+			$(this).parent().parent().find('.form-control').focus(); //working
 		});
 		
         $(".whn-clk-edt").click(function(){
-              $(this).css("display","none");
-              $(this).siblings(".clk-fade-out").css("display","block");
-              $(this).siblings(".clk-fade-in").css("display","none");
-              $(this).siblings(".sib").css("display","block");
+			$(this).css("display","none"); //working
+			$(this).parent().parent().find(".clk-fade-in").css("display","none");
+			$(this).parent().parent().find(".clk-fade-out").css("display","block");
+			$(this).parent().parent().find(".whn-clk-edt").css("display","none");
+			$(this).parent().parent().find('.form-control').css("display","none"); //working
+			$(this).parent().parent().find('.form-control').focus(); //working
+			$(this).parent().parent().find(".edit-btn").css("display","block");
+			
 		});
 		
 
@@ -265,6 +287,7 @@
 
 			let req = {
 				method: 'PUT',
+				crossDomain: true,
 				url: appInfo.url+'customersapi/update/?id='+x,
 				data: $httpParamSerializer(data),
 				headers: {
@@ -299,14 +322,15 @@
 	   }
 
 	   function getPayment(){
+		//alert(appInfo.url+'customersapi/view/?id='+x+'&expand=payments');
 			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
 			.then(function(res){
 				$scope.loading = false;
 				// console.log(res.data);
 				$scope.userdata.payments = res.data.payments;
-				for(let value of  $scope.userdata.payments){
-					getVault(value.vault_id);
-				}
+				//for(let value of  $scope.userdata.payments){
+					//getVault(value.vault_id);
+				//}
 			}).catch(function(err){
 				$scope.loading = false;
 				console.log(err);
@@ -314,12 +338,15 @@
 	   }
 	   
        function getVault(id){
-   	 	    $scope.loading = true;
-	        $http.get(appInfo.url+'vaultapi/view/?id='+id)
+		   //alert(appInfo.url+'vaultapi/view/?id='+id);
+				$scope.loading = true;
+				$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=vault')
 	        .then(function(res){
 	        	$scope.loading = false;
-	        	// console.log(res.data);
-				$scope.paymentDetails.push(res.data);
+				for(let value of  (res.data.vault)){
+					$scope.paymentDetails.push(value);
+				}
+	
 	        }).catch(function(err){
 	        	$scope.loading = false;
                 console.log(err);
@@ -522,639 +549,8 @@ app.controller('DeliverydateCtrl',function($scope) {
 
 // Load Controller of OrdersummaryCtrl
 
-app.controller('OrdersummaryCtrlOld',function($scope, $http, appInfo,$httpParamSerializer, $location){
-	$('.navbar-fixed').show();
-	//  localstorage keys
-	let localData = {
-		pickupDate : {},
-		pickupTime: {},
-		deliveryDate: {},
-		deliveryTime: {}
-	} 
-
-	function getLocalStorageData(){
-		let a = localStorage.getItem('Myorder');
-		let obj = {};
-		if(a){
-			obj = JSON.parse(a);
-			return obj;
-		}
-		return null;
-		
-	}
-
-	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-	var months = new Array();
-	months[0] = "January";
-	months[1] = "February";
-	months[2] = "March";
-	months[3] = "April";
-	months[4] = "May";
-	months[5] = "June";
-	months[6] = "July";
-	months[7] = "August";
-	months[8] = "September";
-	months[9] = "October";
-	months[10] = "November";
-	months[11] = "December";
-	let x = localStorage.getItem('laundryUser');
-	$scope.getAddress;
-	$scope.getpayment;
-
-	function getObjectLength(obj){
-		return Object.keys(obj).length;
-	}
-
-	if(getLocalStorageData()){
-		localData = getLocalStorageData();
-		$(".tab1").css("display","none");
-		console.log(getObjectLength(localData.pickupDate));
-		if(getObjectLength(localData.deliveryTime) != 0){
-			getLocalDetail();
-			$(".tab4").siblings(".tab3").css("display","none");
-			$(".tab4").css("display","none");
-			$(".tab4").siblings(".tab5").css("display","block");
-		}else
-		if(getObjectLength(localData.deliveryDate) != 0){
-			functionForForth();
-			$(".tab3").siblings(".tab2").css("display","none");
-			$(".tab3").css("display","none");
-			$(".tab3").siblings(".tab4").css("display","block");
-		}else
-		if(getObjectLength(localData.pickupTime) != 0){
-			functionForThird();
-			$(".tab2").siblings(".tab1").css("display","none");
-			$(".tab2").css("display","none");
-			$(".tab2").siblings(".tab3").css("display","block");
-		}else
-		if(getObjectLength(localData.pickupDate) != 0){
-			functionForSecond();
-			$(".tab1").css("display","none");
-		    $(".tab1").siblings(".tab2").css("display","block");
-		}else{
-			$(".tab1").css("display","block");
-			functionForFirst();
-		}
-	}else{
-		$(".tab1").css("display","block");
-		functionForFirst();
-	}
-
-	// wizard one start
-	$scope.datelist;
-	$scope.getLocalDetail;
-	function functionForFirst(){
-		let date  = new Date();
-		let dateapi = [];
-		let array = [];	
-		getDate();
-
-		$scope.showAllDateList = false;
-		function getDate(){
-			$http.get(appInfo.url+'optionsapi')
-				.then(function(res){
-					dateapi = res.data[0];	
-					console.log(dateapi);
-					makeDate();
-				}).catch(function(err){
-					console.log(err);
-				});
-		}
-
-		function makeDate(){
-			let holidays = dateapi.holidays.split(',');
-			let length = dateapi.holidays.split(',').length;
-			if(dateapi.weekend){
-				length += 1;
-			}
-			for(var i = 0; i < 16 + length ; i++){
-				let name = '';
-				let price = '';
-				date  = new Date();
-				let d = new Date(date.setDate(date.getDate()+i));
-				if(d.getDate() == new Date().getDate()){
-					// if  day is tomorrow
-					name = 'Today';
-					price = dateapi.same_day_pickup_price;
-				}else if(d.getDate() == new Date().getDate()+1){
-					// if day is day after 
-					name = 'Tomorrow';
-				}
-				else
-				{ 
-					name = days[d.getDay()];
-				}
-				
-				array.push({
-					date: d,
-					name: name,
-					price: price,
-					shortDate: d.getDate()+'th '+months[d.getMonth()]
-				});
-			}
-        
-			for(var i = 0; i < array.length; i++){
-				for(let j = 0; j < holidays.length; j++){
-					if(array[i]){
-						if(array[i].date.toLocaleDateString() == new Date(holidays[j] * 1000).toLocaleDateString()){
-							array.splice(i, 1);
-						}	
-					}
-				}
-				
-				if(dateapi.weekend){
-					if(array[i]){
-						if(days.indexOf(dateapi.weekend) > -1){
-							if(array[i].date.getDay() == days.indexOf(dateapi.weekend)){
-								array.splice(i, 1);
-							}
-						}
-					}
-				}	
-			}
-			array.length = 15;
-			$scope.datelist = array;
-			console.log($scope.datelist);
-		}
-	}
-
-	$scope.onOther = function(){
-		$scope.showAllDateList = true;
-		$('#row_other').hide();
-	}
-	// wizard one closed
-
-
-	// wizard three  start
-	$scope.datelist1;
-	$scope.showAllDateList1 = false;
-	function functionForThird(){
-	let date1  = new Date(getLocalStorageData().pickupDate.date);
-	let pickupD = new Date(getLocalStorageData().pickupDate.date);
-	let dateapi1 = [];
-	let array1 = [];	
-    
-	getDate1();
-	function getDate1(){
-		$http.get(appInfo.url+'optionsapi')
-			.then(function(res){
-				dateapi1 = res.data[0];	
-				console.log(dateapi1);
-				makeDate1();
-			}).catch(function(err){
-				   console.log(err);
-			});
-	}
-
-	function makeDate1(){
-		let holidays1 = dateapi1.holidays.split(',');
-		let length1 = dateapi1.holidays.split(',').length;
-		if(dateapi1.weekend){
-			length1 += 1;
-		}
-		for(var i = 0; i < 16 + length1 ; i++){
-			let name = '';
-			let price = '';
-			let d1 = new Date(date1.setDate(date1.getDate()+1));
-			if(d1.getDate() == new Date().getDate()+1){
-				// if day is day after 
-				name = 'Tomorrow';
-				price = dateapi1.next_day_delivery_price;
-			}else
-			if(d1.getDate() == pickupD.getDate()+1){
-				// if  day is tomorrow
-				// name = 'day after';
-				name = 'next day deliever';
-				price = dateapi1.next_day_delivery_price;
-			}
-			 
-			array1.push({
-				date: d1,
-				name: name,
-				price: price,
-				shortDate: d1.getDate()+'th '+days[d1.getDay()]
-			});
-		}
-		for(var i = 0; i < array1.length; i++){
-
-			for(let j = 0; j < holidays1.length; j++){
-				if(array1[i]){
-					if(array1[i].date.toLocaleDateString() == new Date(holidays1[j] * 1000).toLocaleDateString()){
-						array1.splice(i, 1);
-						
-					}	
-				}
-			}
-			if(array1[i]){
-				if(dateapi1.weekend){
-					if(days.indexOf(dateapi1.weekend) > -1){
-						if(array1[i].date.getDay() == days.indexOf(dateapi1.weekend)){
-							array1.splice(i, 1);
-						}
-					}
-				}	
-			}
-		}
-		array1.length = 15;
-		$scope.datelist1 = array1;
-		}
-	}
-
-	$scope.onOther1 = function(){
-		$scope.showAllDateList1 = true;
-	}
-	// wizard three closed
-
-	// wizard two open 
-	$scope.TimeSlot;
-	function functionForSecond() {
-		getTimeSlot();
-		function getTimeSlot(){
-			$http.get(appInfo.url+'slotspricingapi')
-				.then(function(res){	
-					$scope.Timeslot = res.data;
-					console.log	($scope.Timeslot);
-				}).catch(function(err){
-					console.log(err);
-				});
-		}
-	}
-	// wizard two closed 
-
-
-	// wizard four open 
-	$scope.TimeSlot1;
-	function functionForForth(){
-		getTimeSlot1();
-		function getTimeSlot1(){
-			$http.get(appInfo.url+'slotspricingapi')
-				.then(function(res){	
-					$scope.Timeslot1 = res.data;
-					console.log	($scope.Timeslot1);
-				}).catch(function(err){
-					console.log(err);
-				});
-		}
-	}
-	// getTimeSlot1();
-	// wizard four closed 
-
-	
-	// save into local storage start
-    $scope.savelocallyDate = function(value){
-		if(getLocalStorageData()){
-			localData = getLocalStorageData();
-		}
-		localData.pickupDate = value;
-		let obj = JSON.stringify(localData);
-		saveLocalData(obj);
-	}
-
-	//$scope.savelocallyTime = function(value){
-		// console.log(value);
-		// localData.pickupTime = value;
-		// var stringlocalTime = JSON.stringify(localData);
-		// localStorage.setItem('Myorder',  stringlocalTime);
-	//}
-
-
-	$scope.savelocallyDeliveryDate = function(value){
-		if(getLocalStorageData()){
-			localData = getLocalStorageData();
-		}
-		localData.deliveryDate = value;
-		let obj = JSON.stringify(localData);
-		saveLocalData(obj);
-	}
-
-	$scope.savelocallyDeliveryTime = function(value){
-		// console.log(value);
-		// localData.deliveryTime = value;
-		// var stringlocalTime = JSON.stringify(localData);
-		// localStorage.setItem('Myorder',  stringlocalTime);
-	}
-
-	// forth wizard
-	let myPayment;
-	function getLocalDetail(){
-		// let getItemLocally = getLocalStorageData();
-		
-		$scope.getLocalDetail = getLocalStorageData();
-	
-		getAddress();
-		function getAddress(){
-			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=addresses')
-			.then(function(res){
-				console.log(res.data);
-				$scope.getAddress = res.data;
-			}).catch(function(err){
-				$scope.loading = false;
-				console.log(err);
-			});
-		}
-		
-		getPayment();
-		function getPayment(){
-			$http.get(appInfo.url+'customersapi/view/?id='+x+'&expand=payments')
-			.then(function(res){
-				console.log(res);
-				$scope.getpayment = res.data.payments[0];
-				myPayment = res.data.payments[0];
-				if(!$scope.getpayment){
-					return;
-				}
-				getVault($scope.getpayment.vault_id)
-			}).catch(function(err){
-				console.log(err);
-			});
-		}
-
-		function getVault(id){
-			$scope.loading = true;
-			$http.get(appInfo.url+'vaultapi/view/?id='+id)
-			.then(function(res){
-				$scope.loading = false;
-				console.log(res.data);
-				$scope.getpayment= res.data;
-			}).catch(function(err){
-				$scope.loading = false;
-				console.log(err);
-			});
-		   }
-		   
-	}
-	
-		   
-	//get data in fith wizard
-	$scope.createOrder = function(){
-		if($scope.getAddress.addresses.length == 0){
-			alert('Please add address');
-			return;
-		}
-		if(!myPayment){
-			alert('Please add payment');
-			return;
-		}
-
-		let getItemLocallyCustomer = localStorage.getItem('laundryUser');
-		var confuseDatepickup = $scope.getLocalDetail.pickupDate.date;
-		var simpleDatepickup = new Date(confuseDatepickup).toISOString().substr(0,10);
-		var confuseDate = $scope.getLocalDetail.deliveryDate.date;
-		var simpleDate = new Date(confuseDate).toISOString().substr(0,10);
-
-		let data = {
-			payment_id: myPayment.id,
-			status: '0',
-			pickup_date: simpleDatepickup,
-			pickup_time_from: $scope.getLocalDetail.pickupTime.time_from,
-			pickup_time_to: $scope.getLocalDetail.pickupTime.time_to,
-			pickup_price: $scope.getLocalDetail.pickupTime.price,
-			pickup_type: $scope.getLocalDetail.pickupTime.type,
-			drop_date: simpleDate,
-			drop_time_from: $scope.getLocalDetail.deliveryTime.time_from,
-			drop_time_to: $scope.getLocalDetail.deliveryTime.time_to,
-			drop_price: $scope.getLocalDetail.deliveryTime.price,
-			drop_type: $scope.getLocalDetail.deliveryTime.type,
-			address_id:	$scope.getAddress.addresses[0].id,
-			same_day_pickup: '0',
-			next_day_drop: '0',
-			comments: '0',
-			customer_id: getItemLocallyCustomer,
-			pickup_at_door: $scope.getLocalDetail.pickupTime.leaveAtdoor == 'y' ? 1 : 0,
-			drop_at_door: $scope.getLocalDetail.deliveryTime.leaveAtdoor == 'y' ? 1 : 0
-		};
-
-		for(let key in data){
-			if(!data[key]){
-				data[key] = '0';
-			}
-		}
-
-		let req = {
-			method: 'POST',
-			url: appInfo.url+'ordersapi/create',
-			data: $httpParamSerializer(data),
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		}
-		$scope.err = '';
-		$scope.loading = true;
-		$http(req)
-			.then(function(res){
-				$scope.loading = false;
-				removeLoalStorageAndGoToDashboard();
-				console.log(res);
-			}).catch(function(error){
-				$scope.loading = false;
-				let err = error.data;
-				console.log(error);
-			});
-	}
-	// save onto local storage closed
-
-	function removeLoalStorageAndGoToDashboard(){
-		localStorage.removeItem('Myorder');
-		$location.path('/dashboard');
-	}
-    $scope.onGoBack = function(){
-		$('.modal').css('display', 'block');
-	}
-	$scope.onCancelOrder = function(){
-		$('.modal.cancel-order-modal').css('display', 'block');
-	}
-	
-
-	$('body').on('click', '.cancel-order-btn', function(){
-		let modal = $(this).parents('.modal.cancel-order-modal')[0];
-		modalClose(modal);
-		localStorage.removeItem('Myorder');
-		$scope.$apply(function(){
-			$location.path('/dashboard');
-		});
-	});
-
-
-
-	function saveLocalData(data){
-		localStorage.setItem('Myorder',  data);
-	}
-	
-
-    $("body").on('click','.next',function(){
-		if($(this).parents(".tab1").length != 0){
-			functionForSecond();
-			$(this).parents(".tab1").css("display","none");
-		    $(this).parents(".tab1").siblings(".tab2").css("display","block");
-		}
-
-		if($(this).parents(".tab2").length != 0){
-			let value = $('input[name="pickUpRadio"]:checked').val();
-			let leaveVal = $('input[name="pickAtDoor"]:checked').val();
-			if(value || leaveVal){
-				if(getLocalStorageData()){
-					localData = getLocalStorageData();
-				}
-				if(value){
-					let a = JSON.parse(value);
-					localData.pickupTime = a;
-				}else{
-					localData.pickupTime.leaveAtdoor = 'y';
-				}
-				let obj = JSON.stringify(localData);
-				saveLocalData(obj);
-				functionForThird();
-				$(this).parents(".tab2").siblings(".tab1").css("display","none");
-				$(this).parents(".tab2").css("display","none");
-				$(this).parents(".tab2").siblings(".tab3").css("display","block");
-			}else {
-				console.log('else pickup time !');
-			}
-			return;
-		}
-
-		if($(this).parents(".tab3").length != 0){
-			functionForForth();
-			$(this).parents(".tab3").siblings(".tab2").css("display","none");
-			$(this).parents(".tab3").css("display","none");
-			$(this).parents(".tab3").siblings(".tab4").css("display","block");
-		}  
-
-		if($(this).parents(".tab4").length != 0){
-			let value = $('input[name="deliveryRadio"]:checked').val();
-			let deliveryAtDoor = $('input[name="deliveryAtDoor"]:checked').val();
-			
-			
-			if(value || deliveryAtDoor){
-				if(getLocalStorageData()){
-					localData = getLocalStorageData();
-				}
-				if(value){
-					let a = JSON.parse(value);
-					localData.deliveryTime = a;
-				}else{
-					localData.deliveryTime.leaveAtdoor = 'y';
-				}
-				let obj = JSON.stringify(localData);
-				saveLocalData(obj);
-				getLocalDetail();
-				$(this).parents(".tab4").siblings(".tab3").css("display","none");
-				$(this).parents(".tab4").css("display","none");
-				$(this).parents(".tab4").siblings(".tab5").css("display","block");
-			}else {
-				console.log('else pickup time !');
-			}
-		}  
-		
-	});
-
-	function test(key){
-		console.log('key', key);
-		let localData = getLocalStorageData();
-		localData[key] = {};
-		let obj = JSON.stringify(localData);
-		saveLocalData(obj);
-	}
-
-	$('body').on('click', '.close, .close-modal', function(){
-		let modal = $(this).parents('section').find('.modal')[0];
-		if(modal){
-			modalClose(modal);
-		}else{
-			modal = $(this).parents('.modal.cancel-order-modal')[0];
-			modalClose(modal);
-		}
-	});
-
-
-	window.onclick = function(event) {
-		if (event.target.className == 'modal' ||event.target.className == 'modal cancel-order-modal') {
-			modalClose(event.target);
-		}
-	}
-
-	function modalShow(modal){
-		modal.style.display = "block";
-		console.log('show', modal);
-	}
-
-	function modalClose(modal){
-		modal.style.display = "none";
-		console.log('none', modal);
-	}
-
-	
-
-	$('body').on('click', '.prev-modal, .prev-2-btn', function(e){
-		e.stopImmediatePropagation();
-       console.log("hello", $(this));
-		let modal = $(this).parents('section').find('.modal')[0];
-		if($(modal).is(':visible')) {
-			modalClose(modal);
-			prevFunction($(this));
-		}else{
-			modalShow(modal);
-		}
-   });
-
-   function prevFunction(thisElement){
-	if(thisElement.parents(".tab2").length != 0){
-		test('pickupDate');
-		functionForFirst();
-		thisElement.parents(".tab2").siblings(".tab1").css("display","block");
-		thisElement.parents(".tab2").css("display","none");
-	}
-
-	if(thisElement.parents(".tab3").length != 0){
-		test('pickupTime');
-		functionForSecond();
-		thisElement.parents(".tab3").siblings(".tab2").css("display","block");
-		thisElement.parents(".tab3").css("display","none");
-	}  
-	
-	if(thisElement.parents(".tab4").length != 0){
-		test('deliveryDate');
-		functionForThird();
-		thisElement.parents(".tab4").siblings(".tab3").css("display","block");
-		thisElement.parents(".tab4").css("display","none");
-	}
-
-	if(thisElement.parents(".tab5").length != 0){
-		test('deliveryTime');
-		functionForForth();
-		thisElement.parents(".tab5").siblings(".tab4").css("display","block");
-		thisElement.parents(".tab5").css("display","none");
-	} 
-   }
-
-   	$(".checky").change(function() {
-		//$(this).parents(".list").siblings(".finaldate1").toggleClass("fade", this.checked)
-		$(".mybutton2").toggleClass("fade", this.checked);
-	}).change();
-
-	$('.checky').click(function() {
-		if($(this).is(':checked')){	
-			$("#div_slots").find("input[type=radio]").prop('checked', false);
-			$("#div_slots").find("input[type=radio]").attr('disabled', true);
-		}	  
-		else{
-			$("#div_slots").find("input[type=radio]").attr('disabled', false);
-		}
-	});
-
-	// $(".checky").each(function(){
-	// 	if ($(this).prop('checked')==true){ 
-	// 		alert("hello");
-	// 	}
-	// });
-  
-})
-
-
 app.controller('OrdersummaryCtrl',function($q, $timeout, WizardHandler, $scope, $http, appInfo,$httpParamSerializer, $location){
 	//$scope.selectedStep = "Step 2";
-
-	$('.navbar-fixed').show();
 
 	let x = localStorage.getItem('laundryUser');
 
@@ -1402,7 +798,7 @@ app.controller('OrdersummaryCtrl',function($q, $timeout, WizardHandler, $scope, 
 			if(d1.getDate() == pickupD.getDate()+1){
 				// if  day is tomorrow
 				// name = 'day after';
-				name = 'next day deliever';
+				name = 'next day';
 				price = dateapi1.next_day_delivery_price;
 			}
 			 
@@ -1447,7 +843,7 @@ app.controller('OrdersummaryCtrl',function($q, $timeout, WizardHandler, $scope, 
 	$scope.PickupTimeSlots = [];
 	function functionForSecond() {
 		$scope.PickupTimeSlots = [];
-		$http.get(appInfo.url+'slotspricingapi')
+		$http.get(appInfo.url+'slotspricingapi?sort=time_from')
 		.then(function(res){	
 			$scope.PickupTimeSlots = res.data;
 			console.log	($scope.PickupTimeSlots);
@@ -1461,7 +857,7 @@ app.controller('OrdersummaryCtrl',function($q, $timeout, WizardHandler, $scope, 
 	$scope.DeliveryTimeSlots = [];
 	function functionForForth() {
 		$scope.DeliveryTimeSlots = [];
-		$http.get(appInfo.url+'slotspricingapi')
+		$http.get(appInfo.url+'slotspricingapi?sort=time_from')
 			.then(function(res){	
 				$scope.DeliveryTimeSlots = res.data;
 				console.log	($scope.DeliveryTimeSlots);
@@ -1591,7 +987,7 @@ app.controller('OrdersummaryCtrl',function($q, $timeout, WizardHandler, $scope, 
 			drop_type: $scope.localData.deliveryTime.type,
 			address_id:	$scope.getAddress.addresses[0].id,
 			same_day_pickup: $scope.localData.pickupDate.name == 'Today'?'1':'0',
-			next_day_drop: $scope.localData.deliveryDate.name == 'next day deliever'?'1':'0',
+			next_day_drop: $scope.localData.deliveryDate.name == 'next day'?'1':'0',
 			comments: null,
 			customer_id: getItemLocallyCustomer,
 			pickup_at_door: $scope.localData.pickupTime.leaveAtdoor == 'y' ? 1 : 0,
@@ -1942,9 +1338,43 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 app.controller('AddPaymentCtrl', function($scope, $http, appInfo, $httpParamSerializer){
 	let userId = localStorage.getItem('laundryUser');
 	$scope.paymentDetails = {};
+	$scope.userId = userId;
+
+	//todo:after every 20 milliseconds keep checking if the content of the iframe is
+	//"completed" then rediect to mydetails page to the payments section
+
+	// setInterval(function() {
+//alert($("#iframe2").contents().find("body").html());
+//}, 3000);
 	
+	
+	//$('#submit').click();
+	var doc = document.getElementById('iframe2').contentWindow.document;
+	doc.open();
+	doc.write('Loading... \
+	\
+                <FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
+                  <INPUT TYPE="hidden" NAME="accepturl" VALUE="http://thisisbig.ae/advanced/backend/web/vault/createvault"> \
+                    <INPUT TYPE="hidden" NAME="cancelurl" VALUE="http://thisisbig.ae/advanced/backend/web/vault/createvault"> \
+                    <INPUT TYPE="hidden" NAME="callbackurl" VALUE=""> \
+                  <INPUT TYPE="hidden" NAME="amount" VALUE="1"> \
+                  <INPUT TYPE="hidden" NAME="currency" VALUE="578"> \
+                  <INPUT TYPE="hidden" NAME="merchant" VALUE="90246240"> \
+                  <INPUT TYPE="hidden"   NAME="orderid" id="orderid" VALUE="'+userId+'"> \
+                  <INPUT TYPE="hidden" NAME="lang" VALUE="EN"> \
+                  <INPUT TYPE="hidden" NAME="preauth" VALUE="1"> \
+                  <INPUT TYPE="hidden" NAME="test" VALUE="1"> \
+                  <INPUT TYPE="hidden" NAME="decorator" VALUE="responsive" /> \
+                  <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"  value="TICKET DEMO"> \
+                  </FORM> \
+                  <script src="js/jquery-3.3.1.slim.min.js"></script> \
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
+				  <script>$("#submit").click();</script>\
+                  ');
+	doc.close();
 
 	$scope.onAddPayment = function(){
+		
 		
 			let data = {
 				name: $scope.paymentDetails.name,
