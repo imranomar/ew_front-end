@@ -32,18 +32,8 @@
 <body ng-app="laundryApp">
 
 
-    <div class="navbar-fixed">
+    <div class="navbar-fixed" ng-if="hideNavBar == false">
         <div class="nav-wrapper">
-
-            <!-- <a style='margin-top: 4.3vw;font-size: 0px; line-height:0px' href="#" class="brand-logo center"></a> -->
-            <!-- <ul id="nav-mobile" class="left">
-                    <ul id="nav-mobile" class="left hide-on-med-and-down"> 
-                    <li></li>
-                  </ul>
-                  <ul id="nav-mobile" class="right">
-                 <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li></li>
-                  </ul> -->
             <table class='top_bar' cellspcaing=0 cellpadding=0>
                 <tr>
 
@@ -52,14 +42,19 @@
                                 class="material-icons">dehaze</i></a></td>
                     <td width='60%' valign='center' align='middle'><a href="/#dashboard"><img src="images/logo-top.png"
                                 style="height:7vw" alt=""></a></td>
-                    <td width='20%' valign='center' align='middle'><a href="javascript:void(0)"><i style='font-size: 7vw; '
-                                class="material-icons">local_phone</i></a></td>
+                    <td width="20%" valign="center" align="middle">
+                        <a href="javascript:void(0)" ng-if="!showBackBtn || showBackBtn == false">
+                            <i style="font-size: 7vw;" class="material-icons">local_phone</i>
+                        </a>
+                        <a href="javascript:window.history.back()" ng-if="showBackBtn == true">
+                            <i style="font-size: 10vw;" class="material-icons">chevron_left</i>
+                        </a>
+                    </td>
 
                 </tr>
             </table>
         </div>
         <div class='curve'></div>
-
     </div>
     <ng-view></ng-view>
     <!-- menu starts here -->

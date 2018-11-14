@@ -6,6 +6,27 @@ app.run(function($rootScope, updateFCMToken) {
   if(localStorage.getItem('laundryUser')){
     updateFCMToken.test();
   }
+
+  $rootScope.showBackBtn = false;
+  $rootScope.hideNavBar = false;
+
+  $rootScope.$on("$routeChangeStart", function(event, currRoute, prevRoute) {
+    var currentRouteDetails = currRoute.$$route;
+    var showBackBtn = currentRouteDetails.showBackBtn == true? true: false;
+    var hideNavBar = currentRouteDetails.hideNavBar == true? true: false;
+
+    if (showBackBtn && showBackBtn == true) {
+      $rootScope.showBackBtn = true;
+    } else {
+      $rootScope.showBackBtn = false;
+    }
+
+    if (hideNavBar && hideNavBar == true) {
+      $rootScope.hideNavBar = true;
+    } else {
+      $rootScope.hideNavBar = false;
+    }
+  });
 });
 
 
@@ -26,7 +47,8 @@ app.config(function($routeProvider,$locationProvider) {
               $location.path('/dashboard');
             }  
         }
-    }
+    },
+    hideNavBar: true
   })
   .when('/signup', {
     templateUrl: 'views/signup.html',
@@ -36,7 +58,9 @@ app.config(function($routeProvider,$locationProvider) {
             $location.path('/dashboard');
           } 
         }
-      }
+      },
+      hideNavBar: true
+
   })
   .when('/forget', {
     templateUrl: 'views/forget.html',
@@ -46,7 +70,8 @@ app.config(function($routeProvider,$locationProvider) {
           $location.path('/dashboard');
         } 
       }
-    }
+    },
+    hideNavBar: true
   })
   .when('/dashboard', {
     templateUrl: 'views/dashboard.html',
@@ -106,7 +131,8 @@ app.config(function($routeProvider,$locationProvider) {
           $location.path('/login');
         } 
       }
-    }
+    },
+    showBackBtn: true
   })
   .when('/notification', {
     templateUrl: 'views/notifications.html',
@@ -146,7 +172,8 @@ app.config(function($routeProvider,$locationProvider) {
           $location.path('/login');
         } 
       }
-    }
+    },
+    showBackBtn: true
   })
   .when('/payment', {
     templateUrl: 'views/paymentmethod.html',
@@ -179,14 +206,15 @@ app.config(function($routeProvider,$locationProvider) {
     }
   })
   .when('/edit-address/:id', {
-    templateUrl: 'views/edit-address.html',
+    templateUrl: 'views/address.html',
     resolve :{
       "check": function($location){
         if(!getCookie(cookieName)){
           $location.path('/login');
         } 
       }
-    }
+    },
+    showBackBtn: true
   })
   .when('/edit-payment/:id', {
     templateUrl: 'views/edit-payment.html',
@@ -199,14 +227,15 @@ app.config(function($routeProvider,$locationProvider) {
     }
   })
   .when('/add-address', {
-    templateUrl: 'views/add-address.html',
+    templateUrl: 'views/address.html',
     resolve :{
       "check": function($location){
         if(!getCookie(cookieName)){
           $location.path('/login');
         } 
       }
-    }
+    },
+    showBackBtn: true
   })
   .when('/add-payment', {
     templateUrl: 'views/add-payment.html',
@@ -216,7 +245,8 @@ app.config(function($routeProvider,$locationProvider) {
           $location.path('/login');
         } 
       }
-    }
+    },
+    showBackBtn: true
   })
   .otherwise({
     redirectTo: '/login'
@@ -301,4 +331,6 @@ app.directive('itemFloatingLabel', function() {
     }
   };
 });
+
+
 

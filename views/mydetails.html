@@ -102,6 +102,11 @@
 			<div class="row mybutton z-depth-4" style='height:unset;padding: 10px 0px 10px 0px' ng-repeat="data in userdata.addresses">
 				<div class="col s12">
 					<div class="row">
+						<div class="col s5">
+							<a href="#/edit-address/{{data.id}}" class='my_close_button'>Edit</a>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col s5">STREET NAME</div>
 						<div class="col s7">{{data.street_name}}</div>
 					</div>

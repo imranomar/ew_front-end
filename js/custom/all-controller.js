@@ -1,10 +1,5 @@
 //Login of Controller
 app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
-
-	
-	
-	$('.navbar-fixed').hide();
-	
 	// console.log(updateFCMToken.test());
 	$scope.loading = false;
 	$scope.field = 'email';
@@ -70,8 +65,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
  // Signup of Controller
 
  app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location, updateFCMToken) {
-	$('.navbar-fixed').hide();
-		 
 	$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
 			$scope.loading = true;
@@ -117,7 +110,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
  // Forget password of Controller
 
  app.controller('ForgetCtrl',function($scope) {
-
  	$scope.forgetdata1 = [];
 
  	$scope.sendemail = function(){
@@ -128,10 +120,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
  // Dashboard of Controller
 
  app.controller('DashboardCtrl',function($scope,$location) {
-
-	$('.navbar-fixed').show();
-	$('.sidenav').sidenav('close');
-
  	$scope.menuopen = function(){
  		//$location.path("/menu");
 	}
@@ -235,9 +223,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
  // My details Page of Controller
 
  app.controller('MydetailsCtrl',function($scope,$location,$http, appInfo, $httpParamSerializer) {
-		$('.navbar-fixed').show();
-		$('.sidenav').sidenav('close');
-		
 	 // body...
  	    $scope.loading = false;
         let x = localStorage.getItem('laundryUser');
@@ -1157,75 +1142,6 @@ app.controller('MyeditCtrl',function($scope,$routeParams){
 	$scope.myeditsave =function() {
 		console.log($scope.persondata);
 	}
-})
-
-// edit address
-app.controller('EditAddressCtrl', function($scope, appInfo, $routeParams, $http, $httpParamSerializer){
-	$scope.loading = false;
-	getOneAddress();
-	getcity();
-	$scope.addressData = {};
-	$scope.cityData = {};
-
-	$scope.change = function(){
-		console.log('e');
-	}
-
-	$scope.onEditSubmit = function(){
-
-		let data = {
-			street_name: $scope.addressData.street_name,
-			floor: $scope.addressData.floor,
-			pobox: $scope.addressData.pobox,
-			city_id: $scope.addressData.city_id
-		};
-		
-		let req = {
-			method: 'PUT',
-			url: appInfo.url+'addressesapi/update?id='+$routeParams.id,
-			data: $httpParamSerializer(data),
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		}
-		$scope.loading = true;
-		$http(req)
-			.then(function(res){
-				$scope.loading = false;
-				console.log(res.data);
-				console.log("0");	
-			}).catch(function(err){
-				$scope.loading = false;
-				   console.log(err);
-			})
-	}
-
-	function getOneAddress(){
-		$scope.loading = true;
-		$http.get(appInfo.url+'addressesapi/view?id='+$routeParams.id)
-			.then(function(res){
-				$scope.loading = false;
-				console.log(res.data);
-				console.log("0");
-				
-				$scope.addressData = res.data;
-				$scope.addressData.city_id = res.data.city_id.toString();
-			}).catch(function(err){
-				$scope.loading = false;
-				console.log(err);
-			})
-	}
-
-	function getcity(){
-		$http.get(appInfo.url+'citiesapi')
-			.then(function(res){
-				console.log(res.data);
-				$scope.cityData = res.data;
-			}).catch(function(err){
-				   console.log(err);
-			})
-	  }
-
 });
 
 app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams, $httpParamSerializer){
@@ -1279,14 +1195,23 @@ app.controller('EditPaymentCtrl', function($scope, $http, appInfo, $routeParams,
 });
 
 
-app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSerializer){
+app.controller('AddressCtrl', function($scope, $http, appInfo, $httpParamSerializer, $routeParams, $timeout){
 	let x = localStorage.getItem('laundryUser');
+
+	$scope.id = $routeParams.id > 0 ? $routeParams.id : -1;
+
+	$scope.err;
 	$scope.loading = false;
 	$scope.addressData = {};
 	$scope.cityData = [];
 	getcity();
-	$scope.err;
-	$scope.onAddSubmit = function(){
+
+	if($scope.id > 0)
+		getOneAddress();
+
+	
+	
+	$scope.onAddSubmit = function() {
 		let data = {
 			street_name: $scope.addressData.street_name,
 			floor: $scope.addressData.floor,
@@ -1296,9 +1221,12 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 			unit_number: $scope.addressData.unit_number,
 			as_default: '0'
 		};
+
+		var method = $scope.id > 0 ? 'PUT': 'POST'
+		var apiUrl = appInfo.url + ($scope.id > 0 ? 'addressesapi/update?id='+$scope.id: 'addressesapi/create');
 		let req = {
-			method: 'POST',
-			url: appInfo.url+'addressesapi/create',
+			method: method,
+			url: apiUrl,
 			data: $httpParamSerializer(data),
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
@@ -1320,18 +1248,34 @@ app.controller('AddAddressCtrl', function($scope, $http, appInfo, $httpParamSeri
 			})
 	}
 
+	function getOneAddress(){
+		$scope.loading = true;
+		$http.get(appInfo.url+'addressesapi/view?id='+$routeParams.id)
+			.then(function(res){
+				$scope.loading = false;
+				console.log(res.data);
+				console.log("0");
+				
+				$scope.addressData = res.data;
+				$scope.addressData.city_id = res.data.city_id.toString();
+			}).catch(function(err){
+				$scope.loading = false;
+				console.log(err);
+			})
+	}
+
 	function getcity(){
 		$http.get(appInfo.url+'citiesapi')
 			.then(function(res){
 				// console.log(res.data);
 				$scope.cityData = res.data;
+				$timeout(function(){
+					$('select').formSelect();
+				}, 100)
 			}).catch(function(err){
 				   console.log(err);
 			})
-	  }
-
-
-
+	}
 });
 
 
