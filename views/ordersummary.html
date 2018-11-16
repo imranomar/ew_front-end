@@ -16,7 +16,7 @@
                 <div class="row page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>Select Pickup Date</h4>
+                            <h4>{{'request_pickup_date' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -88,7 +88,7 @@
                 <div class="row page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>Select Pickup Time</h4>
+                            <h4>{{'request_pickup_date' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -114,8 +114,8 @@
                                             <!-- we do not have one hour slot option now -->
                                             <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
                                             <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
-                                            <h6> BETWEEN </h6>
-                                            <h5> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                            <h6 class="text-upper"> {{'text.between' | translate}} </h6>
+                                            <h5> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -137,19 +137,19 @@
                 <div class='mybutton row  z-depth-4  valign-wrapper'>
                     <div class="col s9">
                         <div class="item ">
-                            <label class="container" for="pickAtDoor"> I'will leave at the door.
+                            <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
                                 <input type="checkbox" id='pickAtDoor' class="checky" name="pickAtDoor" ng-model="pickAtDoor" ng-checked="localData.pickupTime && localData.pickupTime.leaveAtdoor" ng-change="performAction('SELECT_PICKUP_AT_DOOR', pickAtDoor)">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
                     </div>
                     <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                        <span>Free</span>
+                        <span>{{'text.free' | translate}}</span>
                     </div>
                 </div>
                 <div class="row" style='margin-top: 8vw'>
-                    <button class=" wizard-btn left" wz-previous="noValidation()">Previous</button>
-                    <button class="wizard-btn right" wz-next="performAction('SAVE_PICKUP_TIME')">Next</button>
+                    <button class=" wizard-btn left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                    <button class="wizard-btn right" wz-next="performAction('SAVE_PICKUP_TIME')">{{'text.next' | translate}}</button>
                 </div>
             </wz-step>
 
@@ -157,7 +157,7 @@
                 <div class="row page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>Select Drop Date</h4>
+                            <h4>{{'request_drop_date' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -205,7 +205,7 @@
                             <div class="col s6 my_button_column">
                                 <div class="row">
                                     <div class="col s12 my_button_title">
-                                        <h5>Other</h5>
+                                        <h5>{{'text.other' | translate}}</h5>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -224,14 +224,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="wizard-btn" wz-previous="noValidation()">Previous</button>
+                <button class="wizard-btn" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
             </wz-step>
 
             <wz-step wz-title="4" canenter="validateStep">
                 <div class="row page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>Select Drop Time</h4>
+                            <h4>{{'request_drop_time' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -254,8 +254,8 @@
                                 <div class="col s6 valign-wrapper my_button_column" style='padding-right:0px'>
                                     <div class="row">
                                         <div class="col s12 my_button_title">
-                                            <h6> BETWEEN </h6>
-                                            <h5> {{value.time_from}}:00 to {{value.time_to}}:00 </h5>
+                                            <h6 class="text-upper"> {{'text.between' | translate}} </h6>
+                                            <h5> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -271,13 +271,13 @@
                 </div>
 
                 <div class="row">
-                    <div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div>
+                    <div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align text-upper">{{'text.or' | translate}}</div>
                 </div>
 
                 <div class='mybutton row  z-depth-4  valign-wrapper '>
                     <div class="col s9">
                         <div class="item ">
-                            <label class="container" for="deliveryDropAtDoor">I'will leave at the door
+                            <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
                                 <input type="checkbox" id="deliveryDropAtDoor" class="checky" name="deliveryAtDoor" ng-model="deliveryDropAtDoor"  ng-checked="localData.deliveryTime && localData.deliveryTime.leaveAtdoor" ng-change="performAction('SELECT_DELIVERY_AT_DOOR', deliveryDropAtDoor)" />
                                 <span class="checkmark"></span>
                             </label>
@@ -285,19 +285,19 @@
                     </div>
                     <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
                         <span class="iconsstyle">
-                            <span class="">Free</span>
+                            <span class="">{{'text.free' | translate}}</span>
                         </span>
                     </div>
                 </div>
-                <button class="wizard-btn left" wz-previous="noValidation()">Previous</button>
-                <button class="wizard-btn right" wz-next="performAction('SAVE_DELIVERY_TIME')">Next</button>
+                <button class="wizard-btn left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                <button class="wizard-btn right" wz-next="performAction('SAVE_DELIVERY_TIME')">{{'text.next' | translate}}</button>
             </wz-step>
 
             <wz-step wz-title="5" canenter="validateStep">
                 <div class="row page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>Order Summary</h4>
+                            <h4>{{'request_pickup_order_summary' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -312,7 +312,7 @@
                     <div class="col s6 center-align z-depth-4">
                         <div class="row">
                             <div class="col s12  center-align" style="background-color:#E1F5FE;;padding: 10px;    border-top-left-radius: 8px;">
-                                <h4 style='text-transform: uppercase'>Pickup</h4>
+                                <h4 style='text-transform: uppercase'>{{'text.pickup' | translate}}</h4>
                             </div>
                         </div>
                         <div class="row">
@@ -320,16 +320,16 @@
                                 {{localData.pickupDate.name}} {{localData.pickupDate.shortDate}}
                                 <br>
                                 <span class="para2heading" ng-if="localData.pickupTime.leaveAtdoor != 'y'">
-                                    {{localData.pickupTime.time_from}}:00 to
+                                    {{localData.pickupTime.time_from}}:00 {{'text.to' | translate}}
                                     {{localData.pickupTime.time_to}}:00 </span>
-                                <span ng-if="localData.pickupTime.leaveAtdoor == 'y'">leave at the door </span>
+                                <span ng-if="localData.pickupTime.leaveAtdoor == 'y'">{{'request_pickup_order_summary' | translate}} </span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s12  center-align">
                                 <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                                     <tr>
-                                        <td><a class='my_close_button'>CHANGE</a></td>
+                                        <td><a class='my_close_button text-upper'>{{'text.change' | translate}}</a></td>
                                     </tr>
                                 </table>
 
@@ -339,23 +339,23 @@
                     <div class="col s6 center-align z-depth-4">
                         <div class="row">
                             <div class="col s12  center-align" style="background-color:#E1F5FE;;padding: 10px;    border-top-right-radius: 8px;">
-                                <h4 style='text-transform: uppercase'>Delievery</h4>
+                                <h4 class="text-upper">{{'text.delivery' | translate}}</h4>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s12  center-align">
                                 {{localData.deliveryDate.name}} {{localData.deliveryDate.shortDate}} <br>
                                 <span class="para2heading" ng-if="localData.pickupTime.leaveAtdoor != 'y'">
-                                    {{localData.pickupTime.time_from}}:00 to
+                                    {{localData.pickupTime.time_from}}:00 {{'text.to' | translate}}
                                     {{localData.pickupTime.time_to}}:00 </span>
-                                <span ng-if="localData.pickupTime.leaveAtdoor == 'y'">leave at the door </span>
+                                <span ng-if="localData.pickupTime.leaveAtdoor == 'y'">{{'request_leave_at_door_short' | translate}} </span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col s12  center-align">
                                 <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                                     <tr>
-                                        <td><a class='my_close_button'>Change</a></td>
+                                        <td><a class='my_close_button'>{{'text.change' | translate}}</a></td>
                                     </tr>
                                 </table>
 
@@ -366,7 +366,7 @@
                 <div class="row  valign-wrapper mybutton  z-depth-4" style='height: unset; background-color: #E1F5FE'>
                     <div class="col s2"><img src='images/dollar.png' width="100%"></div>
                     <div class="col s10">
-                        <b>Extra Charges</b><br>
+                        <b>{{'request_pickup_extra_charges' | translate}}</b><br>
                         <div class="item item-body orderlistbody">
 
                             <div ng-show="localData.pickupDate.price">
@@ -376,8 +376,7 @@
 
 
                             <div ng-show="localData.pickupTime.price && localData.pickupTime.price != '0'">
-                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupTime.price}} - Fixed
-                                time Pickup
+                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupTime.price}} - {{'request_pickup_fixed_time_pickup' | translate}}
                             </div>
 
                         </div>
@@ -386,34 +385,33 @@
 
                             <div ng-show="localData.deliveryDate.price != ''">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryDate.price}} -
-                                next day delievery
+                                {{'request_pickup_next_day_delivery' | translate}}
                             </div>
 
 
                             <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price != '0'">
-                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryTime.price}} -
-                                Fixed time delievery
+                                <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryTime.price}} - {{'request_pickup_fixed_time_delivery' | translate}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row  valign-wrapper mybutton  z-depth-4 ">
+                <div class="row  valign-wrapper mybutton  z-depth-4 " style="height: unset;">
                     <div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
                     <div class="col s6">
                         <span  ng-if="!getpayment.number">
-                            <a href="#/add-payment">Add Payment </a>
+                            <a href="#/add-payment">{{'reqeust_pickup_add_payment' | translate}} </a>
                         </span>
                         <span ng-if="getpayment.payment_type">
-                            <span class="borderdotdot"> {{getpayment.payment_type}}<br> </span>
-                        </span>
+                            {{getpayment.payment_type}}
+                        </span><br>
                         <span  ng-if="getpayment.number">
-                            Ends With: -<span class="borderdotdot"> {{getpayment.number | limitTo:-4}} </span>
+                                {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getpayment.number | limitTo:-4}} </span>
                         </span>
                         <span  ng-if="getpayment.expiry_date">
-                            Expiry Date : - <span class="borderdotdot"> {{getpayment.expiry_date}} </span>
+                                {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getpayment.expiry_date}} </span>
                         </span>
                         <span  ng-if="getpayment.expiry_month">
-                            Expiry Month : - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
+                           {{'request_pickup_card_expiry_month' | translate}}: - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
                         </span>
                     </div>
 
@@ -421,28 +419,28 @@
                     <div class="col s4">
                         <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                             <tr>
-                                <td><a class='my_close_button'>Change</a></td>
+                                <td><a class='my_close_button text-upper'>{{'text.change' | translate}} </a></td>
                             </tr>
                         </table>
                     </div>
                 </div>
 
-                <div class="row mybutton  valign-wrapper  z-depth-4 ">
+                <div class="row mybutton  valign-wrapper  z-depth-4 " style="height: unset;">
                     <div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
                     <div class="col s6">
                         <span ng-if="getAddress.addresses.length == 0">
-                            <a href="#/add-address">Add Address </a>
+                            <a href="#/add-address">{{'text.add_address' | translate}}  </a>
                         </span>
                         <span ng-if="getAddress.addresses.length != 0">
                             <span class="borderdotdot">{{getAddress.addresses[0].street_name}},
-                                Floor:{{getAddress.addresses[0].floor}}, Unit
-                                Number:{{getAddress.addresses[0].unit_number}} </span>
+                                    {{'address_details.floor' | translate}} :{{getAddress.addresses[0].floor}}, 
+                                    {{'address_details.unit_number' | translate}} :{{getAddress.addresses[0].unit_number}} </span>
                         </span>
                     </div>
                     <div class="col s4">
                         <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                             <tr>
-                                <td><a class='my_close_button'>Change</a></td>
+                                <td><a class='my_close_button text-upper'>{{'text.change' | translate}} </a></td>
                             </tr>
                         </table>
                     </div>
@@ -450,10 +448,10 @@
 
                 
                 <button class="wizard-btn left" wz-previous="noValidation()">
-                    Previous
+                    {{'text.previous' | translate}}
                 </button>
                 <button type="submit" class="wizard-btn right" wz-next="createOrder()" >
-                    Submit
+                        {{'text.submit' | translate}}
                 </button>
             </wz-step>
         </wizard>

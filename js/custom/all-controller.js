@@ -1,3 +1,19 @@
+// App Controller
+app.controller('AppController', function ($scope, $rootScope, $location, $translate, CommonService) {
+
+	$scope.changeLanguage = function (lang) {
+		$rootScope.SelectedLang = lang;
+		CommonService.storeLanguageLocal(lang);
+		$translate.use(lang);
+	}
+
+	$scope.goTo = function(route)
+	{
+		$('.sidenav').sidenav('close');
+		$location.path(route);
+	}
+});
+
 //Login of Controller
 app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
 	// console.log(updateFCMToken.test());
@@ -148,12 +164,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
 	 {
 		 $location.path("/dashboard");
 		 console.log("MenuCtrl");
-	 }
-	 
-	 $scope.goTo = function(route)
-	 {
-		$('.sidenav').sidenav('close');
-		$location.path(route);
 	 }
 
  });
@@ -347,9 +357,6 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
 	          	   console.log(err);
 	          })
 		}
-		
-
-      
 
  });
 

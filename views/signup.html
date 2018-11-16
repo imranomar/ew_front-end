@@ -12,69 +12,49 @@
 	
 </style>
 
-<div ng-controller="SignupCtrl" class="signuppage">
 
-	<div class="bar bar-header bar-balanced">
-		<a href="#/login">
-			<button class="button button-icon icon ion-android-arrow-back"></button>
-		</a>
-		<div class="h1 title"> Signup </div>
-	</div>
+	<table cellpadding=0 cellspacing=0 style='width:100%; height: 100%' ng-controller="SignupCtrl">
+		<tr>
+			<td valign='middle' align='center'>
+				<div class="wrapper_login" style='margin-top: auto; margin-bottom: auto; text-align:center'>
+					<div style='background-color:white;  width: 100%; text-align:center'>
 
+						<img src="images/login_logo.png" style='width: 50%; ' alt="">
+						<form ng-submit="signupsubmitform()" class="signinpage">
 
-	<div class="row logo">
-		<div class="col signuplogoimage">
-			<img src="assets/signinlogo.png" class="imgclass">
-		</div>
-	</div>
+							<label class="item item-input item-floating-label signupinput1">
+								<input type="text" required="" placeholder="{{'basic_details.name' | translate}}" autofocus class="inputbottomborder"
+								 ng-model="signupdata.name" style="width:60%;margin-top: 2vw;" />
+							</label>
 
+							<label class="item item-input item-floating-label signupinput1">
+								<input type="email" required="" autofocus placeholder="{{'basic_details.email' | translate}}" class="inputbottomborder"
+								 ng-model="signupdata.email" style="width:60%;margin-top: 2vw;" />
+							</label>
 
-	<div class="row row1">
+							<label class="item item-input item-floating-label signupinput1">
+									<input type="text" required="" autofocus placeholder="{{'basic_details.phone' | translate}}" class="inputbottomborder"
+									 ng-model="signupdata.phone" style="width:60%;margin-top: 2vw;" />
+								</label>
 
-		<div class="col singuptran">
+							<label class="item item-input item-floating-label  signupinput1">
+								<input type="password" required="" autofocus placeholder="{{'basic_details.password' | translate}}" class="inputbottomborder"
+								 ng-model="signupdata.password" style="width:60%;margin-top: 2vw;" />
+							</label>
 
-			<div class="list">
-				<form ng-submit="signupsubmitform()">
+							<button type="submit" style='margin-top: 5vh; margin-bottom: 2vh;font-size: 3.5vw;' class='btn btn-primary btn-pick-laundry '>{{'text.register' | translate}}</button>
 
-					<label class="item item-input item-floating-label signupinput1">
-						<span class="input-label">Name</span>
-						<input type="text" required="" placeholder="Name" autofocus class="inputbottomborder" ng-model="signupdata.name">
-					</label>
+							<button data-scope="email" onclick="login()" style='margin-top: 3vh; margin-bottom: 2vh;font-size: 3.5vw' class='btn btn-primary btn-pick-laundry loginBtn loginBtn--facebook '>Register with Facebook</button>
+							<div>{{'register_already_have_account' | translate}}? <a style='margin-top: 2vh; margin-bottom: 2vh;' href="#/login" >{{'text.login' | translate}}</a></div>
 
-					<label class="item item-input item-floating-label signupinput1">
-						<span class="input-label">Email</span>
-						<input type="email" required="" autofocus placeholder="Email" class="inputbottomborder" ng-model="signupdata.email">
-					</label>
+								<ng-include src="'views/includes/lang-btns.html'"></ng-include>
 
-					<label class="item item-input item-floating-label  signupinput1">
-						<span class="input-label">Password</span>
-						<input type="password" required="" autofocus placeholder="Password" class="inputbottomborder" ng-model="signupdata.password">
-					</label>
+						</form>
 
-					<label class="item item-input item-floating-label signupinput12">
-						<span></span>
-						<input type="submit" value="Submit" class="selfloginbtn">
-					</label>
+					</div>
 
-				</form>
+				</div>
 
-			</div>
-
-		</div>
-
-	</div>
-
-
-	<div class="row facebookbtn1">
-
-		<div class="col facebook">
-
-			<button class="loginBtn loginBtn--facebook">
-				Login with Facebook
-			</button>
-
-		</div>
-
-	</div>
-
-</div>
+			</td>
+		</tr>
+	</table>

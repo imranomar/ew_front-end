@@ -10,7 +10,8 @@
 			<div class="row page-title-row">
 				<div class="col s12">
 					<div class='left-align'>
-						<h4>{{$scope.id > 0?'Add':'Edit'}} Address Page</h4>
+						<h4 ng-if="id > 0">{{'text.edit_address' | translate}}</h4>
+						<h4 ng-if="!(id > 0)">{{'text.add_address' | translate}}</h4>
 					</div>
 				</div>
       </div>
@@ -24,29 +25,29 @@
             <div class="list">
 
               <label class="item item-input">
-                <span class="input-label">Street name</span>
+                <span class="input-label">{{'address_details.street_name' | translate}}</span>
                 <input type="text" autofocus="" ng-model="addressData.street_name">
               </label>
 
               <label class="item item-input">
-                <span class="input-label">Floor</span>
+                <span class="input-label">{{'address_details.floor' | translate}}</span>
                 <input type="text" autofocus="" ng-model="addressData.floor">
               </label>
 
               <label class="item item-input">
-                <span class="input-label">P.O.Box</span>
+                <span class="input-label">{{'address_details.po_box' | translate}}</span>
                 <input type="text" autofocus="" ng-model="addressData.pobox">
               </label>
 
               <label class="item item-input">
-                <span class="input-label">Unit number</span>
+                <span class="input-label">{{'address_details.unit_number' | translate}}</span>
                 <input type="text" autofocus="" ng-model="addressData.unit_number">
               </label>
 
               
               <label class="item item-input item-select">
                 <div class="input-label">
-                  City
+                  {{'address_details.city' | translate}}
                 </div>
                 <select ng-model="addressData.city_id">
                   <option ng-repeat="value in cityData" value="{{value.id}}">
@@ -57,7 +58,7 @@
 
               <p class="red ml-0" ng-show"err">{{err}}</p>
 
-              <div class="row" style='margin-top: 20px'><div class="col s12 center-align" ><a class='my_close_button z-depth-3' href='javascript:void(0)' ng-click="onAddSubmit()">Save Address</a></div></div>
+              <div class="row" style='margin-top: 20px'><div class="col s12 center-align" ><a class='my_close_button z-depth-3' href='javascript:void(0)' ng-click="onAddSubmit()">{{'text.save_address' | translate}}</a></div></div>
 
             </div>
 

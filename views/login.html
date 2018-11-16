@@ -1,8 +1,6 @@
+<style>
 
-
- <style>
-
-    html {
+	html {
         font-size: 4.5vw;
         background-image: none !important;
     }
@@ -11,58 +9,59 @@
         font-size: 4.5vw !important;
         font-family:'roboto';
     }
-    
-		</style>
-		
+</style>
 
-		
-		<table cellpadding=0 cellspacing=0 style='width:100%; height: 100%'>
-				<tr>
-						<td valign='middle' align='center'>
-								<div ng-controller="LoginCtrl" class="signinpage">
-								<form ng-submit="loginsubmit()" novalidate="novalidate" formnovalidate >
-										<div class="wrapper_login" style='margin-top: auto; margin-bottom: auto; text-align:center'>
-														<div style='background-color:white;  width: 100%; text-align:center'>
-																
-																<img src="images/login_logo.png" style='width: 50%; ' alt="">
-																<input type="email" placeholder="Email"  ng-model="logindata.email" autofocus="" style='width:60%;margin-top: 2vw;' placeholder="Email" >
 
-																<!-- <label class="item item-input item-floating-label logininput"> 
+
+<table cellpadding=0 cellspacing=0 style='width:100%; height: 100%'>
+	<tr>
+		<td valign='middle' align='center'>
+			<div ng-controller="LoginCtrl" class="signinpage">
+				<form ng-submit="loginsubmit()" novalidate="novalidate" formnovalidate>
+					<div class="wrapper_login" style='margin-top: auto; margin-bottom: auto; text-align:center'>
+						<div style='background-color:white;  width: 100%; text-align:center'>
+
+							<img src="images/login_logo.png" style='width: 50%; ' alt="">
+							<input type="email" placeholder="{{'basic_details.email' | translate}}" ng-model="logindata.email" autofocus="" style='width:60%;margin-top: 2vw;'
+							 placeholder="Email" />
+
+							<!-- <label class="item item-input item-floating-label logininput"> 
 																		<span class="input-label">Email</span>
 																		<!-- <input type="email" required="" autofocus="" class="logininputborder"> 
 																		<input type="email" placeholder="Email" ng-model="logindata.email" autofocus="" class="logininputborder">
 																	</label> -->
 
-																<input type="password" style='width:60%;margin-top: 2vw;'  ng-model="logindata.password" autofocus=""   placeholder="Password" >
-																<!-- <label class="item item-input item-floating-label logininput">
+							<input type="password" style='width:60%;margin-top: 2vw;' ng-model="logindata.password" autofocus="" placeholder="{{'basic_details.password' | translate}}">
+							<!-- <label class="item item-input item-floating-label logininput">
 																		<span class="input-label">Password</span>
 																		<!-- <input type="password" required="" autofocus="" class="logininputborder"> 
 																		<input type="password" placeholder="Password" ng-model="logindata.password" autofocus="" class="logininputborder">
 																	</label> -->
-														</div> 
-														<p class="red" ng-show="err">Invalid username and password!!!</p>
-					 <p class="red" ng-show="required"> {{field}} !!!</p>
-														<!-- <input type="submit" name="" value="Login" class="selfloginbtn"> -->
-														<div ng-if="loading" class="loader">Loading...</div>
-														<button style='margin-top: 5vh; margin-bottom: 2vh;' class='btn btn-primary btn-pick-laundry '>Login</button>
-												 
-														<br/><a href="#"  style='margin-top: 5vw; ' >Forgot Password</a>
-													 
-														<br/>
-														<div id="status"></div>
-														<button data-scope="email" onclick="login()"  style='margin-top: 5vh; margin-bottom: 2vh; '  class='btn btn-primary btn-pick-laundry loginBtn loginBtn--facebook '>Facebook</button>
-														
-												</div>
-								</form> 
-							
-							</div>
-						</td>
-				</tr>
-		</table>
-		 	
+						</div>
+						<p class="red" ng-show="err">{{'login_error_invalid_username_or_password' | translate}!!!</p>
+						<p class="red" ng-show="required"> {{field}} !!!</p>
+						<!-- <input type="submit" name="" value="Login" class="selfloginbtn"> -->
+						<div ng-if="loading" class="loader">{{'text.loading' | translate}}...</div>
+						<div><a>{{'login_forget_password' | translate}}</a></div>
+						<button style='margin-top: 2vh; margin-bottom: 2vh;' class='btn btn-primary btn-pick-laundry '>{{'text.login' | translate}}</button>
+						<br />
+						<div id="status"></div>
+						<button data-scope="email" onclick="login()" style='margin-top: 3vh; margin-bottom: 2vh; ' class='btn btn-primary btn-pick-laundry loginBtn loginBtn--facebook'>{{'login_with_facebook' | translate}}</button>
+						<div>{{'login_new_user' | translate}}? <a style='margin-top: 2vh; margin-bottom: 2vh;' href="#/signup" >{{'text.register' | translate}}</a></div>
 
-	 
-			<!-- <div class="col col1 mar-top">
+						<ng-include src="'views/includes/lang-btns.html'"></ng-include>
+
+					</div>
+				</form>
+
+			</div>
+		</td>
+	</tr>
+</table>
+
+
+
+<!-- <div class="col col1 mar-top">
 
 			<label class="container">
 				<input type="checkbox" checked="checked" class="rememberMeCheck" ng-model="checkbox" id="check">
@@ -89,5 +88,3 @@
 	     </div>	
 
 	</div> -->
-	
-	

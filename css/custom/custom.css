@@ -375,6 +375,36 @@ tr {
 
 
 
+.text-upper {
+  text-transform: uppercase;
+}
+ul.navbar-nav {
+  text-align: center;
+}
+ul.navbar-nav li {
+  display: inline-block;
+}
+ul.navbar-nav li a {
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 0 15px;
+  text-decoration: none;
+  color: #fff;
+}
+ul.navbar-nav li a.uk {
+  background: url(../../images/uk.png) no-repeat;
+  height: 20px;
+  width: 30px;
+}
 
+ul.navbar-nav li a.dm {
+  background: url(../../images/denmark.png) no-repeat;
+  height: 20px;
+  width: 30px;
+}
+
+ul.navbar-nav li a.uk, ul.navbar-nav li a.dm {
+  display: inline-block;
+}
 
 /* CREATE ORDER ENDS HERE */

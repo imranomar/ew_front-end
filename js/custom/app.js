@@ -1,7 +1,35 @@
-var app = angular.module("laundryApp", ["ngRoute", "mgo-angular-wizard"]);
+var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "mgo-angular-wizard", "pascalprecht.translate"]);
 
-app.run(function($rootScope, updateFCMToken) {
-  $rootScope.a = '​http://localhost/advanced/backend/web/';
+app.config(function($translateProvider) {
+  $translateProvider.preferredLanguage('en');
+  $translateProvider.registerAvailableLanguageKeys(['en', 'dm'], {
+      'en': 'en',
+      'dm': 'dm'
+  });
+
+  $translateProvider.useStaticFilesLoader({
+      prefix: 'translations/',
+      suffix: '.json'
+  });
+
+  $translateProvider.useSanitizeValueStrategy(null);
+});
+
+app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
+
+  $rootScope.Languages = {
+    'en': 'English',
+    'dm': 'Denmark'
+  };
+
+  $rootScope.SelectedLang = 'en';
+
+  var langauage = CommonService.getLanguageFromLocal();
+
+  if (langauage) {
+      $rootScope.SelectedLang = langauage;
+      $translate.use(langauage);
+  }
 
   if(localStorage.getItem('laundryUser')){
     updateFCMToken.test();
@@ -29,6 +57,24 @@ app.run(function($rootScope, updateFCMToken) {
   });
 });
 
+
+app.factory("CommonService", function ($localStorage) {
+  var LOCALSTORAGE_LANGUAGE = "locale";
+
+  return {
+    storeLanguageLocal(language) {
+        $localStorage[LOCALSTORAGE_LANGUAGE] = language;
+    },
+    getLanguageFromLocal() {
+        var language = $localStorage[LOCALSTORAGE_LANGUAGE];
+
+        if (!language) {
+            return false;
+        }
+        return language;
+    }
+  };
+});
 
 app.config(function($routeProvider,$locationProvider) {
   let cookieName = 'laundryCookie';

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" ng-app="laundryApp" ng-cloak>
 
 <head>
     <title>Laundary App</title>
@@ -29,9 +29,7 @@
     </style>
 </head>
 
-<body ng-app="laundryApp">
-
-
+<body ng-controller="AppController">
     <div class="navbar-fixed" ng-if="hideNavBar == false">
         <div class="nav-wrapper">
             <table class='top_bar' cellspcaing=0 cellpadding=0>
@@ -57,6 +55,7 @@
         <div class='curve'></div>
     </div>
     <ng-view></ng-view>
+
     <!-- menu starts here -->
     <div ng-controller="MenuCtrl">
         <ul id="slide-out" class="sidenav">
@@ -65,43 +64,44 @@
                     <img class="" style='width:4em' src="images/logo.png">
                 </div>
             </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" ng-click="goTo('/dashboard')"><i class="tiny material-icons">home</i>{{'menu_link_home' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" ng-click="goTo('/ordersummary')"><i class="tiny material-icons">local_shipping</i>{{'request_pickup' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" ng-click="goTo('/mydetails')"><i class="tiny material-icons">person</i>{{'menu_link_my_details' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">notifications</i>{{'menu_link_notifications' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">question_answer</i>{{'menu_link_faqs' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">attach_money</i>{{'menu_link_pricing' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">cloud</i>{{'menu_link_about' | translate}} EazyWash</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="sidenav-close" href="javascript:void(0)" id="signout" ng-click="signout()"><i class="tiny material-icons">power_settings_new</i>{{'menu_link_logout' | translate}}</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
 
-            <!-- <li><a href="#!">Second Link</a></li> -->
             <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" ng-click="goTo('/dashboard')"><i class="tiny material-icons">home</i>Home</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" ng-click="goTo('/ordersummary')"><i class="tiny material-icons">local_shipping</i>Request Pickup</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" ng-click="goTo('/mydetails')"><i class="tiny material-icons">person</i>My Details</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">notifications</i>Notifications</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">question_answer</i>FAQs</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">attach_money</i>Pricing</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="javascript:void(0)" class='line-through'><i class="tiny material-icons">cloud</i>About EazyWash</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a class="sidenav-close" href="javascript:void(0)" id="signout" ng-click="signout()"><i class="tiny material-icons">power_settings_new</i>Sign
-                    Out</a></li>
-            <li>
-                <div class="divider"></div>
+				<ng-include src="'views/includes/lang-btns.html'"></ng-include>
             </li>
             <!-- <li><a class="subheader"><i class="material-icons">cloud</i>Subheader</a></li> -->
             <!-- <li><a class="waves-effect" href="#!">Third Link With Waves</a></li> -->
@@ -116,8 +116,14 @@
 
     <script src="js/libraries/angular.min.js"></script>
     <script src="js/libraries/angular-route.js"></script>
+    <script src="js/libraries/ngStorage.min.js"></script>
     <script src="js/libraries/angular-messages.min.js"></script>
     <script src="js/libraries/angular-wizard.min.js"></script>
+    <script src="js/libraries/angular-translate/angular-translate.js"></script>
+	<script src="js/libraries/angular-translate/angular-translate-handler-log.js"></script>
+	<script src="js/libraries/angular-translate/angular-translate-storage-cookie.js"></script>
+	<script src="js/libraries/angular-translate/angular-translate-storage-local.js"></script>
+	<script src="js/libraries/angular-translate/angular-translate-loader-static-files.js"></script>
 
     <!-- Load main.js -->
     <script src="js/custom/main.js"></script>
