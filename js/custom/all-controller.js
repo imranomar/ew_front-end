@@ -88,6 +88,7 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
 				full_name: $scope.signupdata.name,
 				email: $scope.signupdata.email,
 				password: $scope.signupdata.password,
+				phone: $scope.signupdata.phone,
 				sex: '0'
 				
 			};
