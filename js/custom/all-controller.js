@@ -15,72 +15,86 @@ app.controller('AppController', function ($scope, $rootScope, $location, $transl
 });
 
 //Login of Controller
-app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMToken){
-	// console.log(updateFCMToken.test());
-	$scope.loading = false;
+app.controller('LoginCtrl', function($scope, $rootScope, $location,$http, $httpParamSerializer, appInfo, FCMService){
+	// console.log(FCMService.test());
+	$scope.showLoading = false;
+
 	$scope.field = 'email';
  	$scope.logindata = {
 		email: '',
 		password: ''
 	};
  	$scope.err = false;
- 	$scope.required = false;
-	$scope.checkbox = true;
 
 	$scope.loginsubmit = function () {
 		$scope.err = false;
- 		$scope.required = false;
 		
 		let email= $scope.logindata.email;
 		let password= $scope.logindata.password;
 
-		if(!email || !password){
-			if(!email){
-				$scope.field = 'please enter valid email address';
-			}else
-			if(!password){
-				$scope.field = 'please enter password field';
+		$scope.showLoading = true;
+
+		let data = {
+			device_id: $rootScope.fcm_token
+		};
+		
+		let req = {
+			method: 'POST',
+			url: appInfo.url+'customersapi/authenticate?email='+email+'&password='+password,
+			data: $httpParamSerializer(data),
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
 			}
-			$scope.required = true;
-			return;
-		}
-		$scope.loading = true;
-		$http.get(appInfo.url+'customersapi/authenticate?email='+email+'&password='+password)
-			.then(function(res){
-				console.log(res);
-				$scope.loading = false;
-					if(res.data != 0){
-						localStorage.setItem('laundryUser', res.data);
-						let date = new Date();
-						updateFCMToken.test();
-						if($scope.checkbox == true){
-							localStorage.setItem('rememberMe', 'y');
-							let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
-							document.cookie = 'laundryCookie=y; expires=' + date1;
-						}else{
-							localStorage.removeItem('rememberMe');
-							let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
-							document.cookie = 'laundryCookie=y; expires=' + date1;
-						}
-						$location.path('/dashboard');
+		};
+		
+		$http(req)
+			.then(function(res) {
+				$scope.showLoading = false;
+
+				if(res.data != 0){
+					localStorage.setItem('laundryUser', res.data);
+					let date = new Date();
+
+					if($scope.checkbox == true){
+						localStorage.setItem('rememberMe', 'y');
+						let date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
+						document.cookie = 'laundryCookie=y; expires=' + date1;
+					}else{
+						localStorage.removeItem('rememberMe');
+						let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
+						document.cookie = 'laundryCookie=y; expires=' + date1;
 					}
-					else{
-						$scope.err = true;
-					}
+					$location.path('/dashboard');
+				} else {
+					$scope.err = true;
+				}
 
 			}).catch(function(err){
-				$scope.loading = false;
-					console.log("error");
-					console.log(err);
+				$scope.showLoading = false;
+				console.log("error");
+				console.log(err);
 			});
-	}		
+	}
+	
+	/** Validation **/
+	$scope.validationOptions = {
+		rules: {
+			email: {
+				required: true,
+				email: true
+			},
+			password: {
+				required: true
+			}
+		}
+	};
 
  });
 
 
  // Signup of Controller
 
- app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location, updateFCMToken) {
+ app.controller('SignupCtrl',function($scope, $httpParamSerializer,$http, appInfo, $location, FCMService) {
 	$scope.signupdata = [];
  		$scope.signupsubmitform = function(){
 			$scope.loading = true;
@@ -103,13 +117,14 @@ app.controller('LoginCtrl', function($scope,$location,$http, appInfo, updateFCMT
 
 			$scope.err = '';
 			$scope.loading = true;
+
 			$http(req)
 				.then(function(res){
 					$scope.loading = false;
 					console.log(res.data);
 					let date = new Date();
 					localStorage.setItem('laundryUser', res.data.id);
-					updateFCMToken.test();
+					
 					let date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
 					document.cookie = 'laundryCookie=y; expires=' + date1;
 					$location.path('/dashboard');

@@ -1,4 +1,4 @@
-var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "mgo-angular-wizard", "pascalprecht.translate"]);
+var app = angular.module("laundryApp", ["ngStorage", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
 
 app.config(function($translateProvider) {
   $translateProvider.preferredLanguage('en');
@@ -15,7 +15,9 @@ app.config(function($translateProvider) {
   $translateProvider.useSanitizeValueStrategy(null);
 });
 
-app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
+app.run(function($rootScope, $translate, AppService, CommonService) {
+  AppService.initialize();
+  $rootScope.customer_id = localStorage.getItem('laundryUser');
 
   $rootScope.Languages = {
     'en': 'English',
@@ -31,17 +33,13 @@ app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
       $translate.use(langauage);
   }
 
-  if(localStorage.getItem('laundryUser')){
-    updateFCMToken.test();
-  }
-
   $rootScope.showBackBtn = false;
   $rootScope.hideNavBar = false;
 
   $rootScope.$on("$routeChangeStart", function(event, currRoute, prevRoute) {
     var currentRouteDetails = currRoute.$$route;
-    var showBackBtn = currentRouteDetails.showBackBtn == true? true: false;
-    var hideNavBar = currentRouteDetails.hideNavBar == true? true: false;
+    var showBackBtn = currentRouteDetails && currentRouteDetails.showBackBtn == true? true: false;
+    var hideNavBar = currentRouteDetails && currentRouteDetails.hideNavBar == true? true: false;
 
     if (showBackBtn && showBackBtn == true) {
       $rootScope.showBackBtn = true;
@@ -55,6 +53,17 @@ app.run(function($rootScope, $translate, updateFCMToken, CommonService) {
       $rootScope.hideNavBar = false;
     }
   });
+});
+
+
+app.factory('AppService', function ($rootScope, $httpParamSerializer, $http, appInfo, FCMService) {
+  return {
+    initialize: function(){
+      document.addEventListener("deviceready", function() {
+        FCMService.generateToken();
+      }, false);
+    }
+  }
 });
 
 
@@ -314,35 +323,37 @@ app.config(function($routeProvider,$locationProvider) {
 // http://thisisbig.ae/advanced/backend/web/
 app.factory('appInfo', function () {
   return {
-      url: 'http://localhost/advanced/backend/web/'
+      url: baseUrl
   }
 });
 
-app.factory('updateFCMToken', function (appInfo, $httpParamSerializer,$http) {
+app.factory('FCMService', function ($rootScope, appInfo, $httpParamSerializer,$http) {
   return {
-    test: function(){
-      if(!window.cordova){
+    generateToken: function(){
+      if(!device.cordova) {
          return;
       }
+      
       FCMPlugin.getToken(function(token){
-        let x = localStorage.getItem('laundryUser');
-        let data = {
-          token: token,     
-        };
-        let req = {
-            method: 'PUT',
-            url: appInfo.url+'customersapi/update/?id='+x,
-            data: $httpParamSerializer(data),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
-        $http(req)
-          .then(function(res){
-            console.log(res);
-          }).catch(function(error){
-              console.log(error);      
-        })
+        $rootScope.fcm_token = token;
+        // let x = localStorage.getItem('laundryUser');
+        // let data = {
+        //   token: token,     
+        // };
+        // let req = {
+        //     method: 'PUT',
+        //     url: appInfo.url+'customersapi/update/?id='+x,
+        //     data: $httpParamSerializer(data),
+        //     headers: {
+        //         'Content-Type': 'application/x-www-form-urlencoded'
+        //     }
+        // }
+        // $http(req)
+        //   .then(function(res){
+        //     console.log(res);
+        //   }).catch(function(error){
+        //       console.log(error);      
+        // })
       });
     }
   }

@@ -16,45 +16,46 @@
 	<table cellpadding=0 cellspacing=0 style='width:100%; height: 100%' ng-controller="SignupCtrl">
 		<tr>
 			<td valign='middle' align='center'>
-				<div class="wrapper_login" style='margin-top: auto; margin-bottom: auto; text-align:center'>
-					<div style='background-color:white;  width: 100%; text-align:center'>
-
+				<form id="LoginForm" ng-submit="!showLoading && signupsubmitform()" autocomplete="off" ng-validate="validationOptions">
+					<div class="wrapper_login align-center">
 						<img src="images/login_logo.png" style='width: 50%; ' alt="">
-						<form ng-submit="signupsubmitform()" class="signinpage">
+						<div class="row">
+							<div class="col offset-s2 s8">
+								<div class="form-field">
+									<input type="text" placeholder="{{'basic_details.name' | translate}}" autofocus="" ng-model="signupdata.name" />									
+								</div>
 
-							<label class="item item-input item-floating-label signupinput1">
-								<input type="text" required="" placeholder="{{'basic_details.name' | translate}}" autofocus class="inputbottomborder"
-								 ng-model="signupdata.name" style="width:60%;margin-top: 2vw;" />
-							</label>
+								<div class="form-field">
+										<input type="text" autofocus placeholder="{{'basic_details.email' | translate}}" ng-model="signupdata.email" />
+								</div>
 
-							<label class="item item-input item-floating-label signupinput1">
-								<input type="email" required="" autofocus placeholder="{{'basic_details.email' | translate}}" class="inputbottomborder"
-								 ng-model="signupdata.email" style="width:60%;margin-top: 2vw;" />
-							</label>
+								<div class="form-field">
+										<input type="text" autofocus placeholder="{{'basic_details.phone' | translate}}" ng-model="signupdata.phone" />
+								</div>
 
-							<label class="item item-input item-floating-label signupinput1">
-									<input type="text" required="" autofocus placeholder="{{'basic_details.phone' | translate}}" class="inputbottomborder"
-									 ng-model="signupdata.phone" style="width:60%;margin-top: 2vw;" />
-								</label>
+								<div class="form-field">
+										<input type="password" autofocus placeholder="{{'basic_details.password' | translate}}" ng-model="signupdata.password" />							
+								</div>
+								
+								<div class="form-field">
+									<button class='btn btn-primary btn-pick-laundry'>{{'text.register' | translate}}</button>
+								</div>
 
-							<label class="item item-input item-floating-label  signupinput1">
-								<input type="password" required="" autofocus placeholder="{{'basic_details.password' | translate}}" class="inputbottomborder"
-								 ng-model="signupdata.password" style="width:60%;margin-top: 2vw;" />
-							</label>
+								<div class="form-field">
+									<button onclick="login()" class='btn btn-primary btn-pick-laundry loginBtn loginBtn--facebook'>{{'register_with_facebook' | translate}}</button>
+								</div>
 
-							<button type="submit" style='margin-top: 5vh; margin-bottom: 2vh;font-size: 3.5vw;' class='btn btn-primary btn-pick-laundry '>{{'text.register' | translate}}</button>
+								<div class="form-field">
+									{{'register_already_have_account' | translate}}? <a style='margin-top: 2vh; margin-bottom: 2vh;' href="#/login" >{{'text.login' | translate}}</a>
+								</div>
 
-							<button data-scope="email" onclick="login()" style='margin-top: 3vh; margin-bottom: 2vh;font-size: 3.5vw' class='btn btn-primary btn-pick-laundry loginBtn loginBtn--facebook '>Register with Facebook</button>
-							<div>{{'register_already_have_account' | translate}}? <a style='margin-top: 2vh; margin-bottom: 2vh;' href="#/login" >{{'text.login' | translate}}</a></div>
-
-								<ng-include src="'views/includes/lang-btns.html'"></ng-include>
-
-						</form>
-
+								<div class="form-field">
+									<ng-include src="'views/includes/lang-btns.html'"></ng-include>
+								</div>
+							</div>
+						</div>
 					</div>
-
-				</div>
-
+				</form>
 			</td>
 		</tr>
 	</table>

@@ -38,7 +38,7 @@
                     <td width='20%' valign='center' align='middle'><a href="javascript:void(0)"
                             style='display:block;' data-target="slide-out" class="sidenav-trigger"><i style='font-size: 7vw'
                                 class="material-icons">dehaze</i></a></td>
-                    <td width='60%' valign='center' align='middle'><a href="/#dashboard"><img src="images/logo-top.png"
+                    <td width='60%' valign='center' align='middle'><a href="javascript:void(0)" ng-click="goTo('/dashboard')"><img src="images/logo-top.png"
                                 style="height:7vw" alt=""></a></td>
                     <td width="20%" valign="center" align="middle">
                         <a href="javascript:void(0)" ng-if="!showBackBtn || showBackBtn == false">
@@ -109,15 +109,24 @@
         <!-- menu ends here -->
     </div>
 
+    <!-- Main Loader -->
+    <ng-include src="'views/includes/main-loader.html'"></ng-include>
+
+    <!-- App Scripts -->
+    <script src="cordova.js"></script>
+
     <!-- Scripts -->
     <script src="js/libraries/jquery.min.js"></script>
     <script src="js/libraries/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/libraries/jquery.validate.js"></script>
     <script src="js/libraries/materialize.min.js"></script>
+
 
     <script src="js/libraries/angular.min.js"></script>
     <script src="js/libraries/angular-route.js"></script>
     <script src="js/libraries/ngStorage.min.js"></script>
     <script src="js/libraries/angular-messages.min.js"></script>
+    <script src="js/libraries/angular-validate.min.js"></script>
     <script src="js/libraries/angular-wizard.min.js"></script>
     <script src="js/libraries/angular-translate/angular-translate.js"></script>
 	<script src="js/libraries/angular-translate/angular-translate-handler-log.js"></script>

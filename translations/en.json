@@ -24,7 +24,8 @@
     "add_payment": "Add Payment",
     "add_address": "Add Address",
     "edit_address": "Edit Address",
-    "save_address": "Save Address"
+    "save_address": "Save Address",
+    "save": "Save"
   },
   "basic_details": {
     "name": "Name",

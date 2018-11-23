@@ -1,5 +1,5 @@
+//  var baseUrl = 'http://192.168.1.2/advanced/backend/web/';
 var baseUrl = 'http://thisisbig.ae/advanced/backend/web/';
-
 
 window.addEventListener("beforeunload", function (e) {
   if(!localStorage.getItem('rememberMe')){
@@ -16,6 +16,7 @@ window.addEventListener("beforeunload", function (e) {
       xfbml            : true,
       version          : 'v2.12'
     });
+    
     FB.getLoginStatus(function(response){
           console.log(response);
          if(response.status === 'connected'){
@@ -118,6 +119,7 @@ window.addEventListener("beforeunload", function (e) {
 
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav');
+    var options = {};
     var instances = M.Sidenav.init(elems, options);
 });
 
