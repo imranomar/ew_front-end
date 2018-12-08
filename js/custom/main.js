@@ -1,10 +1,12 @@
-//  var baseUrl = 'http://192.168.1.2/advanced/backend/web/';
-var baseUrl = 'http://thisisbig.ae/advanced/backend/web/';
+const baseUrl = 'http://localhost/advanced/backend/web/';
+//var baseUrl = 'http://thisisbig.ae/advanced/backend/web/';
+const translationFolderPath  = 'translations/';
+
 
 window.addEventListener("beforeunload", function (e) {
+  debugger;
   if(!localStorage.getItem('rememberMe')){
-    let date1 = new Date().toUTCString();
-    document.cookie = 'laundryCookie=y; expires=' + date1;
+    document.cookie = 'laundryCookie=y; path= /;expires=expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 });
 

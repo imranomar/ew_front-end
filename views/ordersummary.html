@@ -10,7 +10,7 @@
 
 </style>
 <div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
-    <div class="container">
+    <div class="container" ng-if="!showLoading">
         <wizard on-finish="finished()" indicators-position="top" name="requestPickupWizard" edit-mode="true" ng-init="initializeWizard()">
             <wz-step wz-title="1" canenter="validateStep">
                 <div class="row page-title-row">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
                                 <span class="iconsstyle" ng-if="value.price">
-                                    <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
+                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
                                             attach_money </i> {{value.price}}</span>
                                 </span>
                             </div>
@@ -72,7 +72,7 @@
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
                                 <span class="iconsstyle" ng-if="value.price">
-                                    <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
+                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
                                             attach_money </i> {{value.price}}</span>
                                 </span>
                             </div>
@@ -100,9 +100,9 @@
                     </div>
                 </div>
                 <div id='div_slots'>
-                    <div class="row" ng-repeat="value in PickupTimeSlots" ng-class="{'active': localData.pickupTime && localData.pickupTime.id == value.id }">
+                    <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.pickupTime && localData.pickupTime.id == value.id }">
                         <div class="col s12">
-                            <div class="mybutton2 row z-depth-4" ng-click="!localData.pickupTime.leaveAtdoor && performAction('SELECT_PICKUP_TIME', value)" ng-class="{'fade': localData.pickupTime.leaveAtdoor}">
+                            <div class="mybutton2 row z-depth-4" wz-next="performAction('SELECT_PICKUP_TIME', value)">
                                 <div class="col s3 my_button_column" style='padding-right:0px'>
                                     <div class="row">
                                         <div class="col s12 my_button_title"><img width="100%" src="images\{{value.time_from}}.png"></div>
@@ -120,10 +120,7 @@
                                     </div>
                                 </div>
                                 <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                                    <span class="iconsstyle">
-                                        <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
-                                                attach_money </i> {{value.price}}</span>
-                                    </span>
+                                        <span class="round_button"> {{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
                                 </div>
                             </div>
                         </div>
@@ -134,22 +131,19 @@
                     <div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div>
                 </div>
 
-                <div class='mybutton row  z-depth-4  valign-wrapper'>
+                <div class='mybutton row  z-depth-4 valign-wrapper' ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
                     <div class="col s9">
                         <div class="item ">
                             <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
-                                <input type="checkbox" id='pickAtDoor' class="checky" name="pickAtDoor" ng-model="pickAtDoor" ng-checked="localData.pickupTime && localData.pickupTime.leaveAtdoor" ng-change="performAction('SELECT_PICKUP_AT_DOOR', pickAtDoor)">
-                                <span class="checkmark"></span>
                             </label>
                         </div>
                     </div>
                     <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                        <span>{{'text.free' | translate}}</span>
+                        <span class="round_button">{{'text.free' | translate}}</span>
                     </div>
                 </div>
                 <div class="row" style='margin-top: 8vw'>
                     <button class=" wizard-btn left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                    <button class="wizard-btn right" wz-next="performAction('SAVE_PICKUP_TIME')">{{'text.next' | translate}}</button>
                 </div>
             </wz-step>
 
@@ -188,7 +182,7 @@
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
                                 <span class="iconsstyle" ng-if="value.price">
-                                    <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
+                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
                                             attach_money </i> {{value.price}}</span>
                                 </span>
                             </div>
@@ -214,7 +208,7 @@
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
                                 <span class="iconsstyle" ng-if="value.price">
-                                    <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
+                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
                                             attach_money </i> {{value.price}}</span>
                                 </span>
                             </div>
@@ -243,9 +237,9 @@
                     </div>
                 </div>
                 <div id='div_slots'>
-                    <div class="row" ng-repeat="value in DeliveryTimeSlots" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.id == value.id }">
+                    <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.id == value.id }">
                         <div class="col s12">
-                            <div class="mybutton2 row z-depth-4" ng-click="!localData.deliveryTime.leaveAtdoor && performAction('SELECT_DELIVERY_TIME', value)" ng-class="{'fade': localData.deliveryTime.leaveAtdoor}">
+                            <div class="mybutton2 row z-depth-4" wz-next="performAction('SELECT_DELIVERY_TIME', value)" ng-class="{'fade': localData.deliveryTime.leaveAtdoor}">
                                 <div class="col s3 my_button_column" style='padding-right:0px'>
                                     <div class="row">
                                         <div class="col s12 my_button_title"><img width="100%" src="images\{{value.time_from}}.png"></div>
@@ -261,8 +255,7 @@
                                 </div>
                                 <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
                                     <span class="iconsstyle">
-                                        <span class="my_close_button"><i class="tiny material-icons my_close_button_icon">
-                                                attach_money </i> {{value.price}}</span>
+                                        <span class="round_button"> {{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
                                     </span>
                                 </div>
                             </div>
@@ -274,23 +267,20 @@
                     <div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align text-upper">{{'text.or' | translate}}</div>
                 </div>
 
-                <div class='mybutton row  z-depth-4  valign-wrapper '>
+                <div class='mybutton row  z-depth-4  valign-wrapper ' ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
                     <div class="col s9">
                         <div class="item ">
                             <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
-                                <input type="checkbox" id="deliveryDropAtDoor" class="checky" name="deliveryAtDoor" ng-model="deliveryDropAtDoor"  ng-checked="localData.deliveryTime && localData.deliveryTime.leaveAtdoor" ng-change="performAction('SELECT_DELIVERY_AT_DOOR', deliveryDropAtDoor)" />
-                                <span class="checkmark"></span>
                             </label>
                         </div>
                     </div>
                     <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
                         <span class="iconsstyle">
-                            <span class="">{{'text.free' | translate}}</span>
+                            <span class="round_button">{{'text.free' | translate}}</span>
                         </span>
                     </div>
                 </div>
                 <button class="wizard-btn left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                <button class="wizard-btn right" wz-next="performAction('SAVE_DELIVERY_TIME')">{{'text.next' | translate}}</button>
             </wz-step>
 
             <wz-step wz-title="5" canenter="validateStep">
@@ -329,7 +319,7 @@
                             <div class="col s12  center-align">
                                 <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                                     <tr>
-                                        <td><a class='my_close_button text-upper'>{{'text.change' | translate}}</a></td>
+                                        <td><a class='round_button text-upper' href="javascript:void(0)" ng-click="goToStep(0)">{{'text.change' | translate}}</a></td>
                                     </tr>
                                 </table>
 
@@ -355,7 +345,7 @@
                             <div class="col s12  center-align">
                                 <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
                                     <tr>
-                                        <td><a class='my_close_button'>{{'text.change' | translate}}</a></td>
+                                        <td><a class='round_button' href="javascript:void(0)" ng-click="goToStep(2)">{{'text.change' | translate}}</a></td>
                                     </tr>
                                 </table>
 
@@ -368,14 +358,13 @@
                     <div class="col s10">
                         <b>{{'request_pickup_extra_charges' | translate}}</b><br>
                         <div class="item item-body orderlistbody">
-
-                            <div ng-show="localData.pickupDate.price">
+                            <div ng-show="localData.pickupDate.price > 0">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupDate.price}} -
                                 {{localData.pickupDate.name}} Pickup
                             </div>
 
 
-                            <div ng-show="localData.pickupTime.price && localData.pickupTime.price != '0'">
+                            <div ng-show="localData.pickupTime.price && localData.pickupTime.price > 0">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.pickupTime.price}} - {{'request_pickup_fixed_time_pickup' | translate}}
                             </div>
 
@@ -383,68 +372,121 @@
 
                         <div class="item item-body orderlistbody">
 
-                            <div ng-show="localData.deliveryDate.price != ''">
+                            <div ng-show="localData.deliveryDate.price > 0">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryDate.price}} -
                                 {{'request_pickup_next_day_delivery' | translate}}
                             </div>
 
 
-                            <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price != '0'">
+                            <div ng-show="localData.deliveryTime.price && localData.deliveryTime.price > 0">
                                 <i class="icon ion-ios-plus-outline"> </i> ${{localData.deliveryTime.price}} - {{'request_pickup_fixed_time_drop' | translate}}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row  valign-wrapper mybutton  z-depth-4 " style="height: unset;">
-                    <div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
-                    <div class="col s6">
-                        <span  ng-if="!getpayment.number">
-                            <a href="#/add-payment">{{'reqeust_pickup_add_payment' | translate}} </a>
-                        </span>
-                        <span ng-if="getpayment.payment_type">
-                            {{getpayment.payment_type}}
-                        </span><br>
-                        <span  ng-if="getpayment.number">
-                                {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getpayment.number | limitTo:-4}} </span>
-                        </span>
-                        <span  ng-if="getpayment.expiry_date">
-                                {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getpayment.expiry_date}} </span>
-                        </span>
-                        <span  ng-if="getpayment.expiry_month">
-                           {{'request_pickup_card_expiry_month' | translate}}: - <span class="borderdotdot"> {{getpayment.expiry_month}} </span>
-                        </span>
-                    </div>
 
-                    
-                    <div class="col s4">
-                        <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
-                            <tr>
-                                <td><a class='my_close_button text-upper'>{{'text.change' | translate}} </a></td>
-                            </tr>
-                        </table>
+
+                <div ng-include="'vault-card.html'"></div>
+
+                <div ng-include="'address-card.html'"></div>
+
+                <!-- Change Address Modal -->
+                <div class="modal fade vertical" id="addressChangeModal" role="dialog" apply-modal>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Change Address</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div ng-repeat="getAddress in AllAddresses" ng-click="changeAddress(getAddress)">
+                                    <div ng-include="'address-card.html'"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                                <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!-- End Change Address Modal -->
 
-                <div class="row mybutton  valign-wrapper  z-depth-4 " style="height: unset;">
-                    <div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
-                    <div class="col s6">
-                        <span ng-if="getAddress.addresses.length == 0">
-                            <a href="#/add-address">{{'text.add_address' | translate}}  </a>
-                        </span>
-                        <span ng-if="getAddress.addresses.length != 0">
-                            <span class="borderdotdot">{{getAddress.addresses[0].street_name}},
-                                    {{'address_details.floor' | translate}} :{{getAddress.addresses[0].floor}}, 
-                                    {{'address_details.unit_number' | translate}} :{{getAddress.addresses[0].unit_number}} </span>
-                        </span>
-                    </div>
-                    <div class="col s4">
-                        <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
-                            <tr>
-                                <td><a class='my_close_button text-upper'>{{'text.change' | translate}} </a></td>
-                            </tr>
-                        </table>
+                 <!-- Change Vault Modal -->
+                 <div class="modal fade vertical" id="vaultChangeModal" role="dialog" apply-modal>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Change Vault</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div ng-repeat="getPayment in AllPayments" ng-click="changeVault(getPayment)">
+                                    <div ng-include="'vault-card.html'"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="javascript:void(0)" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                        </div>
                     </div>
                 </div>
+                <!-- End Change Vault Modal -->
+
+                <!--Address Card Template-->
+                <script type="text/ng-template" id="address-card.html">
+                    <div class="row mybutton  valign-wrapper  z-depth-4 " style="height: unset;">
+                        <div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
+                        <div class="col" ng-class="$index > -1?'s10':'s6'">
+                            <span ng-if="getAddress.addresses.length == 0">
+                                <a href="#/add-address">{{'text.add_address' | translate}}  </a>
+                            </span>
+                            <span ng-if="getAddress.addresses.length != 0">
+                                <span class="borderdotdot">{{getAddress.street_name}},
+                                        {{'address_details.floor' | translate}} :{{getAddress.floor}}, 
+                                        {{'address_details.unit_number' | translate}} :{{getAddress.unit_number}} </span>
+                            </span>
+                        </div>
+                        <div class="col s4" ng-hide="$index > -1" ng-if="AllAddresses.length > 1">
+                            <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
+                                <tr>
+                                    <td><a class='round_button text-upper modal-trigger' href="javascript:void(0)" ng-click="openModal('addressChangeModal')">{{'text.change' | translate}} </a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>           
+                </script>
+
+                <!--Vault Card Template-->
+                <script type="text/ng-template" id="vault-card.html">
+                    <div class="row  valign-wrapper mybutton  z-depth-4 " style="height: unset;">
+                        <div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
+                        <div class="col" ng-class="$index > -1?'s10':'s6'">
+                            <span  ng-if="!getPayment.number">
+                                <a href="#/add-payment">{{'reqeust_pickup_add_payment' | translate}} </a>
+                            </span>
+                            <span ng-if="getPayment.payment_type">
+                                {{getpayment.payment_type}}
+                            </span><br>
+                            <span  ng-if="getPayment.number">
+                                    {{'request_pikcup_card_end_with' | translate}}: -<span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                            </span>
+                            <span  ng-if="getPayment.expiry_date">
+                                    {{'request_pickup_card_expiry_date' | translate}} : - <span class="borderdotdot"> {{getPayment.expiry_date}} </span>
+                            </span>
+                            <span  ng-if="getPayment.expiry_month">
+                               {{'request_pickup_card_expiry_month' | translate}}: - <span class="borderdotdot"> {{getPayment.expiry_month}} </span>
+                            </span>
+                        </div>
+    
+                        
+                        <div class="col s4" ng-hide="$index > -1" ng-if="AllPayments.length > 1">
+                            <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
+                                <tr>
+                                    <td><a class='round_button text-upper modal-trigger' href="javascript:void(0)" ng-click="openModal('vaultChangeModal')">{{'text.change' | translate}} </a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </script>
 
                 
                 <button class="wizard-btn left" wz-previous="noValidation()">

@@ -67,7 +67,7 @@
 				<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt ' style='background-color: orange;  color:white; display:none'>{{'text.save' | translate}}</a>
 			</div>
 		</div>
-		<div class="row   valign-wrapper mybutton z-depth-4">
+		<div class="row valign-wrapper mybutton z-depth-4">
 			<div class="col s8">
 				<div class="row">
 					<div class="col s12"><small class="text-upper">{{'basic_details.phone' | translate}}</small></div>
@@ -82,7 +82,16 @@
 				<a class='my_close_button edit-btn'>{{'text.change' | translate}}</a>
 				<a ng-click="onSavePersonDetail()" class='my_close_button whn-clk-edt ' style='background-color: orange;  color:white; display:none'>{{'text.save' | translate}}</a>
 			</div>
+
+			
 		</div>
+		<div class="row" style='margin-top: 20px'>
+				<div class="col s12 center-align"><a class='my_close_button z-depth-3' href="#/add-address">Change Password</a></div>
+			</div>
+		</div>
+
+
+
 		<div class="row page-title-row">
 			<div class="col"><b class="text-upper">{{'my_details_payment' | translate}}</b></div>
 		</div>
@@ -131,6 +140,12 @@
 					<div class="col text-upper">{{'address_details.city' | translate}}</div>
 					<div class="col s7">{{cityids[$index].title}}</div>
 				</div>
+
+			</div>
+			<div>
+					<button type="button" class="btn btn-primary">Edit</button>
+					<button type="button" class="btn btn-danger">Delete</button>
+					<button type="button" class="btn btn-primary">SetAsDefault</button>
 
 			</div>
 		</div>

@@ -216,12 +216,12 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
   margin:0rem  0px  0.75rem  0px; color: #b1b1b1 
 }
 
-.my_close_button
+.round_button
 {
   background-color:#e1f5fe; border-radius: 16vw;padding: 2.5vw 5vw 2.5vw 2.5vw;
 }
 
-.my_close_button_icon
+.round_button_icon
 {
   font-size: 1rem; position: relative;top: -2px;left:7px
 }
@@ -269,7 +269,6 @@ input:not([type]), input[type="text"]:not(.browser-default), input[type="passwor
     float: right;
     color: #fff;
     padding: 6px 12px;
-    margin: 4px 10px;
     border: none;
 }
 .wizard-btn.prev{
@@ -435,7 +434,7 @@ ul.navbar-nav li a.uk, ul.navbar-nav li a.dm {
 }
 
 .error {
-    color: #F44336;
+    color: #F44336 !important;
     display: block;
     text-align: left;
 }
@@ -447,13 +446,11 @@ ul.navbar-nav li a.uk, ul.navbar-nav li a.dm {
   margin: 10px 0;
 }
 .msg-error {
-  // rouge
 border-color: #d32f2f;
   background-color: #ef5350;
   color: white;
 }
 .msg-alert {
-  //orange
    border-color: #ef6c00;
   background-color: #ff9800;
   color: white;
