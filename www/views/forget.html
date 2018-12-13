@@ -1,0 +1,45 @@
+<style>
+	body {
+        font-size: 4.5vw;
+    }
+    input
+    {
+        font-size: 4.5vw !important;
+        font-family:'Roboto';
+    }
+</style>
+
+<table cellpadding=0 cellspacing=0 style='width:100%; height: 100%'>
+	<tr>
+		<td valign='middle' align='center'>
+			<div ng-controller="ForgetCtrl" class="signinpage">
+				<form name="ForgetForm" ng-submit="!showLoading && forgotpassowrd(ForgetForm)" autocomplete="off" ng-validate="forgotPasswordValidationOptions">
+					<div class="wrapper_login align-center">
+						<img src="images/login_logo.png" style='width: 50%; ' alt="">
+						
+						<div ng-if="messageObj" ng-class="messageObj.class">{{messageObj.message}}</div>
+						<div class="row">
+							<div class="col offset-s2 s8">
+								<div class="form-field">
+									<input type="text" name="email" placeholder="{{'basic_details.email' | translate}}" ng-model="form.email" autofocus />
+								</div>
+
+								<div class="form-field">
+									<button type="submit" class='btn btn-primary btn-pick-laundry'>{{'reset_password' | translate}}</button>
+								</div>
+
+								<div class="form-field">
+									{{'text.back' | translate}} {{'text.to' | translate}} <a ng-click="goTo('/login')" href="javascript:void(0)" >{{'text.login' | translate}} {{'text.page' | translate}}</a> 
+								</div>
+
+								<div class="form-field">
+									<ng-include src="'views/includes/lang-btns.html'"></ng-include>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</td>
+	</tr>
+</table>

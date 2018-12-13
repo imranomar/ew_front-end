@@ -1,0 +1,16 @@
+<style>
+	html {
+		background: url('images/background.png') no-repeat center center fixed !important;
+		-webkit-background-size: cover !important;
+		-moz-background-size: cover !important;
+		-o-background-size: cover !important;
+		background-size: cover !important; 
+    }
+</style>
+<div ng-controller="DashboardCtrl" class="dashboard">
+	<main>
+		<div class='wrapper_pickup_button'>
+			<button ng-click="goTo('/ordersummary')" type="button" class="btn btn-primary btn-pick-laundry text-upper">{{'pickup_my_laundry' | translate}}</button>
+		</div>
+	</main>
+</div>

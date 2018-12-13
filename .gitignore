@@ -1,2 +1,4 @@
 #Cordova files & folders
 .idea
+node_modules
+platforms
