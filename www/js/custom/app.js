@@ -1,4 +1,4 @@
-var app = angular.module("laundryApp", ["ngCookies", "ngStorage", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
+var app = angular.module("laundryApp", ["ngCordova", "ngCookies", "ngStorage", "ngRoute", "ngValidate", "mgo-angular-wizard", "pascalprecht.translate"]);
 
 app.config(function($translateProvider, $cookiesProvider, $validatorProvider) {
   // Set $cookies defaults
@@ -26,7 +26,7 @@ app.config(function($translateProvider, $cookiesProvider, $validatorProvider) {
   );  
 });
 
-app.run(function($rootScope, $translate, AppService, CommonService) {
+app.run(function($rootScope, $location, $translate, AppService, CommonService) {
   AppService.initialize();
 
   $rootScope.serviceOfferedToCity = "copenhagen";
@@ -64,19 +64,40 @@ app.run(function($rootScope, $translate, AppService, CommonService) {
 
   $rootScope.$on("$routeChangeStart", function(event, currRoute, prevRoute) {
     var currentRouteDetails = currRoute.$$route;
-    var showBackBtn = currentRouteDetails && currentRouteDetails.showBackBtn == true? true: false;
-    var hideNavBar = currentRouteDetails && currentRouteDetails.hideNavBar == true? true: false;
 
-    if (showBackBtn && showBackBtn == true) {
-      $rootScope.showBackBtn = true;
-    } else {
-      $rootScope.showBackBtn = false;
-    }
+    var authenticationRequired =
+      currentRouteDetails && currentRouteDetails.authentication == true
+        ? true
+        : false;
 
-    if (hideNavBar && hideNavBar == true) {
-      $rootScope.hideNavBar = true;
+    var isAuthenticated = CommonService.isAuthenticated();
+    if(authenticationRequired && !isAuthenticated) {
+      $location.path("/login");
+    } else if(!authenticationRequired && isAuthenticated) {
+      $location.path("/dashboard");
     } else {
-      $rootScope.hideNavBar = false;
+
+      var showBackBtn =
+        currentRouteDetails && currentRouteDetails.showBackBtn == true
+          ? true
+          : false;
+      var hideNavBar =
+        currentRouteDetails && currentRouteDetails.hideNavBar == true
+          ? true
+          : false;
+          
+
+      if (showBackBtn && showBackBtn == true) {
+        $rootScope.showBackBtn = true;
+      } else {
+        $rootScope.showBackBtn = false;
+      }
+
+      if (hideNavBar && hideNavBar == true) {
+        $rootScope.hideNavBar = true;
+      } else {
+        $rootScope.hideNavBar = false;
+      }
     }
   });
 });
@@ -85,9 +106,31 @@ app.run(function($rootScope, $translate, AppService, CommonService) {
 app.factory('AppService', function ($rootScope, FCMService) {
   return {
     initialize: function(){
-      document.addEventListener("deviceready", function() {
-        FCMService.generateToken();
-      }, false);
+      document.addEventListener(
+        "deviceready",
+        function() {
+          $rootScope.isOnline = true;
+
+          $rootScope.network = $cordovaNetwork.getNetwork();
+          $rootScope.isOnline = $cordovaNetwork.isOnline();
+          
+          // listen for Online event
+          $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
+              $rootScope.isOnline = true;
+              $rootScope.network = $cordovaNetwork.getNetwork();
+          })
+  
+          // listen for Offline event
+          $rootScope.$on('$cordovaNetwork:offline', function(event, networkState){
+              console.log("got offline");
+              $rootScope.isOnline = false;
+              $rootScope.network = $cordovaNetwork.getNetwork();
+          })
+
+          FCMService.generateToken();
+        },
+        false
+      );
     }
   }
 });
@@ -95,10 +138,18 @@ app.factory('AppService', function ($rootScope, FCMService) {
 
 app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo, $localStorage) {
   var LOCALSTORAGE_USER = "laundryUser";
-  var LOCALSTORAGE_REMEMBER_ME = "rememberMe";
+  //var LOCALSTORAGE_REMEMBER_ME = "rememberMe";
   var LOCALSTORAGE_LANGUAGE = "locale";
 
   return {
+    isAuthenticated: function() {
+      var user = localStorage.getItem(LOCALSTORAGE_USER);
+
+      if(user) {
+        return true;
+      }
+      return false;
+    },
     storeLanguageLocal(language) {
         $localStorage[LOCALSTORAGE_LANGUAGE] = language;
     },
@@ -113,22 +164,23 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo,
     storeUserDetailsLocal: function(data, isChecked) {
       localStorage.setItem(LOCALSTORAGE_USER, data);
 
-      var date = new Date();
-      var date1 = "";
+      // var date = new Date();
+      // var date1 = "";
 
-      if(isChecked == true) {
-        localStorage.setItem(LOCALSTORAGE_REMEMBER_ME, 'y');
-        date1 = new Date(date.setDate(date.getDate()+10)).toUTCString();
-      } else {
-        localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
-        date1 = new Date(date.setHours(date.getHours()+1)).toUTCString();
-      }
-      document.cookie = 'laundryCookie=y; path= /; expires=' + date1;
+      // if (isChecked == true) {
+      //   localStorage.setItem(LOCALSTORAGE_REMEMBER_ME, "y");
+      //   date1 = new Date(date.setDate(date.getDate() + 10)).toUTCString();
+      // } else {
+      //   localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
+      //   date1 = new Date(date.setHours(date.getHours() + 1)).toUTCString();
+      // }
+      // localStorage.setItem(LOCALSTORAGE_AUTH_USER, '1');
+      // document.cookie = "laundryCookie=y; path= /; expires=" + date1;
     },
     removeUserDetailsLocal: function() {
-      document.cookie = 'laundryCookie=y; path= /; expires=expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      //document.cookie = "laundryCookie=y; path= /; expires=expires=Thu, 01 Jan 1970 00:00:01 GMT;";
       localStorage.removeItem(LOCALSTORAGE_USER);
-      localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
+      //localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
     },
     CallAjaxUsingPostRequest: function (partialUrl, dataObject) {
         var defer = $q.defer();
@@ -189,204 +241,91 @@ app.config(function($routeProvider,$locationProvider) {
   $routeProvider
   .when("/login", {
     templateUrl : "views/login.html",
-    resolve:{
-      "check": function($location){
-            if(getCookie(cookieName) == 'y'){
-              $location.path('/dashboard');
-            }  
-        }
-    },
+    authentication: false,
     hideNavBar: true
   })
   .when('/signup', {
     templateUrl: 'views/signup.html',
-      resolve:{
-        "check": function ($location){
-          if(getCookie(cookieName) == 'y'){
-            $location.path('/dashboard');
-          } 
-        }
-      },
+    authentication: false,
       hideNavBar: true
 
   })
   .when('/forget', {
     templateUrl: 'views/forget.html',
-    hideNavBar: true
+    hideNavBar: true,
+    authentication: false
   })
   .when('/dashboard', {
     templateUrl: 'views/dashboard.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/menu', {
     templateUrl: 'views/menu.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: false
   })
   .when('/pricing', {
     templateUrl: 'views/pricing.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: false
   })
   .when('/aboutus', {
     templateUrl: 'views/aboutus.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: false
   })
   .when('/faqs', {
     templateUrl: 'views/faqs.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: false
   })
   .when('/mydetails', {
     templateUrl: 'views/mydetails.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    },
+    authentication: true,
     showBackBtn: true
   })
   .when('/notification', {
     templateUrl: 'views/notifications.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/address', {
     templateUrl: 'views/addresses.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/deliverydate', {
     templateUrl: 'views/deliverydate.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/ordersummary', {
     templateUrl: 'views/ordersummary.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    },
+    authentication: true,
     showBackBtn: true
   })
   .when('/payment', {
     templateUrl: 'views/paymentmethod.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/finaldate',{
   	templateUrl: 'views/selecttimefinal.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/myedit/:person',{
   	templateUrl: 'views/myedit.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/edit-address/:id', {
     templateUrl: 'views/address.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    },
+    authentication: true,
     showBackBtn: true
   })
   .when('/edit-payment/:id', {
     templateUrl: 'views/edit-payment.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    }
+    authentication: true
   })
   .when('/add-address', {
     templateUrl: 'views/address.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    },
+    authentication: true,
     showBackBtn: true
   })
   .when('/add-payment', {
     templateUrl: 'views/add-payment.html',
-    resolve :{
-      "check": function($location){
-        if(!getCookie(cookieName)){
-          $location.path('/login');
-        } 
-      }
-    },
+    authentication: true,
     showBackBtn: true
   })
   .otherwise({

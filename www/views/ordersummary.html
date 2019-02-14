@@ -9,14 +9,14 @@
 	}
 
 </style>
-<div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate">
+<div ng-controller="OrdersummaryCtrl" class="myorder Deliverydate finaldate" id="requestPickupModal">
     <div class="container" ng-if="!showLoading">
         <wizard on-finish="finished()" indicators-position="top" name="requestPickupWizard" edit-mode="true" ng-init="initializeWizard()">
             <wz-step wz-title="1" canenter="validateStep">
                 <div class="row page-title-row">
-                    <div class="col s10 page-title-row-col">
+                    <div class="col s10 title page-title-row-col">
                         <div class='left-align'>
-                            <h4>{{'request_pickup_date' | translate}}</h4>
+                            <h4 class="pull-left">{{'request_pickup_date_part_1' | translate}} <span class="highlight">{{'text.pickup' | translate}}</span> {{'request_pikcup_date_part_2' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row" ng-repeat="value in pickupDateList" ng-hide="!showAllpickupDateList && $index > 4" wz-next="performAction('SAVE_PICKUP_DATE', value)"
                     ng-class="{
 								'today-div': value.name == 'Today',
@@ -34,7 +35,7 @@
 							}">
                     <div class="col s12" ng-class="{'active': localData.pickupDate && (localData.pickupDate.date | date: 'yyyy-mm-dd') == (value.date | date: 'yyyy-mm-dd') }">
                         <div class="mybutton next row z-depth-4">
-                            <div class="col s6 my_button_column">
+                            <div class="col s8 my_button_column">
                                 <div class="row">
                                     <div class="col s12 my_button_title">
                                         <h5>{{value.name}}</h5>
@@ -44,10 +45,9 @@
                                     <div class="col s12 my_button_sub_title">{{value.shortDate}} </div>
                                 </div>
                             </div>
-                            <div class="col s6 valign-wrapper my_button_column">
-                                <span class="iconsstyle" ng-if="value.price">
-                                    <span class="round_button">{{value.price | currency}}</span>
-                                </span>
+                            <div class="col s4 valign-wrapper my_button_column">
+                                <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
+                                <span class="round_button small-fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                 <div class="row" ng-if="!showAllpickupDateList">
                     <div ng-click="loadMorePickupDates()" class="col s12">
                         <div class="mybutton row z-depth-4">
-                            <div class="col s6 my_button_column">
+                            <div class="col s8 my_button_column">
                                 <div class="row">
                                     <div class="col s12 my_button_title">
                                         <h5>Other</h5>
@@ -68,12 +68,9 @@
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
                                 <span class="iconsstyle" ng-if="value.price">
-                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
+                                    <span class="round_button small-fixed-width-btn pull-right"><i class="tiny material-icons round_button_icon">
                                             attach_money </i> {{value.price}}</span>
                                 </span>
-                            </div>
-                            <div class="col s2 valign-wrapper my_button_column">
-                                <span class="large material-icons base_color">chevron_right</span>
                             </div>
                         </div>
                     </div>
@@ -81,10 +78,10 @@
             </wz-step>
 
             <wz-step wz-title="2" canenter="validateStep">
-                <div class="row page-title-row">
+                <div class="row title page-title-row">
                     <div class="col s10 page-title-row-col">
                         <div class='left-align'>
-                            <h4>{{'request_pickup_date' | translate}}</h4>
+                            <h4 class="pull-left">{{'request_pickup_time_part_1' | translate}} <span class="highlight">{{'text.pickup' | translate}}</span> {{'request_pickup_time_part_2' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -99,12 +96,10 @@
                     <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.pickupTime && localData.pickupTime.id == value.id }">
                         <div class="col s12">
                             <div class="mybutton2 row z-depth-4" wz-next="performAction('SELECT_PICKUP_TIME', value)">
-                                <div class="col s3 my_button_column" style='padding-right:0px'>
-                                    <div class="row">
-                                        <div class="col s12 my_button_title"><img width="100%" src="images\{{value.time_from}}.png"></div>
-                                    </div>
+                                <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <img width="60" src="images\{{value.time_from}}.png">
                                 </div>
-                                <div class="col s6 valign-wrapper my_button_column" style='padding-right:0px'>
+                                <div class="col s5 valign-wrapper my_button_column" style='padding-right:0px'>
                                     <div class="row">
                                         <div class="col s12 my_button_title">
                                             <!-- we do not have one hour slot option now -->
@@ -115,39 +110,46 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col s4 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            <div class='mybutton2 row  z-depth-4 valign-wrapper' ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
                                 <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                                        <span class="round_button"> {{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
+                                    <img width="60" src="images\no_time.png">
+                                </div>
+                                <div class="col s5 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <div class="row">
+                                        <div class="col s12 my_button_title">
+                                            <!-- we do not have one hour slot option now -->
+                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+                                            <label> {{'request_pickup_leave_at_door' | translate}} </label>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div>
-                </div>
-
-                <div class='mybutton row  z-depth-4 valign-wrapper' ng-class="{'active': localData.pickupTime && localData.pickupTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_PICKUP_AT_DOOR', '')">
-                    <div class="col s9">
-                        <div class="item ">
-                            <label class="container" for="pickAtDoor"> {{'request_leave_at_door' | translate}}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                        <span class="round_button">{{'text.free' | translate}}</span>
-                    </div>
-                </div>
-                <div class="row" style='margin-top: 8vw'>
-                    <button class=" round_button left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
-                </div>
             </wz-step>
 
             <wz-step wz-title="3" canenter="validateStep">
                 <div class="row page-title-row">
-                    <div class="col s10 page-title-row-col">
+                    <div class="col s10 title page-title-row-col">
                         <div class='left-align'>
-                            <h4>{{'request_drop_date' | translate}}</h4>
+                            <h4 class="pull-left">{{'request_drop_date_part_1' | translate}}<span class="highlight">{{'text.deliever' | translate}}</span> {{'request_drop_date_part_2' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -177,10 +179,8 @@
                                 </div>
                             </div>
                             <div class="col s4 valign-wrapper my_button_column">
-                                <span class="iconsstyle" ng-if="value.price">
-                                    <span class="round_button"><i class="tiny material-icons round_button_icon">
-                                            attach_money </i> {{value.price}}</span>
-                                </span>
+                                <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
+                                <span class="round_button small-fixed-width-btn pull-right" ng-if="!value.price">{{'text.free' | translate}}</span>
                             </div>
                         </div>
                     </div>
@@ -208,14 +208,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="round_button" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+                <button class="round_button action-btn pull-left" wz-previous="noValidation()"><<</button>
             </wz-step>
 
             <wz-step wz-title="4" canenter="validateStep">
                 <div class="row page-title-row">
-                    <div class="col s10 page-title-row-col">
+                    <div class="col s10 title page-title-row-col">
                         <div class='left-align'>
-                            <h4>{{'request_drop_time' | translate}}</h4>
+                            <h4 class="pull-left">{{'request_drop_time_part_1' | translate}}<span class="highlight">{{'text.deliever' | translate}}</span> {{'request_drop_time_part_2' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -229,51 +229,64 @@
                 <div id='div_slots'>
                     <div class="row" ng-repeat="value in TimeSlots" ng-class="{'active': localData.deliveryTime && localData.deliveryTime.id == value.id }">
                         <div class="col s12">
-                            <div class="mybutton2 row z-depth-4" wz-next="performAction('SELECT_DELIVERY_TIME', value)" ng-class="{'fade': localData.deliveryTime.leaveAtdoor}">
-                                <div class="col s3 my_button_column" style='padding-right:0px'>
-                                    <div class="row">
-                                        <div class="col s12 my_button_title"><img width="100%" src="images\{{value.time_from}}.png"></div>
-                                    </div>
+                            <div class="mybutton2 row z-depth-4" wz-next="performAction('SELECT_DELIVERY_TIME', value)">
+                                <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <img width="60" src="images\{{value.time_from}}.png">
                                 </div>
-                                <div class="col s6 valign-wrapper my_button_column" style='padding-right:0px'>
+                                <div class="col s5 valign-wrapper my_button_column" style='padding-right:0px'>
                                     <div class="row">
                                         <div class="col s12 my_button_title">
+                                            <!-- we do not have one hour slot option now -->
+                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
                                             <h6 class="text-upper"> {{'text.between' | translate}} </h6>
                                             <h5> {{value.time_from}}:00 {{'text.to' | translate}} {{value.time_to}}:00 </h5>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                                    <span class="iconsstyle">
-                                        <span class="round_button"> {{value.price > 0 ? '$ '+ value.price : 'Free'}}</span>
-                                    </span>
+                                <div class="col s4 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class='mybutton row  z-depth-4 valign-wrapper ' ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
-                    <div class="col s9">
-                        <div class="item ">
-                            <label class="container" for="deliveryDropAtDoor">{{'request_leave_at_door' | translate}}
-                            </label>
+                    
+                    <div class="row">
+                        <div class="col s12">
+                            <div class='mybutton2 row  z-depth-4 valign-wrapper' ng-class="{'active': localData.deliveryTime && localData.deliveryTime.leaveAtdoor == 'y' }" wz-next="performAction('SELECT_DELIVERY_AT_DOOR', '')">
+                                <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <img width="60" src="images\no_time.png">
+                                </div>
+                                <div class="col s5 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <div class="row">
+                                        <div class="col s12 my_button_title">
+                                            <!-- we do not have one hour slot option now -->
+                                            <!-- <span ng-if="value.type == 1">FLEXIBLE </span>
+                                            <span ng-if="value.type == 2"> ONE HOUR SLOT </span> -->
+                                            <label> {{'request_drop_leave_at_door' | translate}} </label>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s4 valign-wrapper my_button_column" style='padding-right:0px'>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price > 0">+ {{value.price | currency}}</span>
+                                    <span class="round_button small-fixed-width-btn pull-right" ng-if="!(value.price > 0)">{{'text.free' | translate}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col s3 valign-wrapper my_button_column" style='padding-right:0px'>
-                        <span class="iconsstyle">
-                            <span class="round_button">{{'text.free' | translate}}</span>
-                        </span>
-                    </div>
+                    
                 </div>
-                <button class="round_button left" wz-previous="noValidation()">{{'text.previous' | translate}}</button>
+
+               <button class="round_button action-btn pull-left ng-binding" wz-previous="noValidation()"><<</button>
             </wz-step>
 
             <wz-step wz-title="5" canenter="validateStep">
                 <div class="row page-title-row">
-                    <div class="col s10 page-title-row-col">
+                    <div class="col s10 title page-title-row-col">
                         <div class='left-align'>
-                            <h4>{{'request_pickup_order_summary' | translate}}</h4>
+                            <h4 class="pull-left">{{'request_pickup_order_summary' | translate}}</h4>
                         </div>
                     </div>
                     <div class="col s2 page-title-row-col">
@@ -444,7 +457,7 @@
                 <!--Vault Card Template-->
                 <script type="text/ng-template" id="vault-card.html">
                     <div class="row  valign-wrapper mybutton  z-depth-4 " style="height: unset;">
-                        <div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
+                        <div class="col s2 valign-wrapper"><img src='images/credit-card.png' width="100%"></div>
                         <div class="col" ng-class="$index > -1?'s10':'s6'">
                             <span  ng-if="!getPayment.number">
                                 <a href="#/add-payment">{{'reqeust_pickup_add_payment' | translate}} </a>
@@ -475,10 +488,8 @@
                 </script>
 
                 
-                <button class="round_button left" wz-previous="noValidation()">
-                    {{'text.previous' | translate}}
-                </button>
-                <button type="submit" class="round_button right" wz-next="createOrder()" >
+              <button class="round_button action-btn pull-left ng-binding ng-scope" wz-previous="noValidation()">&lt;&lt;</button>
+                <button type="submit" class="round_button  action-btn pull-right ng-binding" wz-next="createOrder()" >
                         {{'text.submit' | translate}}
                 </button>
             </wz-step>
@@ -486,3 +497,4 @@
     </div>
 
 </div>
+

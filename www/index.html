@@ -54,6 +54,11 @@
         </div>
         <div class='curve'></div>
     </div>
+    <div class="no-internet" ng-if="!isOnline">
+        <div class="no-internet-text">
+          No internet connection!
+        </div>
+      </div>
     <ng-view></ng-view>
 
     <!-- menu starts here -->
@@ -113,7 +118,7 @@
     <ng-include src="'views/includes/main-loader.html'"></ng-include>
 
     <!-- App Scripts -->
-    <!-- <script src="cordova.js"></script> -->
+    <script src="cordova.js"></script>
 
     <!-- Scripts -->
     <script src="js/libraries/jquery.min.js"></script>
@@ -123,6 +128,7 @@
 
 
     <script src="js/libraries/angular.min.js"></script>
+    <script src="js/libraries/ng-cordova.js"></script>
     <script src="js/libraries/angular-route.js"></script>
     <script src="js/libraries/ngStorage.min.js"></script>
     <script src="js/libraries/angular-cookies.min.js"></script>
