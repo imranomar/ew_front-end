@@ -1,71 +1,52 @@
-<style>
-	html {
-		background-image: none !important;
-	}
-</style>	
-
-
 <div ng-controller="AddressCtrl" class="">
 	<div class="container personal" style='margin-bottom: 20px'>
-			<div class="row page-title-row">
-				<div class="col s12">
-					<div class='left-align'>
-						<h4 ng-if="id > 0">{{'text.edit_address' | translate}}</h4>
-						<h4 ng-if="!(id > 0)">{{'text.add_address' | translate}}</h4>
-					</div>
-				</div>
-      </div>
+			<h4 class="page-heading" ng-if="id > 0">{{'text.edit_address' | translate}}</h4>
+			<h4 class="page-heading" ng-if="!(id > 0)">{{'text.add_address' | translate}}</h4>
       
       <div class="row">
 
         <div class="col">
+          <form name="addressForm" ng-submit="!loading && saveAddressDetails(addressForm)" autocomplete="off" ng-validate="addressDetailsValidationOptions"">
 
-          <form>
+              <div class="form-group">
+                <label class="input-label">{{'address_details.street_name' | translate}}</label>
+                <input type="text" class="form-control" name="street_name" ng-model="addressData.street_name">
+              </div>
 
-            <div class="list">
+              <div class="form-group">
+                <label class="input-label">{{'address_details.floor' | translate}}</label>
+                <input type="text" class="form-control" name="floor" ng-model="addressData.floor">
+              </div>
 
-              <label class="item item-input">
-                <span class="input-label">{{'address_details.street_name' | translate}}</span>
-                <input type="text" autofocus="" ng-model="addressData.street_name">
-              </label>
+              <div class="form-group">
+                <label class="input-label">{{'address_details.po_box' | translate}}</label>
+                <input type="text" class="form-control" name="pobox" ng-model="addressData.pobox">
+              </div>
 
-              <label class="item item-input">
-                <span class="input-label">{{'address_details.floor' | translate}}</span>
-                <input type="text" autofocus="" ng-model="addressData.floor">
-              </label>
-
-              <label class="item item-input">
-                <span class="input-label">{{'address_details.po_box' | translate}}</span>
-                <input type="text" autofocus="" ng-model="addressData.pobox">
-              </label>
-
-              <label class="item item-input">
-                <span class="input-label">{{'address_details.unit_number' | translate}}</span>
-                <input type="text" autofocus="" ng-model="addressData.unit_number">
-              </label>
+              <div class="form-group">
+                <label class="input-label">{{'address_details.unit_number' | translate}}</label>
+                <input type="text" class="form-control" name="unit_number" ng-model="addressData.unit_number">
+              </div>
 
               
-              <label class="item item-input item-select">
-                <div class="input-label">
+              <div class="form-group item-select">
+                <label class="input-label">
                   {{'address_details.city' | translate}}
-                </div>
-                <select ng-model="addressData.city_id">
+                </label>
+                <select name="city" class="form-control" ng-model="addressData.city_id">
                   <option ng-repeat="value in cityData" value="{{value.id}}">
                     {{value.title}}
                   </option>
                 </select>
-              </label>
+              </div>
 
-              <p class="red ml-0" ng-show"err">{{err}}</p>
-
-              <div class="row" style='margin-top: 20px'><div class="col s12 center-align" ><a class='my_close_button z-depth-3' href='javascript:void(0)' ng-click="onAddSubmit()">{{'text.save_address' | translate}}</a></div></div>
-
-            </div>
-
+              <div class="row" style='margin-top: 20px'>
+                <div class="col s12 center-align" >
+                  <button type="submit" class="round_button action-btn">{{'text.save_address' | translate}}</button>
+                </div>
+              </div>
           </form>
-
         </div>
-
       </div>
 
       <div ng-if="loading" class="loader">Loading...</div>

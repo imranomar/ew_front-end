@@ -26,12 +26,12 @@ app.config(function($translateProvider, $cookiesProvider, $validatorProvider) {
   );  
 });
 
-app.run(function($rootScope, $location, $translate, AppService, CommonService) {
+app.run(function($rootScope, $location, $translate, AppService, LocalDataService) {
   AppService.initialize();
-
+  
   $rootScope.serviceOfferedToCity = "copenhagen";
 
-  $rootScope.customer_id = localStorage.getItem('laundryUser');
+  $rootScope.customer_id = LocalDataService.getUserDetailsLocal();
 
   $rootScope.Languages = {
     'en': 'English',
@@ -48,7 +48,7 @@ app.run(function($rootScope, $location, $translate, AppService, CommonService) {
 
   $rootScope.SelectedLang = 'en';
 
-  var langauage = CommonService.getLanguageFromLocal();
+  var langauage = LocalDataService.getLanguageFromLocal();
 
   if (langauage) {
       $rootScope.SelectedLang = langauage;
@@ -70,7 +70,7 @@ app.run(function($rootScope, $location, $translate, AppService, CommonService) {
         ? true
         : false;
 
-    var isAuthenticated = CommonService.isAuthenticated();
+    var isAuthenticated = LocalDataService.isAuthenticated();
     if(authenticationRequired && !isAuthenticated) {
       $location.path("/login");
     } else if(!authenticationRequired && isAuthenticated) {
@@ -135,34 +135,91 @@ app.factory('AppService', function ($rootScope, FCMService) {
   }
 });
 
+app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo) {
+  return {
+    CallAjaxRequest: function (partialUrl, dataObject, method) {
+      var defer = $q.defer();
+      $http({
+          method: method || 'POST',
+          url: appInfo.url + partialUrl,
+          data: $httpParamSerializer(dataObject),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      }).success(function (data, status, header, config) {
+          defer.resolve(data);
+      }).error(function (data, status, header, config) {
+          defer.reject(data);
+      });
+      return defer.promise;
+    },
+    CallAjaxUsingPostRequest: function (partialUrl, dataObject) {
+        var defer = $q.defer();
+        $http({
+            method: 'POST',
+            url: appInfo.url + partialUrl,
+            data: $httpParamSerializer(dataObject),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (data, status, header, config) {
+            defer.resolve(data);
+        }).error(function (data, status, header, config) {
+            defer.reject(data);
+        });
+        return defer.promise;
+    },
+    CallAjaxUsingGetRequest: function (partialUrl) {
+        var defer = $q.defer();
+        $http({
+            method: 'GET',
+            url: appInfo.url + partialUrl,
+        }).success(function (data, status, header, config) {
+            defer.resolve(data);
+        }).error(function (data, status, header, config) {
+            defer.reject(data);
+        });
+        return defer.promise;
+    },
+    GenerateAddPaymentForm: function(userId) {
+      return (
+        '<FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
+                    <INPUT TYPE="hidden" NAME="accepturl" VALUE="' +
+        baseUrl +
+        'vault/createvaultweb"> \
+                    <INPUT TYPE="hidden" NAME="callbackurl" VALUE=""> \
+                    <INPUT TYPE="hidden" NAME="amount" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="currency" VALUE="578"> \
+                    <INPUT TYPE="hidden" NAME="merchant" VALUE="90246240"> \
+                    <INPUT TYPE="hidden" NAME="orderid" id="orderid" VALUE="' +
+        userId +
+        '"> \
+                    <INPUT TYPE="hidden" NAME="lang" VALUE="EN"> \
+                    <INPUT TYPE="hidden" NAME="preauth" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="test" VALUE="1"> \
+                    <INPUT TYPE="hidden" NAME="decorator" VALUE="responsive" /> \
+                    <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"> \
+                </FORM> \
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
+                <script>$("#submit").click();</script>'
+      );
+    }
+  };
+});
 
-app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo, $localStorage) {
-  var LOCALSTORAGE_USER = "laundryUser";
-  //var LOCALSTORAGE_REMEMBER_ME = "rememberMe";
+app.factory("LocalDataService", function($rootScope, $cookies, $localStorage) {
+  const is_user_logged_in = true; 
   var LOCALSTORAGE_LANGUAGE = "locale";
+  var LOCAL_PREFIX_MYORDER = "myorder";
+  var LOCAL_PREFIX_INCOMPLETE_ORDER_ID = "incomplete_order_id";
 
   return {
     isAuthenticated: function() {
-      var user = localStorage.getItem(LOCALSTORAGE_USER);
+      var user = localStorage.getItem(LOCAL_PREFIX_MYORDER);
 
       if(user) {
         return true;
       }
       return false;
     },
-    storeLanguageLocal(language) {
-        $localStorage[LOCALSTORAGE_LANGUAGE] = language;
-    },
-    getLanguageFromLocal: function() {
-        var language = $localStorage[LOCALSTORAGE_LANGUAGE];
-
-        if (!language) {
-            return false;
-        }
-        return language;
-    },
     storeUserDetailsLocal: function(data, isChecked) {
-      localStorage.setItem(LOCALSTORAGE_USER, data);
+      localStorage.setItem(LOCAL_PREFIX_MYORDER, data);
 
       // var date = new Date();
       // var date1 = "";
@@ -177,67 +234,117 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo,
       // localStorage.setItem(LOCALSTORAGE_AUTH_USER, '1');
       // document.cookie = "laundryCookie=y; path= /; expires=" + date1;
     },
-    removeUserDetailsLocal: function() {
+    getUserDetailsLocal: function() {
       //document.cookie = "laundryCookie=y; path= /; expires=expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-      localStorage.removeItem(LOCALSTORAGE_USER);
+      return localStorage.getItem(LOCAL_PREFIX_MYORDER);
       //localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
     },
-    CallAjaxUsingPostRequest: function (partialUrl, dataObject) {
-        var defer = $q.defer();
-        $http({
-            method: 'POST',
-            url: appInfo.url + partialUrl,
-            data: $httpParamSerializer(dataObject),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        }).success(function (data, status, header, config) {
-            defer.resolve(data);
-        }).error(function (data, status, header, config) {
-            defer.reject(status);
-        });
-        return defer.promise;
+    removeUserDetailsLocal: function() {
+      //document.cookie = "laundryCookie=y; path= /; expires=expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+      localStorage.removeItem(LOCAL_PREFIX_MYORDER);
+      //localStorage.removeItem(LOCALSTORAGE_REMEMBER_ME);
     },
-    CallAjaxUsingGetRequest: function (partialUrl) {
-        var defer = $q.defer();
-        $http({
-            method: 'GET',
-            url: appInfo.url + partialUrl,
-        }).success(function (data, status, header, config) {
-            defer.resolve(data);
-        }).error(function (data, status, header, config) {
-            defer.reject(status);
-        });
-        return defer.promise;
+    storeLanguageLocal(language) {
+      $localStorage[LOCALSTORAGE_LANGUAGE] = language;
     },
-    GenerateAddPaymentForm: function(userId) {
-      return '<FORM ACTION="https://payment.architrade.com/paymentweb/start.action" METHOD="POST" CHARSET="UTF -8"> \
-                  <INPUT TYPE="hidden" NAME="accepturl" VALUE="'+ baseUrl +'vault/createvaultweb"> \
-                  <INPUT TYPE="hidden" NAME="callbackurl" VALUE=""> \
-                  <INPUT TYPE="hidden" NAME="amount" VALUE="1"> \
-                  <INPUT TYPE="hidden" NAME="currency" VALUE="578"> \
-                  <INPUT TYPE="hidden" NAME="merchant" VALUE="90246240"> \
-                  <INPUT TYPE="hidden" NAME="orderid" id="orderid" VALUE="' + userId +'"> \
-                  <INPUT TYPE="hidden" NAME="lang" VALUE="EN"> \
-                  <INPUT TYPE="hidden" NAME="preauth" VALUE="1"> \
-                  <INPUT TYPE="hidden" NAME="test" VALUE="1"> \
-                  <INPUT TYPE="hidden" NAME="decorator" VALUE="responsive" /> \
-                  <INPUT type="Submit" id="submit" name="submit" style="visibility:hidden"> \
-              </FORM> \
-              <script src="js/jquery-3.3.1.slim.min.js"></script> \
-              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
-              <script>$("#submit").click();</script>';
-    }
+    getLanguageFromLocal() {
+      var language = $localStorage[LOCALSTORAGE_LANGUAGE];
+
+      if (!language) {
+        return false;
+      }
+      return language;
+    },
+    saveOrderData: function(data) {
+      if (is_user_logged_in) {
+        $localStorage[LOCAL_PREFIX_MYORDER] = data;
+      } else {
+        var date = new Date();
+        var expireDate = new Date(
+          date.setHours(date.getHours() + 1)
+        ).toUTCString();
+
+        $cookies.put(LOCAL_PREFIX_MYORDER, JSON.stringify(data), {
+          expires: expireDate
+        });
+      }
+    },
+    saveOrderDataForUser: function(user_id, data) {
+      $localStorage[LOCAL_PREFIX_MYORDER + "_" + user_id] = data;
+    },
+    getOrderData: function(data) {
+      var orderDetails;
+
+      if (is_user_logged_in) {
+        orderDetails =
+          $localStorage[LOCAL_PREFIX_MYORDER];
+      } else {
+        orderDetails = $cookies.get(LOCAL_PREFIX_MYORDER);
+      }
+
+      if (!orderDetails) {
+        return null;
+      }
+
+      if (is_user_logged_in) {
+        return orderDetails;
+      } else {
+        return JSON.parse(orderDetails);
+      }
+    },
+    removeOrderData: function() {
+      if (is_user_logged_in) {
+        delete $localStorage[LOCAL_PREFIX_MYORDER];
+      } else {
+        $cookies.remove(LOCAL_PREFIX_MYORDER);
+      }
+    },
+    removeGuestUserOrderData: function() {
+      $cookies.remove(LOCAL_PREFIX_MYORDER);
+    },
+    removeUserData: function() {
+      delete $localStorage[LOCAL_PREFIX_MYORDER];
+    },
+    getIncompleteOrderId: function() {
+      var orderId = $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID];
+
+      if (!orderId) {
+        return false;
+      }
+      return orderId;
+    },
+    getIncompleteOrderId: function() {
+      var orderId
+      if (is_user_logged_in) {
+        orderId =
+          $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID + "_" + $rootScope.customer_id];
+      } else {
+        orderId = $cookies.get(LOCAL_PREFIX_INCOMPLETE_ORDER_ID);
+      }
+
+      if (!orderId) {
+        return false;
+      }
+      return orderId;
+    },
+    saveIncompleteOrderId: function(order_id) {
+      if (is_user_logged_in) {
+        $localStorage[LOCAL_PREFIX_INCOMPLETE_ORDER_ID + "_" + $rootScope.customer_id] = order_id;
+      } else {
+        var date = new Date();
+        var expireDate = new Date(
+          date.setHours(date.getHours() + 1)
+        ).toUTCString();
+
+        $cookies.put(LOCAL_PREFIX_INCOMPLETE_ORDER_ID, order_id, {
+          expires: expireDate
+        });
+      }
+    },
   };
 });
 
 app.config(function($routeProvider,$locationProvider) {
-  let cookieName = 'laundryCookie';
-  function getCookie(name) {
-    debugger;
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-  }
-
   $routeProvider
   .when("/login", {
     templateUrl : "views/login.html",
@@ -334,8 +441,6 @@ app.config(function($routeProvider,$locationProvider) {
 
   // use the HTML5 History API
   $locationProvider.html5Mode(false);
-
-
 
 });
 

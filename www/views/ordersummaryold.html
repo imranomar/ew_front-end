@@ -3,7 +3,7 @@
         background-image: none !important;
 	}
 
-	.mybutton2
+	.card-box
 	{
 		height: 25vw;
 	}
@@ -85,7 +85,7 @@
 								'day-after-div': value.name == 'Tomorrow',
 							}">
 							<div class="col s12">
-								<div class="mybutton next row z-depth-4" >
+								<div class="card-box next row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
 											<div class="col s12 my_button_title" ><h5>{{value.name}}</h5></div>
@@ -110,7 +110,7 @@
 							class="row"
 							>
 							<div  ng-click="onOther()"  class="col s12">
-								<div class="mybutton row z-depth-4" >
+								<div class="card-box row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
 											<div class="col s12 my_button_title" ><h5>Other</h5></div>
@@ -234,7 +234,7 @@
 								>
 									<div class="col s12">
 											<label class="container" for="{{value}}">
-										<div class="mybutton2 row z-depth-4" >
+										<div class="card-box row z-depth-4" >
 											<div class="col s3 my_button_column" style='padding-right:0px'  >
 												<div class="row">
 													<div class="col s12 my_button_title" ><img width="100%" src="images\{{value.time_from}}.png"></div>
@@ -266,7 +266,7 @@
 								</div>
 								</div>
 								<div class="row"><div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div></div>
-								<div class='mybutton row  z-depth-4  valign-wrapper '>
+								<div class='card-box row  z-depth-4  valign-wrapper '>
 									
 										<div class="col s9">
 											<div class="item ">
@@ -362,7 +362,7 @@
 										'day-after-div': value.name == 'day after',
 									}">
 							<div class="col s12">
-								<div class="mybutton next row z-depth-4" >
+								<div class="card-box next row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
 											<div class="col s12 my_button_title" ><h5>{{value.name}}</h5></div>
@@ -387,7 +387,7 @@
 						class="row" ng-if="!showAllDateList1"
 						>
 							<div  ng-click="onOther1()"  class="col s12 next">
-								<div class="mybutton row z-depth-4" >
+								<div class="card-box row z-depth-4" >
 									<div class="col s6 my_button_column"  >
 										<div class="row">
 											<div class="col s12 my_button_title" ><h5>Other</h5></div>
@@ -486,7 +486,7 @@
 								>
 									<div class="col s12">
 											<label class="container" for="a{{value}}">
-										<div class="mybutton2 row z-depth-4" >
+										<div class="card-box row z-depth-4" >
 											<div class="col s3 my_button_column" style='padding-right:0px'  >
 												<div class="row">
 													<div class="col s12 my_button_title" ><img width="100%" src="images\{{value.time_from}}.png"></div>
@@ -520,7 +520,7 @@
 
 							<div class="row"><div style='margin-top: 5vw; margin-bottom: 5vw' class="col s12 center-align">OR</div></div>
 					
-							<div class='mybutton row  z-depth-4  valign-wrapper '>
+							<div class='card-box row  z-depth-4  valign-wrapper '>
 									
 								<div class="col s9">
 									<div class="item ">
@@ -684,7 +684,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row  valign-wrapper mybutton  z-depth-4" style='height: unset; background-color: #E1F5FE'>
+						<div class="row  valign-wrapper card-box  z-depth-4" style='height: unset; background-color: #E1F5FE'>
 							<div class="col s2"><img src='images/dollar.png' width="100%"></div>
 							<div class="col s10">
 								<b>Extra Charges</b><br>
@@ -717,7 +717,7 @@
 							</div>
 							
 						</div>
-						<div class="row  valign-wrapper mybutton  z-depth-4 ">
+						<div class="row  valign-wrapper card-box  z-depth-4 ">
 							<div class="col s2 valign-wrapper"><img src='images/mastercard.png' width="100%"></div>
 							<div class="col s6">
 								<span  ng-if="!getpayment.cvcode">
@@ -737,7 +737,7 @@
 							</div>
 						</div>
 
-						<div class="row mybutton  valign-wrapper  z-depth-4 ">
+						<div class="row card-box  valign-wrapper  z-depth-4 ">
 							<div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
 							<div class="col s6">
 								<span ng-if="getAddress.addresses.length == 0">

@@ -13,7 +13,7 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ionic/1.3.2/css/ionic.css"> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/libraries/materialize.css" rel="stylesheet">
+    <link href="css/libraries/materialize.min.css" rel="stylesheet">
     <link href="css/libraries/angular-wizard.min.css" rel="stylesheet">
     <link href="css/custom/custom.css" rel="stylesheet">
 
@@ -56,9 +56,11 @@
     </div>
     <div class="no-internet" ng-if="!isOnline">
         <div class="no-internet-text">
-          No internet connection!
-        </div>
-      </div>
+            No internet connection!
+        </div>  
+    </div>
+
+    <div ng-if="messageObj" ng-class="messageObj.class">{{messageObj.message}}</div>
     <ng-view></ng-view>
 
     <!-- menu starts here -->
@@ -76,7 +78,7 @@
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="javascript:void(0)" ng-click="goTo('/ordersummary')"><i class="tiny material-icons">local_shipping</i>{{'request_pickup' | translate}}</a></li>
+            <li><a href="javascript:void(0)" ng-click="goTo('/ordersummary')"><i class="tiny material-icons">local_shipping</i>{{'menu_request_pickup' | translate}}</a></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -113,6 +115,134 @@
         </ul>
         <!-- menu ends here -->
     </div>
+
+
+    <!-- No Services Modal -->
+    <div class="modal" id="noServiceModal" role="dialog" apply-modal>
+        <!-- Modal content-->
+        <div class="modal-header">
+            <h4 class="modal-title">{{'service_not_available' | translate}}
+                <div class="div_close_icon right-align modal-close">
+                    <span class="material-icons">close</span>
+                </div>
+            </h4>
+        </div>
+        <div class="modal-content">
+            <p class="m-0">Sorry we are not yet serving your city but will let you know as soon as we get there.</p>
+            
+        </div>
+    </div>
+    <!-- End No Services Modal -->
+
+    <!--Address Card Template-->
+    <script type="text/ng-template" id="address-card.html">
+        <div class="row card-box  valign-wrapper  z-depth-4 " style="height: unset;">
+            <div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
+            <div class="col" ng-class="$index > -1?'s10':'s7'">
+                <div ng-hide="$index > -1"><strong>{{'address_details_text' | translate}}</strong></div>
+                <span ng-if="getAddress != null">
+                    <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="material-icons dp48">check_circle</i></span></div>
+                    <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                    <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
+                    <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
+                </span>
+            </div>
+            <div class="col s3 px-0" ng-hide="$index > -1">
+                <table style='margin: 15px 0px 15px 0px; border-collapse:  none'>
+                    <tr>
+                        <td>
+                            <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper modal-trigger" data-target="addressChangeModal" ng-if="AllAddresses.length > 1">{{'text.change' | translate}}</a>
+                            <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper" ng-click="openAddAddressModal()" ng-if="AllAddresses.length == 1">{{'text.change' | translate}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>           
+    </script>
+
+    <!--Vault Card Template-->
+    <script type="text/ng-template" id="vault-card.html">
+        <div class="row  valign-wrapper card-box  z-depth-4 " style="height: unset;">
+            <div class="col s2 valign-wrapper"><img src='images/credit-card.png' width="100%"></div>
+            <div class="col" ng-class="$index > -1?'s10':'s7'">
+                <div ng-hide="$index > -1"><strong>{{'payement_details_text' | translate}}</strong></div>
+                <div ng-if="getPayment.payment_type">
+                    <span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="material-icons dp48">check_circle</i></span>
+                </div>
+                <div  ng-if="getPayment.number">
+                    {{'request_pikcup_card_end_with' | translate}} :- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+                </div>
+                <div>
+                    {{'text.expiry' | translate}} :- <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+                </div>
+            </div>
+
+            
+            <div class="col s3 px-0" ng-hide="$index > -1">
+                <table style='margin: 15px 0px 15px 0px;   border-collapse:  none'>
+                    <tr>
+                        <td>
+                            <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper modal-trigger" data-target="vaultChangeModal" ng-if="AllPayments.length > 1">{{'text.change' | translate}}</a>
+                            <a href="javascript:void(0)" class="round_button small-fixed-width-btn text-upper" ng-click="openAddVaultModal()" ng-if="AllPayments.length == 1">{{'text.change' | translate}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </script>
+   
+
+    <!--Address Form Template-->
+    <script type="text/ng-template" id="address-form.html">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="msg msg-error" ng-show="addressErr">{{addressErrorMessage}}</p>
+                
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.street_name' | translate}}</label>
+                    <input type="text" name="street_name" class="form-control" ng-disabled="loading" ng-model="addressDetails.street_name" autofocus />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.floor' | translate}}</label>
+                    <input type="text" name="floor" class="form-control" ng-disabled="loading" ng-model="addressDetails.floor" />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.unit_number' | translate}}</label>
+                    <input type="text" name="unit_number" class="form-control" ng-disabled="loading" ng-model="addressDetails.unit_number" />
+                </div>
+
+                <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.po_box' | translate}}</label>
+                    <input type="text" name="pobox" class="form-control" ng-disabled="loading" ng-model="addressDetails.pobox" />
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="font-weight-bold">{{'address_details.city' | translate}}</label>
+                    <select ng-model="addressDetails.city_id" ng-disabled="loading" name="city" class="form-control" required>
+                        <option value="">{{'text.select' | translate}} {{'address_details.city' | translate}}</option>
+                        <option ng-repeat="value in cityData"  value="{{value.id}}">
+                            {{value.title}}
+                        </option>
+                    </select>
+                </div> -->
+            </div>
+        </div>
+    </script>
+
+    <!--Vault Form Template-->
+    <script type="text/ng-template" id="vault-form.html">
+        <p class="alert alert-danger" ng-show="paymentErr">{{paymentErrorMessage}}</p>
+        <div class="paymentIframeContainer"></div>
+    </script>
+
+    <!-- Loder -->   
+    <script type="text/ng-template" id="loader.html">
+        <div class="loader-container">
+            <div class="loader"></div>
+        </div>
+    </script>
 
     <!-- Main Loader -->
     <ng-include src="'views/includes/main-loader.html'"></ng-include>
