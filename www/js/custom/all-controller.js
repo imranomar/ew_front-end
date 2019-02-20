@@ -10,7 +10,6 @@ app.controller("AppController", function(
   LocalDataService
 ) {
   $rootScope.showLoading = false;
-  $rootScope.messageObj = null;
 
   $scope.changeLanguage = function(lang) {
     $rootScope.SelectedLang = lang;
@@ -43,11 +42,11 @@ app.controller("AppController", function(
 
     $(".paymentIframeContainer").html("");
     $(".paymentIframeContainer:visible").html(
-      '<iframe id="paymentIframe" name="paymentIframe" width="100%" height="630px"></iframe>'
+      '<iframe id="paymentIframe" name="paymentIframe" width="100%" height="650px"></iframe>'
     );
     var doc = document.getElementById("paymentIframe").contentWindow.document;
     doc.open();
-    doc.write('<h3 class="text-center"><div class="loader-container"><div class="loader"></div></div></h3><link rel="stylesheet" href="'+ rootUrl + 'wp-content/themes/eazywash/css/custom.css" />' + formHtml);
+    doc.write('<h3 class="text-center"><div class="loader-container"><div class="loader"></div></div></h3><link rel="stylesheet" href="'+ websiteUrl + 'wp-content/themes/eazywash/css/custom.css" />' + formHtml);
     doc.close();
   };
 
@@ -440,196 +439,17 @@ app.controller("MydetailsCtrl", function(
   $scope,
   $rootScope,
   $filter,
-  $location,
   CommonService,
-  $http,
-  appInfo,
-  $httpParamSerializer
 ) {
-  // body...
-  $scope.loading = false;
-  let x = $rootScope.customer_id;
+
+  let userId = $rootScope.customer_id;
 
   $scope.userdata = {};
+  $scope.addresses = [];
+  $scope.vaults = [];
   $scope.asteriskPassword = "";
-  $scope.paymentDetails = [];
-  $scope.cityids = [];
-  getPayment();
-  getAddress();
-  getVault(x);
 
-  function getPassword() {
-    let p = $scope.userdata.password.split("").map(() => {
-      return "*";
-    });
-    $scope.asteriskPassword = p.join("");
-  }
-
-$scope.openAddressModal = function(addressDetail, index) {
-    if (addressDetail && addressDetail !== null) {
-      tempAddressIndex = index;
-
-      addressDetail.city_id = String(addressDetail.city_id);
-      $scope.addressDetails = angular.copy(addressDetail);
-    } else {
-      defaultAddressFields();
-    }
-    $rootScope.showModal("#addressModal");
-  };
-
-
- $scope.setDefaultAddress = function(addressDetail,index) {
-  debugger;
-       
-      let partialUrl = 'addressesapi/setdefault?id='+ addressDetail.id;
-
-    CommonService.CallAjaxUsingPostRequest(partialUrl, { customer_id: x})
-      .then(
-        function(data) {
-          debugger;
-          $scope.loading = false;
-
-          if (data.Success == true) {
-            $scope.userdata.addresses.map(function(address) {
-              if (address.id == addressDetail.id) {
-                return (address.as_default = 1);
-              } else {
-                return (address.as_default = 0);
-              }
-            });
-
-            $scope.messageObj = {
-              class: "alert alert-success",
-              message: result.message
-            };
-          } else {
-            $scope.messageObj = {
-              class: "alert alert-danger",
-              message: data.Message
-            };
-          }
-        },
-        function(error) {}
-      )
-      .finally(function() {
-        $timeout(function() {
-          $scope.messageObj = null;
-        }, 2000);
-        $scope.loading = false;
-      });
-  };
-
-
- $scope.deleteVault = function(vaultDetail, index) {
-    if (vaultDetail && vaultDetail !== null) {
-      debugger;
-      var cardName = $rootScope.CardTypes[vaultDetail.payment_type]
-        ? $rootScope.CardTypes[vaultDetail.payment_type]
-        : vaultDetail.payment_type;
-      
-      var confirmation = confirm(
-        $filter("translate")("deletion_confirmation") +
-          cardName +
-          " " +
-          $filter("translate")(" vault_details.ends_with") +
-          " " +
-          vaultDetail.number +
-          "?"
-      );
-
-      if (confirmation) {
-        const partialUrl = 'vaultapi/delete?id='+ vaultDetail.id;
-
-        CommonService.CallAjaxRequest(partialUrl, {}, 'DELETE')
-          .then(
-            function(data) {
-                debugger;
-                $scope.paymentDetails.splice(index, 1);
-              
-            },
-            function(error) {}
-          )
-          .finally(function() {
-            $timeout(function() {
-              $scope.messageObj = null;
-            }, 2000);
-            $scope.loading = false;
-          });
-      }
-    }
-  };
-
-
-  $scope.deleteAddress = function(addressDetail, index) {
-    if (addressDetail && addressDetail !== null) {
-      var confirmation = confirm(
-        $filter("translate")("address_deletion_confirmation")
-      );
-      if (confirmation) {
-        let partialUrl = 'addressesapi/delete?id='+ addressDetail.id;
-
-        CommonService.CallAjaxRequest(partialUrl, {}, 'DELETE')
-          .then(
-            function(data) {
-              $scope.loading = false;
-              $scope.userdata.addresses.splice(index, 1);
-
-              $scope.messageObj = {
-                class: "alert alert-success",
-                message: "Address deleted successfully"
-              };
-            },
-            function(error) {}
-          )
-          .finally(function() {
-            $timeout(function() {
-              $scope.messageObj = null;
-            }, 2000);
-            $scope.loading = false;
-          });
-      }
-    }
-  };
-
-
-
-
-$scope.setDefaultVault = function(vaultDetail) {
-    let partialUrl = 'vaultapi/setdefault?id='+vaultDetail.id;
-
-    CommonService.CallAjaxUsingPostRequest(partialUrl, { customer_id: x})
-      .then(
-        function(data) {
-          $scope.loading = false;
-
-          if (data.Success == true) {
-            $scope.paymentDetails.map(function(vault) {
-              if (vault.id == vaultDetail.id) {
-                return (vault.as_default = 1);
-              } else {
-                return (vault.as_default = 0);
-              }
-            });
-
-            $scope.messageObj = {
-              class: "alert alert-success",
-              message: data.message
-            };
-          } else {
-            $scope.messageObj = {
-              class: "alert alert-danger",
-              message: data.Message
-            };
-          }
-        },
-        function(error) {}
-      )
-      .finally(function() {
-        $scope.loading = false;
-      });
-  };
-
-
+  getUserDetails();
 
 
   $(".edit-btn").click(function() {
@@ -695,6 +515,41 @@ $scope.setDefaultVault = function(vaultDetail) {
       .css("display", "block");
   });
 
+  function getUserDetails() {
+    $rootScope.showLoading = true;
+    
+    let partialUrl = "customersapi/view/?id=" + userId + "&expand=addresses,vault";
+    
+    CommonService.CallAjaxUsingGetRequest(partialUrl)
+      .then(
+        function(response) {
+          $scope.userdata = response;
+
+          if(response.addresses && response.addresses.length > 0) 
+            $scope.addresses = response.addresses;
+          
+          if(response.vault && response.vault.length > 0) 
+            $scope.vaults = response.vault;
+            
+          getPassword();
+        },
+        function(error) {
+
+        }
+      )
+      .finally(function() {
+        $rootScope.showLoading = false;
+      });
+  }
+
+  
+  function getPassword() {
+    let p = $scope.userdata.password.split("").map(() => {
+      return "*";
+    });
+    $scope.asteriskPassword = p.join("");
+  }
+  
   $scope.onSavePersonDetail = function() {
     let data = {
       full_name: $scope.userdata.full_name,
@@ -703,105 +558,143 @@ $scope.setDefaultVault = function(vaultDetail) {
       phone: $scope.userdata.phone
     };
 
-    const partialUrl = "customersapi/update/?id=" + x;
+    $rootScope.showLoading = true;
+    const partialUrl = "customersapi/update/?id=" + userId;
     CommonService.CallAjaxRequest(partialUrl, data, 'PUT').then(
-          function(res) {
-              debugger;
-              console.log(res);
-              $scope.userdata.password = res.data.password;
-              getPassword();
-            
-          },
-          function(error) {
-            console.log(error);
-          }
-        )
-        .finally(function() {
-          $scope.loading = false;
-        });
+      function(res) {
+          console.log(res);
+          $scope.userdata.password = res.password;
+          getPassword();
 
-    /* let req = {
-      method: "PUT",
-      crossDomain: true,
-      url: ,
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+          CommonService.toast($filter("translate")("message_user_info_updated"));
+      },
+      function(error) {
+        console.log(error);
       }
-    };
-    $scope.loading = true;
-    $http(req)
-      .then(function(res) {
-       
-      })
-      .catch(function(err) {
-        $scope.loading = false;
-        console.log(err);
-      }); */
+    )
+    .finally(function() {
+      $rootScope.showLoading = false;          
+    });
   };
 
-  function getAddress() {
-    $http
-      .get(appInfo.url + "customersapi/view/?id=" + x + "&expand=addresses")
-      .then(function(res) {
-        //   console.log(res.data);
-        $scope.userdata = res.data;
-        for (let value of $scope.userdata.addresses) {
-          getcity(value.city_id);
-        }
-        getPassword();
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
-  }
+  $scope.setDefaultAddress = function(addressDetail) {
+    $rootScope.showLoading = true;
+    let partialUrl = 'addressesapi/setdefault?id='+ addressDetail.id;
 
-  function getPayment() {
-    //alert(appInfo.url+'customersapi/view/?id='+x+'&expand=payments');
-    $http
-      .get(appInfo.url + "customersapi/view/?id=" + x + "&expand=payments")
-      .then(function(res) {
-        $scope.loading = false;
-        // console.log(res.data);
-        $scope.userdata.payments = res.data.payments;
-        //for(let value of  $scope.userdata.payments){
-        //getVault(value.vault_id);
-        //}
-      })
-      .catch(function(err) {
-        $scope.loading = false;
-        console.log(err);
-      });
-  }
+    CommonService.CallAjaxUsingPostRequest(partialUrl, { customer_id: x})
+      .then(
+        function(data) {
+          if (data.Success == true) {
+            $scope.userdata.addresses.map(function(address) {
+              if (address.id == addressDetail.id) {
+                return (address.as_default = 1);
+              } else {
+                return (address.as_default = 0);
+              }
+            });
+          }
 
-  function getVault(id) {
-    //alert(appInfo.url+'vaultapi/view/?id='+id);
-    $scope.loading = true;
-    $http
-      .get(appInfo.url + "customersapi/view/?id=" + x + "&expand=vault")
-      .then(function(res) {
-        $scope.loading = false;
-        for (let value of res.data.vault) {
-          $scope.paymentDetails.push(value);
-        }
-      })
-      .catch(function(err) {
-        $scope.loading = false;
-        console.log(err);
+          CommonService.toast(data.Message);
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $rootScope.showLoading = false;
       });
-  }
+  };
 
-  function getcity(city) {
-    $http
-      .get(appInfo.url + "citiesapi/view?id=" + city)
-      .then(function(res) {
-        console.log(res.data);
-        $scope.cityids.push(res.data);
-      })
-      .catch(function(err) {
-        console.log(err);
+  $scope.deleteVault = function(vaultDetail, index) {
+    if (vaultDetail && vaultDetail !== null) {
+      var cardName = $rootScope.CardTypes[vaultDetail.payment_type]
+        ? $rootScope.CardTypes[vaultDetail.payment_type]
+        : vaultDetail.payment_type;
+      
+      var confirmation = confirm(
+        $filter("translate")("deletion_confirmation") +
+          cardName +
+          " " +
+          $filter("translate")("vault_details.ends_with") +
+          " " +
+          vaultDetail.number +
+          "?"
+      );
+
+      if (confirmation) {
+        $rootScope.showLoading = true;
+        const partialUrl = 'vaultapi/delete?id='+ vaultDetail.id;
+
+        CommonService.CallAjaxRequest(partialUrl, {}, 'DELETE')
+          .then(
+            function(data) {
+                debugger;
+                $scope.vaults.splice(index, 1);
+
+                CommonService.toast($filter("translate")("message_vault_delete"))
+            },
+            function(error) {}
+          )
+          .finally(function() {
+            $rootScope.showLoading = false;
+          });
+      }
+    }
+  };
+
+  $scope.deleteAddress = function(addressDetail, index) {
+    if (addressDetail && addressDetail !== null) {
+      var confirmation = confirm(
+        $filter("translate")("address_deletion_confirmation")
+      );
+      if (confirmation) {
+        $rootScope.showLoading = true;
+
+        let partialUrl = 'addressesapi/delete?id='+ addressDetail.id;
+
+        CommonService.CallAjaxRequest(partialUrl, {}, 'DELETE')
+          .then(
+            function(data) {
+              $scope.addresses.splice(index, 1);
+
+              CommonService.toast($filter("translate")("message_address_delete"))
+            },
+            function(error) {}
+          )
+          .finally(function() {
+            $rootScope.showLoading = false;
+          });
+      }
+    }
+  };
+
+  $scope.setDefaultVault = function(vaultDetail) {
+    $rootScope.showLoading = true;
+
+    let partialUrl = 'vaultapi/setdefault?id=' + vaultDetail.id;
+
+    CommonService.CallAjaxUsingPostRequest(partialUrl, { customer_id: userId })
+      .then(
+        function(data) {
+          $scope.loading = false;
+
+          if (data.Success == true) {
+            $scope.vaults.map(function(vault) {
+              if (vault.id == vaultDetail.id) {
+                return (vault.as_default = 1);
+              } else {
+                return (vault.as_default = 0);
+              }
+            });
+          } 
+
+          CommonService.toast(data.Message);
+        },
+        function(error) {}
+      )
+      .finally(function() {
+        $rootScope.showLoading = false;
       });
-  }
+  };
+
 });
 
 app.controller("DeliverydateCtrl", function($scope) {
@@ -1993,7 +1886,7 @@ app.controller("OrdersummaryCtrl", function(
 
 // Load Controller of PaymentmethodfCtrl
 
-app.controller("PaymentmethodCtrl", function($scope, $http, appInfo) {
+app.controller("PaymentmethodCtrl", function($scope, $http) {
   $scope.loading = false;
   $scope.paymentId;
   const userId = $rootScope.customer_id;
@@ -2005,7 +1898,7 @@ app.controller("PaymentmethodCtrl", function($scope, $http, appInfo) {
     let id = $scope.userdata.payments[i].id;
     let req = {
       method: "DELETE",
-      url: appInfo.url + "paymentsapi/delete?id=" + id,
+      url: baseUrl + "paymentsapi/delete?id=" + id,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
@@ -2029,7 +1922,7 @@ app.controller("PaymentmethodCtrl", function($scope, $http, appInfo) {
 
   function getPayment() {
     $http
-      .get(appInfo.url + "customersapi/view/?id=" + userId + "&expand=payments")
+      .get(baseUrl + "customersapi/view/?id=" + userId + "&expand=payments")
       .then(function(res) {
         // console.log(res.data.payments[0].id);
         // $scope.paymentId = res.data.payments[0].id;
@@ -2055,7 +1948,7 @@ app.controller("PaymentmethodCtrl", function($scope, $http, appInfo) {
   function getVault(id) {
     $scope.loading = true;
     $http
-      .get(appInfo.url + "vaultapi/view/?id=" + id)
+      .get(baseUrl + "vaultapi/view/?id=" + id)
       .then(function(res) {
         $scope.loading = false;
         // console.log(res.data);
@@ -2092,7 +1985,6 @@ app.controller("MyeditCtrl", function($scope, $routeParams) {
 app.controller("EditPaymentCtrl", function(
   $scope,
   $http,
-  appInfo,
   $routeParams,
   $httpParamSerializer
 ) {
@@ -2110,7 +2002,7 @@ app.controller("EditPaymentCtrl", function(
 
     let req = {
       method: "PUT",
-      url: appInfo.url + "vaultapi/update?id=" + $routeParams.id,
+      url: baseUrl + "vaultapi/update?id=" + $routeParams.id,
       data: $httpParamSerializer(data),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -2131,7 +2023,7 @@ app.controller("EditPaymentCtrl", function(
   function getVault(id) {
     $scope.loading = true;
     $http
-      .get(appInfo.url + "vaultapi/view/?id=" + $routeParams.id)
+      .get(baseUrl + "vaultapi/view/?id=" + $routeParams.id)
       .then(function(res) {
         $scope.loading = false;
         // console.log(res.data);
@@ -2181,8 +2073,7 @@ app.controller("AddressCtrl", function(
       }
       
       $rootScope.showLoading = true;
-      
-      
+
       var method = $scope.id > 0 ? "PUT" : "POST";
 
       var apiUrl = $scope.id > 0
@@ -2195,30 +2086,19 @@ app.controller("AddressCtrl", function(
             debugger;
             var message = "";
             if ($scope.id > 0) {
-              message = "Address updated successfully";
+              message = $filter("translate")("message_address_updated");
             } else {
-              message = "Address added successfully";
+              message = $filter("translate")("message_address_added");
               $rootScope.goTo('/mydetails');
             }
 
-            $rootScope.messageObj = {
-              class: "msg msg-info",
-              message: message
-            };
+            CommonService.toast(message);
           },
           function(error) {
-            $rootScope.messageObj = {
-              class: "msg msg-errorr",
-              message: error.Message
-            };
           }
         )
         .finally(function() {
           $rootScope.showLoading  = false;
-
-          $timeout(function() {
-            $rootScope.messageObj = null;
-          }, 5000);
         });
       }
     };
@@ -2285,76 +2165,18 @@ app.controller("AddressCtrl", function(
 app.controller("AddPaymentCtrl", function(
   $scope,
   $rootScope,
-  $http,
-  appInfo,
-  $httpParamSerializer
+  CommonService,
+  $timeout
 ) {
-  let userId = localStorage.getItem("laundryUser");
-  $scope.paymentDetails = {};
-  $scope.userId = userId;
+  debugger;
+  let userId = $rootScope.customer_id;
 
-  $rootScope.loadAddPaymentMethodForm();
+  $timeout(function() {
+    $rootScope.loadAddPaymentMethodForm(userId);
+  }, 2000);
 
-  $scope.onAddPayment = function() {
-    let data = {
-      name: $scope.paymentDetails.name,
-      number: $scope.paymentDetails.number,
-      cvcode: $scope.paymentDetails.cvcode,
-      expiry_month: $scope.paymentDetails.expiry_month,
-      expiry_year: $scope.paymentDetails.expiry_year
-    };
-
-    let req = {
-      method: "POST",
-      url: appInfo.url + "vaultapi/create",
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-    $scope.err = "";
-    $scope.loading = true;
-    $http(req)
-      .then(function(res) {
-        $scope.loading = false;
-        console.log(res.data);
-        addPayment(res.data.id);
-      })
-      .catch(function(error) {
-        $scope.loading = false;
-        let err = error.data;
-        $scope.err = err[0].message;
-        // console.log(error);
-      });
-  };
-
-  function addPayment(id) {
-    let data = {
-      customer_id: userId,
-      vault_id: id
-    };
-
-    let req = {
-      method: "POST",
-      url: appInfo.url + "paymentsapi/create",
-      data: $httpParamSerializer(data),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    };
-    $scope.err = "";
-    $scope.loading = true;
-    $http(req)
-      .then(function(res) {
-        $scope.loading = false;
-        console.log(res.data);
-        $scope.paymentDetails = {};
-      })
-      .catch(function(error) {
-        $scope.loading = false;
-        let err = error.data;
-        $scope.err = err[0].message;
-        // console.log(error);
-      });
+  $scope.paymentSuccess = function() {
+    $rootScope.loadAddPaymentMethodForm(userId);
+    CommonService.toast('Payment method added successfully');
   }
 });

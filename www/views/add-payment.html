@@ -1,7 +1,9 @@
 <div ng-controller="AddPaymentCtrl">
-  <div ng-include="'vault-form.html'"></div>
+  <div class="payment-box" ng-include="'vault-form.html'"></div>
 
-  <p class="alert alert-danger" ng-show="paymentErr">{{paymentErrorMessage}}</p>
-  <div class="paymentIframeContainer"></div>
+  <div class="payment_bottom_bar text-center">
+      <a class="mt-20" href="javascript:void(0)" ng-click="reloadPaymentWindow()">{{'text.reload_Payment_window' | translate}}</a>
+      <button class="visiblity-none" id="orderLoadVaults" ng-click="paymentSuccess()">{{'text.save' | translate}}</button>
+  </div>
 </div>
 

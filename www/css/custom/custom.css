@@ -600,6 +600,7 @@ border-color: #d32f2f;
 {
   background-color: white; border-radius: 3px; height: 19vw;
   margin-bottom: 10px;
+  padding: 8px;
 }
 
 
@@ -609,6 +610,9 @@ border-color: #d32f2f;
     position: relative;
 }
 
+.card-box .action-btns .material-icons {
+  font-size: 1.3rem !important;
+}
 
 /*----*/
 .blueBtn,.leftText,.boxImage {
@@ -1161,20 +1165,23 @@ section[wz-heading-title="OrderSummary"] {
   font-size: 0.8rem;
 }
 .tabs .indicator {
-  background-color: #20b9e5 !important;
-}
-
-.tabs .tab a:focus, .tabs .tab a.active, .tabs .tab a:focus.active {
-  background-color: rgba(32, 185, 229, 0.2) !important;
+  background-color: #0c3f5a !important;
 }
 
 .mydetails .tabs {
   position: fixed;
+  background: #e4f9ff !important;
   z-index: 4;
+}
+
+.tabs .tab a.active {
+  color: #fff !important;
+  background: #20b9e5 !important;
 }
 
 .mydetails .container {
   padding-top: 80px;
+  padding-bottom: 60px;
 }
 
 .fixedbutton {
@@ -1187,6 +1194,34 @@ section[wz-heading-title="OrderSummary"] {
   padding: 0;
   font-size: 2rem;
 }
+
+.payment-box {
+  padding-bottom: 40px;
+}
+.payment_bottom_bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f1f1f1;
+  padding: 10px;
+  border-top: 1px solid rgba(204, 204, 204, 0.8);
+}
+
+#toast-container {
+  bottom: 2% !important;
+  text-align: center;
+}
+.toast {
+  width: auto;
+  display: inline-block;
+  padding: 8px 20px;
+  height: auto;
+  text-align: center;
+  line-height: normal;
+  min-height: initial;
+  font-size: 1rem;
+}
+
 
 /* CREATE ORDER ENDS HERE */
 @media only screen and (max-width: 992px) {

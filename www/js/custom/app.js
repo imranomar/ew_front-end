@@ -63,6 +63,7 @@ app.run(function($rootScope, $location, $translate, AppService, LocalDataService
   $rootScope.hideNavBar = false;
 
   $rootScope.$on("$routeChangeStart", function(event, currRoute, prevRoute) {
+    debugger;
     var currentRouteDetails = currRoute.$$route;
 
     var authenticationRequired =
@@ -135,13 +136,13 @@ app.factory('AppService', function ($rootScope, FCMService) {
   }
 });
 
-app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo) {
+app.factory("CommonService", function ($http, $q, $httpParamSerializer) {
   return {
     CallAjaxRequest: function (partialUrl, dataObject, method) {
       var defer = $q.defer();
       $http({
           method: method || 'POST',
-          url: appInfo.url + partialUrl,
+          url: baseUrl + partialUrl,
           data: $httpParamSerializer(dataObject),
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }).success(function (data, status, header, config) {
@@ -155,7 +156,7 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo)
         var defer = $q.defer();
         $http({
             method: 'POST',
-            url: appInfo.url + partialUrl,
+            url: baseUrl + partialUrl,
             data: $httpParamSerializer(dataObject),
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).success(function (data, status, header, config) {
@@ -169,7 +170,7 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo)
         var defer = $q.defer();
         $http({
             method: 'GET',
-            url: appInfo.url + partialUrl,
+            url: baseUrl + partialUrl,
         }).success(function (data, status, header, config) {
             defer.resolve(data);
         }).error(function (data, status, header, config) {
@@ -199,6 +200,9 @@ app.factory("CommonService", function ($http, $q, $httpParamSerializer, appInfo)
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> \
                 <script>$("#submit").click();</script>'
       );
+    },
+    toast: function(message) {
+      M.toast({html: message, classes: 'rounded', displayLength: 5000});
     }
   };
 });
@@ -421,10 +425,6 @@ app.config(function($routeProvider,$locationProvider) {
     authentication: true,
     showBackBtn: true
   })
-  .when('/edit-payment/:id', {
-    templateUrl: 'views/edit-payment.html',
-    authentication: true
-  })
   .when('/add-address', {
     templateUrl: 'views/address.html',
     authentication: true,
@@ -441,23 +441,9 @@ app.config(function($routeProvider,$locationProvider) {
 
   // use the HTML5 History API
   $locationProvider.html5Mode(false);
-
 });
 
-// route for the about page
-// .when('/about/:person', {
-//     templateUrl : 'pages/about.html',
-//     controller  : 'aboutController'
-// })
-
-// http://thisisbig.ae/advanced/backend/web/
-app.factory('appInfo', function () {
-  return {
-      url: baseUrl
-  }
-});
-
-app.factory('FCMService', function ($rootScope, appInfo, $httpParamSerializer,$http) {
+app.factory('FCMService', function ($rootScope) {
   return {
     generateToken: function(){
       if(!device.cordova) {
@@ -466,87 +452,9 @@ app.factory('FCMService', function ($rootScope, appInfo, $httpParamSerializer,$h
       
       FCMPlugin.getToken(function(token){
         $rootScope.fcm_token = token;
-        // let x = localStorage.getItem('laundryUser');
-        // let data = {
-        //   token: token,     
-        // };
-        // let req = {
-        //     method: 'PUT',
-        //     url: appInfo.url+'customersapi/update/?id='+x,
-        //     data: $httpParamSerializer(data),
-        //     headers: {
-        //         'Content-Type': 'application/x-www-form-urlencoded'
-        //     }
-        // }
-        // $http(req)
-        //   .then(function(res){
-        //     console.log(res);
-        //   }).catch(function(error){
-        //       console.log(error);      
-        // })
       });
     }
   }
-  
-});
-
-app.directive('itemFloatingLabel', function() {
-  return {
-    restrict: 'C',
-    link: function(scope, element) {
-      var el = element[0];
-      var input = el.querySelector('input, textarea');
-      var inputLabel = el.querySelector('.input-label');
-
-      if (!input || !inputLabel) return;
-
-      var onInput = function() {
-        if (input.value) {
-          inputLabel.classList.add('has-input');
-        } else {
-          inputLabel.classList.remove('has-input');
-        }
-      };
-
-      input.addEventListener('input', onInput);
-
-      
-
-      scope.$on('$destroy', function() {
-        input.removeEventListener('input', onInput);
-      });
-    }
-  };
-});
-
-
-app.directive('itemFloatingLabel', function() {
-  return {
-    restrict: 'C',
-    link: function(scope, element) {
-      var el = element[0];
-      var input = el.querySelector('input, textarea');
-      var inputLabel = el.querySelector('.input-label');
-
-      if (!input || !inputLabel) return;
-
-      var onInput = function() {
-        if (input.value) {
-          inputLabel.classList.add('has-input');
-        } else {
-          inputLabel.classList.remove('has-input');
-        }
-      };
-
-      input.addEventListener('input', onInput);
-
-      
-
-      scope.$on('$destroy', function() {
-        input.removeEventListener('input', onInput);
-      });
-    }
-  };
 });
 
 app.directive('applyModal', function () {

@@ -7,7 +7,7 @@
   <div class="container">
       <div id="personal">
 				<div class="row valign-wrapper card-box z-depth-4">
-					<div class="col s9">
+					<div class="col s10">
 						<div class="row">
 							<div class="col s12"><small class="text-upper">{{'basic_details.name' | translate}}</small></div>
 						</div>
@@ -16,14 +16,14 @@
 							<div class="col s12 clk-fade-in"><input class="form-control editable" ng-model="userdata.full_name" name="" type="text" /></div>
 						</div>
 					</div>
-					<div class="col s3 valign-wrapper right-align">
+					<div class="col s2 valign-wrapper px-0">
 						<a class='edit-btn text-upper'><i class="material-icons">edit</i></a>
 						<a ng-click="onSavePersonDetail()" class='save-btn whn-clk-edt ' style='display:none'><i class="material-icons">save</i></a>
 					</div>
 				</div>
 		
 				<div class="row valign-wrapper card-box z-depth-4">
-					<div class="col s9">
+					<div class="col s10">
 						<div class="row">
 							<div class="col s12"><small class="text-upper">{{'basic_details.email' | translate}}</small></div>
 						</div>
@@ -34,14 +34,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="col s3 valign-wrapper right-align">
+					<div class="col s2 valign-wrapper px-0">
 						<a class='edit-btn'><i class="material-icons">edit</i></a>
 						<a ng-click="onSavePersonDetail()" class='save-btn whn-clk-edt' style="display:none"><i class="material-icons">save</i></a>
 					</div>
 				</div>
 				
 				<div class="row valign-wrapper card-box z-depth-4">
-					<div class="col s9">
+					<div class="col s10">
 						<div class="row">
 							<div class="col s12"><small class="text-upper">{{'basic_details.password' | translate}}</small></div>
 						</div>
@@ -50,14 +50,14 @@
 							<div class="col s12  clk-fade-in"><input class="form-control editable" ng-model="asteriskPassword" name="" type="text" /></div>
 						</div>
 					</div>
-					<div class="col s3 valign-wrapper right-align">
+					<div class="col s2 valign-wrapper px-0">
 						<a class='edit-btn'><i class="material-icons">edit</i></a>
 						<a ng-click="onSavePersonDetail()" class='save-btn whn-clk-edt ' style='display:none'><i class="material-icons">save</i></a>
 					</div>
 				</div>
 		
 				<div class="row valign-wrapper card-box z-depth-4">
-					<div class="col s9">
+					<div class="col s10">
 						<div class="row">
 							<div class="col s12"><small class="text-upper">{{'basic_details.phone' | translate}}</small></div>
 						</div>
@@ -66,7 +66,7 @@
 							<div class="col s12  clk-fade-in"><input class="form-control editable" ng-model="userdata.phone" name="" type="text" /></div>
 						</div>
 					</div>
-					<div class="col s3 valign-wrapper right-align">
+					<div class="col s2 valign-wrapper px-0">
 						<a class='edit-btn'><i class="material-icons">edit</i></a>
 						<a ng-click="onSavePersonDetail()" class='save-btn whn-clk-edt ' style='display:none'><i class="material-icons">save</i></a>
 					</div>
@@ -233,55 +233,49 @@
 				</div> -->
       </div>
       <div id="payments">
-        <div>
           <div
-            class="row mybutton z-depth-4"
-            style="height:unset;padding: 10px 0px 10px 0px"
-            ng-repeat="paymentDetail in paymentDetails"
-          >
-            <div class="col s12">
-              <div class="row">
-                <div class="col s5 text-upper">
-                  {{ "card_details.card_type" | translate }}
-                </div>
-                <div class="col s7">{{ paymentDetail.payment_type }}</div>
-              </div>
-              <div class="row">
-                <div class="col s5 text-upper">
-                  {{ "card_details.card_number" | translate }}
-                </div>
-                <div class="col s7">{{ paymentDetail.number }}</div>
-              </div>
-              <div class="row">
-                <div class="col s5 text-upper">
-                  {{ "card_details.card_expiry_date" | translate }}
-                </div>
-                <div class="col s7">{{ paymentDetail.expiry_date }}</div>
-              </div>
-              <div class="row">
-                <div class="col s5 text-upper">
-                  {{ "card_details.card_expiry_month" | translate }}
-                </div>
-                <div class="col s7">{{ paymentDetail.expiry_month }}</div>
-              </div>
-              <button
-                type="submit"
-                class="btn waves-effect waves-light red ng-binding"
-                ng-click="deleteVault(paymentDetail, $index)"
-              >
-                <i class="material-icons">delete</i>
-              </button>
-              <button
-                type="submit"
-                class="btn btn-primary ng-binding ng-scope"
-                ng-click="setDefaultVault(paymentDetail, $index)"
-                ng-if="paymentDetail.as_default != 1"
-              >
-                Set Default
-              </button>
-            </div>
+            ng-repeat="getPayment in vaults"
+					>
+					<div class="row  valign-wrapper card-box  z-depth-4 " style="height: unset;">
+							<div class="col s2 valign-wrapper"><img src='images/credit-card.png' width="100%"></div>
+							<div class="col s8">
+									<div ng-if="getPayment.payment_type">
+											<span class="borderdotdot" ng-bind="displayCardName(getPayment.payment_type)"> </span> <span ng-if="getPayment.as_default == 1" class="text-success"><i class="material-icons dp48">check_circle</i></span>
+									</div>
+									<div  ng-if="getPayment.number">
+											{{'request_pikcup_card_end_with' | translate}} :- <span class="borderdotdot"> {{getPayment.number | limitTo:-4}} </span>
+									</div>
+									<div>
+											{{'text.expiry' | translate}} :- <span class="borderdotdot"> {{getPayment.expiry_month}}/{{getPayment.expiry_date}} </span>
+									</div>
+							</div>
+	
+							
+							<div class="col s2 px-0">
+									<table class="action-btns">
+											<tr>
+													<td>
+														<a href="javascript:void(0)" class="text-success"
+															ng-click="setDefaultVault(getPayment, $index)"
+															ng-if="getPayment.as_default != 1"
+														>
+															<i class="material-icons dp48">check_circle</i>
+														</button>
+													</td>
+											</tr>
+											<tr>
+													<td>
+														<a href="javascript:void(0)" class="text-danger"
+															ng-click="deleteVault(getPayment, $index)"
+														>
+															<i class="material-icons">delete</i>
+													</a>
+													</td>
+											</tr>
+									</table>
+							</div>
+					</div>
           </div>
-        </div>
 
         <button
           type="button"
@@ -293,70 +287,58 @@
       </div>
       <div id="addresses">
         <div
-          class="row mybutton z-depth-4"
-          style="height:unset;padding: 10px 0px 10px 0px"
-          ng-repeat="data in userdata.addresses"
+          ng-repeat="getAddress in addresses"
+				>
+				
+				<div class="row card-box  valign-wrapper  z-depth-4 " style="height: unset;">
+            <div class="col s2 valign-wrapper"><img src='images/address.png' width="100%"></div>
+            <div class="col s8">
+                <span ng-if="getAddress != null">
+                    <div class="borderdotdot">{{getAddress.street_name}}, {{getAddress.floor}} <span ng-if="getAddress.as_default == 1" class="text-success"><i class="material-icons dp48">check_circle</i></span></div>
+                    <div>{{'address_details.unit_number' | translate}} :- {{getAddress.unit_number}}</div>
+                    <div>{{'address_details.po_box' | translate}} :- {{getAddress.pobox}}</div>
+                    <!-- <div ng-bind="displayCityName(address_details.city_id)"></div> -->
+                </span>
+            </div>
+            <div class="col s2 px-0">
+                <table class="action-btns">
+                    <tr>
+                        <td>
+													<a href="javascript:void(0)" class="text-info" ng-click="goTo('/edit-address/' + getAddress.id)">
+														<i class="material-icons">edit</i>
+												</a>
+										</tr>
+										<tr>
+                        <td>
+													<a href="javascript:void(0)" class="text-success"
+														ng-click="setDefaultAddress(getAddress, $index)"
+														ng-if="getAddress.as_default != 1"
+													>
+														<i class="material-icons dp48">check_circle</i>
+													</button>
+                        </td>
+                    </tr>
+										<tr>
+                        <td>
+													<a href="javascript:void(0)" class="text-danger"
+														ng-click="deleteAddress(getAddress, $index)"
+													>
+														<i class="material-icons">delete</i>
+												</a>
+                        </td>
+										</tr>
+                </table>
+            </div>
+        </div>  
+          
+				</div>
+				<button
+          type="button"
+          class="btn btn-primary fixedbutton"
+          ng-click="goTo('/add-address')"
         >
-          <div class="col s12" ng-click="goTo('/edit-address/' + data.id)">
-            <div class="row">
-              <div class="col s5 text-upper">
-                {{ "address_details.street_name" | translate }}
-              </div>
-              <div class="col s7">{{ data.street_name }}</div>
-            </div>
-            <div class="row">
-              <div class="col text-upper">
-                {{ "address_details.floor" | translate }}
-              </div>
-              <div class="col s7">{{ data.floor }}</div>
-            </div>
-            <div class="row">
-              <div class="col text-upper">
-                {{ "address_details.po_box" | translate }}
-              </div>
-              <div class="col s7">{{ data.pobox }}</div>
-            </div>
-            <!--<div class="row">
-                        <div class="col text-upper">{{'address_details.city' | translate}}</div>
-                        <div class="col s7">{{cityids[$index].title}}</div>
-                        </div>-->
-          </div>
-          <div>
-            <button
-              type="button"
-              class="btn btn-primary"
-              ng-click="goTo('/edit-address/' + data.id)"
-            >
-              <i class="material-icons">edit</i>
-            </button>
-            <button
-              type="button"
-              class="btn waves-effect waves-light red"
-              ng-click="deleteAddress(data, $index)"
-            >
-              <i class="material-icons">delete</i>
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              ng-click="setDefaultAddress(data, $index)"
-              ng-if="data.as_default != 1"
-            >
-              SetAsDefault
-            </button>
-          </div>
-
-          <button
-            type="button"
-            class="btn btn-primary fixedbutton"
-            ng-click="goTo('/add-address')"
-          >
-            <i class="material-icons">add</i>
-          </button>
-          <!--<div class="row" style='margin-top: 20px'>
-                  <div class="col s12 center-align"><a class='round_button z-depth-3' href="#/add-address">{{'text.add_address' | translate}}</a></div>
-                  </div>-->
-        </div>
+          <i class="material-icons">add</i>
+        </button>
       </div>
   </div>
 </div>

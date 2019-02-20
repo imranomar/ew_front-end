@@ -36,7 +36,7 @@
     "edit": "Redigere",
     "reload_Payment_window": "Genindlæs betalingsvindue",
     "click_here": "Klik her",
-    "expiry": "Expiry",
+    "expiry": "udløb",
     "deliever": "Levering",
     "date": "Dato",
     "time": "Tid",
@@ -56,13 +56,12 @@
     "city": "by",
     "unit_number": "Enhedsnummer"
   },
-
-  "card_details": {
+  "vault_details": {
     "card_type": "Kort type",
-    "end_with": "Slutter med",
     "card_number": "Kortnummer",
-    "card_expiry_date": "Udløbsdato",
-    "card_expiry_month": "Udløbs måned"
+    "expiry_date": "Udløbsdato",
+    "expiry_month": "Udløbs måned",
+    "ends_with": "slutter med"
   },
 
   "menu_link_home": " Hjem",
@@ -126,7 +125,7 @@
   "request_pickup_order_success_information": "Din konto er også oprettet. Log venligst ind for at springe ekstra trin for at placere ordre.",
   "request_pickup_order_cancel_confirmation": "Din ordre bliver slettet. Vil du annullere ordren?",
   "address_deletion_confirmation": "Vil du slette adresseoplysninger?",
-  "deletion_confirmation": "Vil du slette",
+  "deletion_confirmation": "Vil du slette ",
   "change_password": "Skift kodeord",
   "new_password": "nyt kodeord",
   "old_password": "Gammelt kodeord",
@@ -167,6 +166,13 @@
   "validation_message_minimum_six": "Minimum længde skal være 6 tegn",
   "validation_message_password_mismatch": "Kodeordet passer ikke",
   "validation_message_equalTo": "Indtast adgangskode igen",
+
+  "message_user_info_updated": "Brugeroplysninger opdateret med succes",
+  "message_vault_delete": "Betalingsmetoden er slettet korrekt",
+  "message_address_delete": "Adressen slettet korrekt",
+  "message_address_updated": "Adressen er opdateret med succes",
+  "message_address_added": "Adressen blev tilføjet med succes",
+
 
   "forgot_password": "Glemt kodeord",
   "service_not_available": "Service not available"

@@ -56,12 +56,12 @@
     "city": "City",
     "unit_number": "Unit Number"
   },
-  "card_details": {
+  "vault_details": {
     "card_type": "Card Type",
-    "end_with": "Ends With",
-    "card_number": "Card number",
-    "card_expiry_date": "Expiry Date",
-    "card_expiry_month": "Expiry Month"
+    "card_number": "Card Number",
+    "expiry_date": "Expiry Date",
+    "exipry_month": "Expiry Month",
+    "ends_with": "ends with"
   },
 
   "menu_link_home": "Home",
@@ -124,7 +124,7 @@
   "request_pickup_order_success_information": "Your account is also created. Please login to skip extra steps to place order.",
   "request_pickup_order_cancel_confirmation": "Your order will be deleted. Do you want to cancel order?",
   "address_deletion_confirmation": "Do you want to delete address details?",
-  "deletion_confirmation": "Do you want to delete",
+  "deletion_confirmation": "Do you want to delete ",
   "change_address": "Change Address",
   "change_password": "Change Password",
   "new_password": "New Password",
@@ -167,6 +167,13 @@
   "validation_message_minimum_six": "Minimum length should be 6 characters",
   "validation_message_password_mismatch": "Password do not match",
   "validation_message_equalTo": "Enter password again",
+
+  "message_user_info_updated": "User information updated successfully",
+  "message_vault_delete": "Payment method deleted successfully",
+  "message_address_delete": "Address deleted successfully",
+  "message_address_updated": "Address updated successfully",
+  "message_address_added": "Address added successfully",
+
 
   "forgot_password": "Forgot Password",
   "service_not_available": "Service not available"

@@ -1,12 +1,11 @@
-<div ng-controller="AddressCtrl" class="">
-	<div class="container personal" style='margin-bottom: 20px'>
+<div ng-controller="AddressCtrl">
+	<div class="container personal mt-20">
 			<h4 class="page-heading" ng-if="id > 0">{{'text.edit_address' | translate}}</h4>
 			<h4 class="page-heading" ng-if="!(id > 0)">{{'text.add_address' | translate}}</h4>
       
       <div class="row">
-
         <div class="col">
-          <form name="addressForm" ng-submit="!loading && saveAddressDetails(addressForm)" autocomplete="off" ng-validate="addressDetailsValidationOptions"">
+          <form name="addressForm" ng-submit="saveAddressDetails(addressForm)" autocomplete="off" ng-validate="addressDetailsValidationOptions"">
 
               <div class="form-group">
                 <label class="input-label">{{'address_details.street_name' | translate}}</label>
@@ -48,8 +47,5 @@
           </form>
         </div>
       </div>
-
-      <div ng-if="loading" class="loader">Loading...</div>
-			
 	</div>
 </div>
