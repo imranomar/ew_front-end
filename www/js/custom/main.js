@@ -1,14 +1,15 @@
-const rootUrl = "http://localhost/";
-const siteUrl = rootUrl + "eazywashgoapp/www/";
-const websiteUrl = rootUrl + "eazywash/";
-const baseUrl = rootUrl + "advanced/backend/web/";
-const translationFolderPath  = siteUrl + 'translations/';
-
-
-// const rootUrl = "http://eazywash.dk/";
-// const siteUrl = rootUrl + "client/";
+// const rootUrl = "http://localhost/";
+// const siteUrl = rootUrl + "eazywashgoapp/www/";
+// const websiteUrl = rootUrl + "eazywash/";
 // const baseUrl = rootUrl + "advanced/backend/web/";
 // const translationFolderPath  = siteUrl + 'translations/';
+
+
+const rootUrl = "http://eazywash.dk/";
+const siteUrl = rootUrl + "client/";
+const websiteUrl = rootUrl;
+const baseUrl = rootUrl + "advanced/backend/web/";
+const translationFolderPath  = siteUrl + 'translations/';
 
 // window.addEventListener("beforeunload", function (e) {
 //   if(!localStorage.getItem('rememberMe')){
