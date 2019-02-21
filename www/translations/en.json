@@ -40,7 +40,8 @@
     "deliever": "deliever",
     "date": "Date",
     "time": "Time",
-    "back": "Back"
+    "back": "Back",
+    "page":"Page"
   },
   "basic_details": {
     "name": "Name",

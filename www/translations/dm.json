@@ -40,7 +40,8 @@
     "deliever": "Levering",
     "date": "Dato",
     "time": "Tid",
-    "back": "Back"
+    "back": "Back",
+    "page":"Side"
   },
   "basic_details": {
     "name": "Navn",

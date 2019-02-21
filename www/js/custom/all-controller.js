@@ -240,6 +240,7 @@ app.controller("LoginCtrl", function(
         .then(
           function(data) {
             if (data != 0) {
+              $rootScope.customer_id = data;
               LocalDataService.storeUserDetailsLocal(data, $scope.checked);
               $rootScope.goTo("/dashboard");
             } else {
@@ -302,6 +303,7 @@ app.controller("SignupCtrl", function(
       CommonService.CallAjaxUsingPostRequest(apiUrl, data)
         .then(
           function(data) {
+            $rootScope.customer_id = data;
             LocalDataService.storeUserDetailsLocal(data, $scope.checked);
             $location.path("/dashboard");
           },

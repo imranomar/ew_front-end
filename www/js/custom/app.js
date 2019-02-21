@@ -104,9 +104,9 @@ app.run(function($rootScope, $location, $translate, AppService, LocalDataService
 });
 
 
-app.factory('AppService', function ($rootScope, FCMService) {
+app.factory('AppService', function ($rootScope, $cordovaNetwork, FCMService) {
   return {
-    initialize: function(){
+    initialize: function() {
       document.addEventListener(
         "deviceready",
         function() {
@@ -212,7 +212,7 @@ app.factory("LocalDataService", function($rootScope, $cookies, $localStorage) {
   var LOCALSTORAGE_USER = "laundryUser";
   var LOCALSTORAGE_LANGUAGE = "locale";
   var LOCAL_MYORDER = "myorder";
-  var LOCAL_INCOMPLETE_ORDER_ID = "incomplete_order_id";
+  var LOCAL_PREFIX_INCOMPLETE_ORDER_ID = "incomplete_order_id";
 
   return {
     isAuthenticated: function() {
@@ -438,7 +438,7 @@ app.config(function($routeProvider,$locationProvider) {
 
 app.factory('FCMService', function ($rootScope) {
   return {
-    generateToken: function(){
+    generateToken: function() {
       if(!device.cordova) {
          return;
       }

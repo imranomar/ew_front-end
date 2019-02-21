@@ -634,6 +634,7 @@ border-color: #d32f2f;
 {
   margin-bottom: .1rem;
   text-align: left;
+  text-transform: capitalize;
 }
 
 .m-0 { margin: 0 !important;}

@@ -24,15 +24,14 @@
                                 }">
                         <div class="col s12" ng-class="{'active': localData.pickupDate && (localData.pickupDate.date | date: 'yyyy-MM-dd') == (value.date | date: 'yyyy-MM-dd') }">
                             <div class="card-box next row z-depth-4">
-                                <div class="col s8 my_button_column">
-                                    <div class="row">
-                                        <div class="col s12 my_button_title">
+                                <div class="col s8 my_button_column valign-wrapper">
+                                    <div class="row mb-0">
+                                        <div class="col s12">
                                             <h5>{{value.name}}</h5>
+                                            <div class="my_button_sub_title">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col s12 my_button_sub_title">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}} </div>
-                                    </div>
+                                        
                                 </div>
                                 <div class="col s4 valign-wrapper my_button_column">
                                     <span class="round_button small-fixed-width-btn pull-right" ng-if="value.price"> + {{value.price | currency}}</span>
@@ -45,7 +44,7 @@
                     <div class="row" ng-if="!showAllpickupDateList">
                         <div ng-click="loadMorePickupDates()" class="col s12">
                             <div class="card-box row z-depth-4">
-                                <div class="col s8 my_button_column">
+                                <!-- <div class="col s8 my_button_column">
                                     <div class="row">
                                         <div class="col s12 my_button_title">
                                             <h5>Other</h5>
@@ -53,6 +52,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col s12 my_button_sub_title">{{value.shortDate}} </div>
+                                    </div>
+                                </div> -->
+                                <div class="col s8 my_button_column valign-wrapper">
+                                    <div class="row mb-0">
+                                        <div class="col s12">
+                                            <h5>{{'text.other' | translate}}</h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col s4 valign-wrapper my_button_column">
@@ -164,14 +170,12 @@
                                         }">
                         <div class="col s12" ng-class="{'active': localData.deliveryDate && (localData.deliveryDate.date | date: 'yyyy-MM-dd') == (value.date | date: 'yyyy-MM-dd') }">
                             <div class="card-box next row z-depth-4">
-                                <div class="col s8 my_button_column">
-                                    <div class="row">
-                                        <div class="col s12 my_button_title">
+                                <div class="col s8 my_button_column valign-wrapper">
+                                    <div class="row mb-0">
+                                        <div class="col s12">
                                             <h5>{{value.name}}</h5>
+                                            <div class="my_button_sub_title">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}}</div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col s12 my_button_sub_title">{{value.subname != ''?value.subname + ', ':''}}{{value.shortDate}}</div>
                                     </div>
                                 </div>
                                 <div class="col s4 valign-wrapper my_button_column">
@@ -185,7 +189,7 @@
                     <div class="row" ng-if="!showAlldeliveryDateList">
                         <div ng-click="loadMoreDeliveryDates()" class="col s12 next">
                             <div class="card-box row z-depth-4">
-                                <div class="col s8 my_button_column">
+                                <!-- <div class="col s8 my_button_column">
                                     <div class="row">
                                         <div class="col s12 my_button_title">
                                             <h5>{{'text.other' | translate}}</h5>
@@ -193,6 +197,13 @@
                                     </div>
                                     <div class="row">
                                         <div class="col s12 my_button_sub_title">{{value.shortDate}} </div>
+                                    </div>
+                                </div> -->
+                                <div class="col s8 my_button_column valign-wrapper">
+                                    <div class="row mb-0">
+                                        <div class="col s12">
+                                            <h5>{{'text.other' | translate}}</h5>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col s4 valign-wrapper my_button_column">
